@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasang Iklan Properti - TERAVIA</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/component.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- Navbar akan di-load via JS nantinya -->
+    <header id="navbar-container"></header>
+
+    <main class="container">
+        <h1>Pasang Iklan Properti</h1>
+        
+        <!-- Form Pasang Iklan -->
+        <form id="form-pasang-iklan">
+            <section id="section-info-dasar">
+                <label for="judul">Judul Iklan</label>
+                <input type="text" id="judul" name="judul" required placeholder="Contoh: Rumah Minimalis di Jakarta Selatan">
+                
+                <label for="kategori">Kategori</label>
+                <select id="kategori" name="kategori" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="hunian">🏠 Hunian</option>
+                    <option value="komersial">🏢 Komersial</option>
+                </select>
+            </section>
+
+            <!-- Bagian ini akan dimanipulasi JS untuk munculkan field dinamis -->
+            <section id="dynamic-fields"></section>
+
+            <button type="submit" id="btn-publikasikan">Publikasikan Properti</button>
+        </form>
+    </main>
+
+    <footer id="footer-container"></footer>
+
+    <!-- Script Utama -->
+    <script type="module" src="../assets/js/main.js"></script>
+    <script type="module" src="../assets/js/auth.js"></script>
+  <script type="module">
+  import { supabase } from '../assets/js/supabase-client.js';
+
+  async function initPasangIklan() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) window.location.href = '/login.html';
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('membership_type')
+      .eq('id', user.id)
+      .single();
+
+    if (profile.membership_type === 'FREE') {
+      // 1. Matikan semua form input
+      const forms = document.querySelectorAll('form, input, select, textarea, button');
+      forms.forEach(el => {
+        el.disabled = true;
+        el.readOnly = true;
+      });
+
+      // 2. Tampilkan Overlay Premium (Card Premium)
+      const overlay = document.createElement('div');
+      overlay.id = 'premium-overlay';
+      overlay.innerHTML = `
+        <div class="premium-card">
+          <h2>👑 Upgrade ke TERAVIA Premium</h2>
+          <p>Akun Anda masih FREE. Upgrade untuk memasang iklan.</p>
+          <button onclick="window.location.href='/pages/upgrade.html'">Upgrade Membership</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+  }
+
+  initPasangIklan();
+        </script>
+  
+</body>
+</html>
+
