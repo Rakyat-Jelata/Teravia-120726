@@ -10,12 +10,49 @@ applyLayer2Protection().then((isCleared) => {
 });
 
 function initFormEngine() {
+    const rStatus = document.getElementById('status-listing');
     const rKategori = document.getElementById('kategori-properti');
     const rJenis = document.getElementById('jenis-properti');
     const specContainer = document.getElementById('dynamic-spec-container');
-    const judulInput = document.getElementById('judul');
+    const rentContainer = document.getElementById('rent-spec-container');
 
-    // 1. Logika Dropdown Kategori -> Jenis Properti
+    // 1. Logika Dinamis Status Sewa (Dropdown Masa Sewa & Checkbox Include Biaya)
+    rStatus.addEventListener('change', () => {
+        const status = rStatus.value;
+        if (status === 'Disewakan' || status === 'Dijual & Disewakan') {
+            rentContainer.innerHTML = `
+                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px dashed #cbd5e1; margin-top: 15px;">
+                    <div class="grid-main">
+                        <div class="form-group col-12">
+                            <label for="rent-period">Masa Sewa Minimal</label>
+                            <select id="rent-period" class="form-control" required>
+                                <option value="Per Bulan">Per Bulan</option>
+                                <option value="Per Tahun">Per Tahun</option>
+                                <option value="Fleksibel (Bulan/Tahun)">Fleksibel (Bisa Bulanan / Tahunan)</option>
+                                <option value="Harian / Mingguan">Harian / Mingguan (Khusus Villa/Hotel)</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12" style="margin-bottom: 0;">
+                            <label>Biaya Sewa Sudah Termasuk (Include):</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Listrik">⚡ Listrik</label>
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Air">💧 Air (PDAM/Sumur)</label>
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Gas">🔥 Gas Alam/Tabung</label>
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Kebersihan">🧹 Kebersihan / Sampah</label>
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Keamanan">🛡️ Keamanan / IPL</label>
+                                <label class="checkbox-item"><input type="checkbox" name="rent-include" value="Wifi">🌐 Internet / Wifi</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            rentContainer.style.opacity = '1';
+        } else {
+            rentContainer.innerHTML = '';
+        }
+    });
+
+    // 2. Logika Dropdown Kategori -> Jenis Properti
     rKategori.addEventListener('change', () => {
         rJenis.innerHTML = '<option value="" disabled selected>-- Pilih Jenis --</option>';
         const selectedCat = rKategori.value;
@@ -28,18 +65,17 @@ function initFormEngine() {
         toggleJudulFieldVisibility(false);
     });
 
-    // 2. Logika Perubahan Jenis Properti
+    // 3. Logika Perubahan Jenis Properti
     rJenis.addEventListener('change', () => {
         const selectedType = rJenis.value;
         const htmlTemplate = fallbackProxy[selectedType];
         animateSpecTransition(specContainer, htmlTemplate);
 
-        // Jika tipe properti masuk ke dalam 4 tipe khusus, sembunyikan input Judul manual karena akan di-generate otomatis
         const autoTitleTypes = ['RUMAH', 'APARTEMEN', 'TOWNHOUSE / CLUSTER', 'PENTHOUSE'];
         if (autoTitleTypes.includes(selectedType)) {
-            toggleJudulFieldVisibility(true); // Sembunyikan atau kunci inputan judul manual
+            toggleJudulFieldVisibility(true);
         } else {
-            toggleJudulFieldVisibility(false); // Biarkan ketik manual untuk jenis lain (Tanah, Sawah, Gudang, dll)
+            toggleJudulFieldVisibility(false);
         }
     });
 
@@ -56,7 +92,6 @@ function animateSpecTransition(container, newHtml) {
     }, 200);
 }
 
-// Mengatur visibilitas / status field Judul agar user tahu judul terisi otomatis
 function toggleJudulFieldVisibility(isAuto) {
     const judulInput = document.getElementById('judul');
     if (isAuto) {
@@ -72,7 +107,7 @@ function toggleJudulFieldVisibility(isAuto) {
 }
 
 /**
- * Engine Integrasi API Wilayah Indonesia Bertingkat
+ * Engine Integrasi API Wilayah Indonesia
  */
 async function initApiWilayah() {
     const provSel = document.getElementById('reg-provinsi');
@@ -185,7 +220,6 @@ function initFormSubmission() {
             return;
         }
 
-        // AMBIL INPUT UNTUK FORMULASI RUMUS JUDUL OTOMATIS
         const statusListing = document.getElementById('status-listing').value;
         const jenisProperti = document.getElementById('jenis-properti').value;
         const kecDropdown = document.getElementById('reg-kecamatan');
@@ -194,23 +228,29 @@ function initFormSubmission() {
         const namaProyekInput = document.getElementById('spec-nama-proyek');
         let judulFinal = document.getElementById('judul').value;
 
-        // Eksekusi Logika Gabungan jika jenisnya Apartemen, Rumah, Cluster, atau Penthouse
+        // Auto Title Generator
         const autoTitleTypes = ['RUMAH', 'APARTEMEN', 'TOWNHOUSE / CLUSTER', 'PENTHOUSE'];
         if (autoTitleTypes.includes(jenisProperti) && namaProyekInput) {
             const namaProyek = namaProyekInput.value.trim();
-            
-            // Format Kapitalisasi Standar Profesional (Contoh: "Tanah Abang" -> "TANAH ABANG")
             const formattedJenis = jenisProperti === 'TOWNHOUSE / CLUSTER' ? 'Cluster' : jenisProperti;
-            
-            // Rumus Emas: [Status Listing] [Jenis Properti] [Nama Gedung/Cluster], [Kecamatan]
             judulFinal = `${statusListing} ${formattedJenis} ${namaProyek}, ${namaKecamatan}`;
             document.getElementById('judul').value = judulFinal; 
         }
 
-        // Simulasi Payload Data Siap Kirim Ke Database Backend Anda
+        // Kumpulkan data include sewa jika status sewa
+        let dataSewa = {};
+        if (statusListing === 'Disewakan' || statusListing === 'Dijual & Disewakan') {
+            const checkboxes = document.querySelectorAll('input[name="rent-include"]:checked');
+            let includes = Array.from(checkboxes).map(cb => cb.value);
+            dataSewa = {
+                periode: document.getElementById('rent-period').value,
+                includeBiaya: includes
+            };
+        }
+
         console.log("=== DATA READY TO DB ===");
         console.log("Generated Title Target:", judulFinal);
-        console.log("Total Files Binaries (.webp):", webpImagesStorage.length);
+        console.log("Data Sewa Ekstra:", dataSewa);
 
         alert(`🎉 Berhasil Diterbitkan!\n\nListing Anda resmi terdaftar dengan judul otomatis:\n"${judulFinal}"`);
         window.location.href = '../index.html';
