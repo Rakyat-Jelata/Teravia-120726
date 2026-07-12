@@ -10,6 +10,7 @@ applyLayer2Protection().then((isCleared) => {
 });
 
 function initFormEngine() {
+    tampilkanPetaAwal();
     const rStatus = document.getElementById('status-listing');
     const rKategori = document.getElementById('kategori-properti');
     const rJenis = document.getElementById('jenis-properti');
