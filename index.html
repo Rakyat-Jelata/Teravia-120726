@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERAVIA | Jual • Beli • Sewa Properti Seluruh Indonesia</title>
+    <meta name="description" content="Marketplace properti nomor satu di Indonesia. Cari rumah, apartemen, villa, ruko, hingga tanah komersial dengan mudah dan cepat.">
+    
+    <!-- Fonts & AOS Animation CDN (Opsional untuk estetika premium) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Styling Global & Komponen (Relatif dari root) -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/component.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- NAVBAR UTAMA -->
+    <header class="navbar-container">
+        <div class="navbar-brand">
+            <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo">
+        </div>
+        <nav class="navbar-menu">
+            <a href="pages/beli.html">Beli</a>
+            <a href="pages/jual.html">Jual</a>
+            <a href="pages/blog.html">Blog</a>
+            <a href="pages/tentang.html">Tentang</a>
+        </nav>
+        <div class="navbar-actions">
+            <!-- Tombol Pasang Iklan ini yang akan disaring oleh Layer 1 Protection di JS -->
+            <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
+            <a href="login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/img/hero-bg.png');">
+            <div class="hero-content" data-aos="fade-up">
+                <h1>Temukan Properti Impian Anda</h1>
+                <p>Jual • Beli • Sewa Properti Seluruh Indonesia dari Tangan Terpercaya</p>
+                
+                <!-- BANNER PROMO MEMBERSHIP (Dummy Countdown Terintegrasi) -->
+                <div class="promo-banner-box">
+                    <span class="promo-badge">🔥 PROMO SPESIAL</span>
+                    <p>TERAVIA STARTER <span class="old-price">Rp 500.000</span> <strong class="new-price">Rp 50.000 Lifetime</strong></p>
+                    <div class="countdown-timer" id="promo-countdown">Sisa waktu: --:--:--</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREVIEW LISTING SECTION -->
+        <section class="container property-section">
+            <div class="section-title">
+                <h2>Rekomendasi Properti Terbaru</h2>
+                <p>Listing terverifikasi dari Owner, Broker, dan Developer resmi.</p>
+            </div>
+            
+            <div class="property-grid">
+                <!-- Contoh Card Properti dengan Badge Variasi Persona Vendor -->
+                <div class="property-card-dummy" data-aos="fade-up">
+                    <div class="card-image-placeholder">
+                        <!-- Badge Member Premium / Verifikasi disuntikkan di sini -->
+                        <span class="badge-status-vendor verified-owner">🛡️ VERIFIED OWNER</span>
+                    </div>
+                    <div class="card-details">
+                        <h3>Rumah Minimalis Modern Cluster</h3>
+                        <p class="price">Rp 1.500.000.000</p>
+                        <p class="location">📍 Jakarta Selatan</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER UTAMA -->
+    <footer class="footer-container">
+        <p>&copy; 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
+    </footer>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS ringkas
+        AOS.init({ duration: 800, once: true });
+    </script>
+
+    <!-- Script Utama (Menggunakan type="module" untuk mendukung modular ES6 JavaScript) -->
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
 
