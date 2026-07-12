@@ -26,6 +26,40 @@
         
         .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: 0.25s; margin-top: 15px; }
         .btn-submit:hover { background: linear-gradient(135deg, #2563eb, #1e40af); transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45); }
+
+        /* ==========================================================================
+   TAMBAHKAN KODE DI BAWAH INI PADA BAGIAN PALING BAWAH DI DALAM TAG <style> ANDA
+   ========================================================================== */
+
+/* 1. Mencegah input melebar keluar layar di HP */
+* { 
+    box-sizing: border-box; 
+}
+
+/* 2. Responsivitas Grid Form (Kunci agar tidak berantakan di HP) */
+@media (max-width: 576px) {
+    .form-container {
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+    .card-form {
+        padding: 25px 20px;
+    }
+    .grid-2, .grid-3, .persona-group { 
+        grid-template-columns: 1fr !important; /* Paksa menumpuk ke bawah di layar HP sempit */
+        gap: 12px !important; 
+    }
+    .persona-option {
+        flex-direction: row !important; /* Buat ikon dan teks sejajar horizontal di mobile */
+        justify-content: flex-start !important;
+        padding: 12px 20px !important;
+    }
+    .persona-option input {
+        margin-bottom: 0 !important;
+        margin-right: 12px !important;
+    }
+}
+        
     </style>
 </head>
 <body>
