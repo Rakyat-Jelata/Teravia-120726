@@ -1,3 +1,7 @@
+/* Debugging: Jika background berubah merah, berarti CSS sudah terload */
+body {
+    background-color: red !important;
+}
 /* Reset Dasar */
 * {
     margin: 0; 
