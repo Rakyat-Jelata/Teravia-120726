@@ -1,1 +1,106 @@
+/* teravia/assets/css/responsive.css */
+
+/* ==========================================
+   BREAKPOINT: 320px, 375px, 425px (Mobile View)
+   ========================================== */
+/* Kategori mobile sudah ter-cover oleh mobile-first style di main.css & component.css. 
+   Kita hanya memberikan optimalisasi padding mikro agar tidak ada elemen yang terpotong. */
+@media screen and (min-width: 320px) {
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+    .premium-card {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* ==========================================
+   BREAKPOINT: 768px (Tablet View)
+   ========================================== */
+@media screen and (min-width: 768px) {
+    /* Navbar Desktop Setup */
+    .navbar-container {
+        padding: 1rem 3rem;
+    }
+    .navbar-menu {
+        display: flex;
+        gap: 2rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--text-main);
+    }
+    .navbar-menu a:hover {
+        color: var(--accent-color);
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding: 6rem 2rem;
+    }
+    .hero-content h1 {
+        font-size: 2.75rem;
+    }
+
+    /* Grid Paket Premium Layer 2 (Split Menjadi 2 Kolom di Tablet) */
+    .paket-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    /* Widget Dashboard Membership */
+    .widget-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
+}
+
+/* ==========================================
+   BREAKPOINT: 1024px (Desktop Laptop View)
+   ========================================== */
+@media screen and (min-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    /* Hero Content Optimization */
+    .hero-section {
+        padding: 8rem 2rem;
+    }
+
+    /* Grid Paket Premium Layer 2 (Split Menjadi 4 Kolom Sejajar pada Layar Lebar) */
+    .paket-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+
+    /* Penyesuaian Ukuran Card Utama di Halaman Pasang Iklan */
+    .premium-card {
+        max-width: 600px;
+        padding: 2.5rem;
+    }
+}
+
+/* ==========================================
+   BREAKPOINT: 1440px (Ultra-Wide Enterprise View)
+   ========================================== */
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1340px; /* Memberikan bentangan ruang yang lebih lega dan premium */
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .card-paket-item {
+        padding: 2rem 1.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Efek Hover Halus Menjaga Tampilan Tetap Profesional & Tidak Berlebihan */
+    .card-paket-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
+    }
+}
 
