@@ -125,10 +125,42 @@ async function initApiWilayah() {
         provSel.innerHTML = '<option value="" disabled>Gagal memuat data wilayah</option>';
     }
 
-    provSel.addEventListener('change', () => handleDropdownCascade(provSel.value, kabSel, 'regencies', '-- Pilih Kabupaten/Kota --'));
-    kabSel.addEventListener('change', () => handleDropdownCascade(kabSel.value, kecSel, 'districts', '-- Pilih Kecamatan --'));
-    kecSel.addEventListener('change', () => handleDropdownCascade(kecSel.value, kelSel, 'villages', '-- Pilih Kelurahan/Desa --'));
-}
+        // === POTONGAN KODE REVISI KECAMATAN (GANTI YANG LAMA DENGAN INI) ===
+    kecSel.addEventListener('change', async () => {
+        // 1. Tetap jalankan fungsi pencarian kelurahan yang sudah ada
+        handleDropdownCascade(kecSel.value, kelSel, 'districts', '-- Pilih Kelurahan/Desa --');
+        
+        // 2. Ambil nama wilayah dari dropdown untuk digabungkan
+        const namaProvinsi = provSel.options[provSel.selectedIndex].text;
+        const namaKabupaten = kabSel.options[kabSel.selectedIndex].text;
+        const namaKecamatan = kecSel.options[kecSel.selectedIndex].text;
+        
+        // Gabungkan menjadi alamat lengkap agar pencarian akurat
+        const queryAlamat = `${namaKecamatan}, ${namaKabupaten}, ${namaProvinsi}, Indonesia`;
+        
+        try {
+            // 3. Cari koordinat menggunakan API Geocoding OpenStreetMap (Nominatim)
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(queryAlamat)}`);
+            const data = await response.json();
+            
+            // Jika lokasi ditemukan, geser peta dan pin secara otomatis
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                
+                // Pindahkan kamera peta dan posisi titik pin 📍
+                map.setView([lat, lon], 13); // Angka 13 adalah level zoom (setingkat kecamatan)
+                marker.setLatLng([lat, lon]);
+                
+                // Simpan koordinat baru ke dalam input hidden form
+                document.getElementById('latitude').value = lat.toFixed(6);
+                document.getElementById('longitude').value = lon.toFixed(6);
+            }
+        } catch (error) {
+            console.error("Gagal memperbarui titik peta otomatis:", error);
+        }
+    });
+    // === AKHIR POTONGAN KODE REVISI ===
 
 async function handleDropdownCascade(id, targetDropdown, endpointName, defaultText) {
     targetDropdown.disabled = false;
