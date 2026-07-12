@@ -145,3 +145,16 @@ button:hover {
 .btn-primary:hover {
     background-color: #e65c00;
 }
+
+/* Container grid agar input sejajar */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Memastikan field-group di dalam grid tidak memiliki margin bawah yang berlebihan */
+.grid-container .field-group input {
+    margin-bottom: 0;
+}
