@@ -331,12 +331,12 @@ function initFormSubmission() {
 let map;
 let marker;
 
-// Fungsi untuk memuat peta pertama kali
+// Fungsi untuk memuat peta pertama kali (VERSI HYBRID DUA ARAH)
 function tampilkanPetaAwal() {
     // Koordinat default Pusat Indonesia
     const posisiPusat = [-0.7893, 113.9213]; 
     
-    // 1. Inisialisasi peta pada div id="map" dengan zoom level 5 (bisa melihat seluruh Indonesia)
+    // 1. Inisialisasi peta pada div id="map" dengan zoom level 5
     map = L.map('map').setView(posisiPusat, 5);
 
     // 2. Muat desain peta dari OpenStreetMap
@@ -350,12 +350,33 @@ function tampilkanPetaAwal() {
     // 4. Update input hidden latitude & longitude saat pertama kali dimuat
     updateKoordinatInput(posisiPusat[0], posisiPusat[1]);
 
-    // 5. Deteksi event ketika pin selesai digeser manual oleh user
-    marker.on('dragend', function (e) {
+    // 5. Deteksi event ketika pin selesai digeser manual oleh user 🗺️
+    marker.on('dragend', async function (e) {
         const posisiBaru = marker.getLatLng();
         updateKoordinatInput(posisiBaru.lat, posisiBaru.lng);
+
+        // Ambil elemen kolom alamat lengkap di HTML Anda (pastikan id-nya sesuai, misal 'alamat' atau 'alamat-lengkap')
+        const alamatInput = document.getElementById('alamat') || document.getElementById('alamat_lengkap') || document.getElementById('alamat-lengkap');
+        
+        if (alamatInput) {
+            alamatInput.placeholder = "🔄 Sedang mengambil alamat titik lokasi...";
+            try {
+                // Panggil API Reverse Geocoding dari OpenStreetMap
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${posisiBaru.lat}&lon=${posisiBaru.lng}`);
+                const data = await response.json();
+                
+                if (data && data.display_name) {
+                    // Masukkan alamat otomatis ke dalam kolom teks alamat lengkap
+                    alamatInput.value = data.display_name;
+                }
+            } catch (error) {
+                console.error("Gagal mengambil teks alamat fisik:", error);
+                alamatInput.placeholder = "Gagal memuat alamat otomatis, silakan ketik manual.";
+            }
+        }
     });
 }
+
 
 // Fungsi bantu untuk memasukkan angka koordinat ke input hidden HTML
 function updateKoordinatInput(lat, lng) {
