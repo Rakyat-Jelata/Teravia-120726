@@ -125,8 +125,8 @@ async function initApiWilayah() {
         provSel.innerHTML = '<option value="" disabled>Gagal memuat data wilayah</option>';
     }
 
-            // ==========================================
-    // PAKET EVENT LISTENER WILAYAH & PETA (PERBAIKAN)
+                // ==========================================
+    // PAKET EVENT LISTENER WILAYAH & PETA (AKURAT)
     // ==========================================
     provSel.addEventListener('change', () => {
         handleDropdownCascade(provSel.value, kabSel, 'regencies', '-- Pilih Kabupaten/Kota --');
@@ -136,11 +136,10 @@ async function initApiWilayah() {
         handleDropdownCascade(kabSel.value, kecSel, 'districts', '-- Pilih Kecamatan --');
     });
 
+    // Pemicu 1: Saat Kecamatan Dipilih (Peta bergeser ke area Kecamatan)
     kecSel.addEventListener('change', async () => {
-        // 1. Jalankan fungsi tingkat wilayah ke kelurahan dengan parameter 'villages' yang benar 
         handleDropdownCascade(kecSel.value, kelSel, 'villages', '-- Pilih Kelurahan/Desa --');
         
-        // 2. Ambil teks nama wilayah untuk pencarian peta
         const namaProvinsi = provSel.options[provSel.selectedIndex].text;
         const namaKabupaten = kabSel.options[kabSel.selectedIndex].text;
         const namaKecamatan = kecSel.options[kecSel.selectedIndex].text;
@@ -148,28 +147,55 @@ async function initApiWilayah() {
         const queryAlamat = `${namaKecamatan}, ${namaKabupaten}, ${namaProvinsi}, Indonesia`;
         
         try {
-            // 3. Ambil koordinat dari OpenStreetMap
             const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(queryAlamat)}`);
             const data = await response.json();
             
             if (data && data.length > 0) {
                 const lat = parseFloat(data[0].lat);
                 const lon = parseFloat(data[0].lon);
-                
-                // 4. Geser peta & pin secara halus 📍
-                map.setView([lat, lon], 13);
+                map.setView([lat, lon], 13); // Zoom tingkat kecamatan
                 marker.setLatLng([lat, lon]);
-                
-                // 5. Masukkan ke input form dengan nama variabel 'lon' yang benar
                 document.getElementById('latitude').value = lat.toFixed(6);
                 document.getElementById('longitude').value = lon.toFixed(6);
             }
         } catch (error) {
-            console.error("Gagal memindahkan peta:", error);
+            console.error("Gagal memindahkan peta ke kecamatan:", error);
+        }
+    });
+
+    // Pemicu 2: Saat Kelurahan Dipilih (Peta otomatis zoom-in lebih dekat ke Kelurahan/Desa)
+    kelSel.addEventListener('change', async () => {
+        // Validasi: pastikan bukan teks panduan kosong yang dipilih
+        if (!kelSel.value) return;
+
+        const namaProvinsi = provSel.options[provSel.selectedIndex].text;
+        const namaKabupaten = kabSel.options[kabSel.selectedIndex].text;
+        const namaKecamatan = kecSel.options[kecSel.selectedIndex].text;
+        const namaKelurahan = kelSel.options[kelSel.selectedIndex].text; // Sekarang data kelurahan sudah tersedia!
+        
+        // Gabungkan seluruh wilayah dari terkecil hingga terbesar agar pencarian sangat akurat
+        const queryAlamatLengkap = `${namaKelurahan}, ${namaKecamatan}, ${namaKabupaten}, ${namaProvinsi}, Indonesia`;
+        
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(queryAlamatLengkap)}`);
+            const data = await response.json();
+            
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                
+                // Pindahkan kamera peta dengan level zoom 15 (sangat dekat, setingkat kelurahan/desa) 🗺️
+                map.setView([lat, lon], 15);
+                marker.setLatLng([lat, lon]);
+                
+                document.getElementById('latitude').value = lat.toFixed(6);
+                document.getElementById('longitude').value = lon.toFixed(6);
+            }
+        } catch (error) {
+            console.error("Gagal memindahkan peta ke kelurahan:", error);
         }
     });
 }
-
 
     // === AKHIR POTONGAN KODE REVISI ===
 
