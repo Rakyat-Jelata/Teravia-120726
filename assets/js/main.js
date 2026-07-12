@@ -1,3 +1,4 @@
+import { supabase } from './supabase-client.js'; // Sesuaikan path file client Anda
 // Mapping data kategori ke jenis properti
 // Menggunakan object agar lebih rapi dan mudah di-maintenance
 const propertiMapping = {
@@ -56,5 +57,33 @@ document.getElementById('jenis_properti').addEventListener('change', function() 
                 </div>
             `;
         });
+    }
+});
+
+// Fungsi Submit ke Supabase
+document.getElementById('form-pasang-iklan').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Ambil data dari form
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Proses simpan ke Supabase (asumsi supabase sudah di-import di main.js)
+    const { error } = await supabase
+        .from('listings')
+        .insert([{
+            judul: data.judul,
+            kategori: data.kategori,
+            jenis_properti: data.jenis_properti,
+            harga: data.harga,
+            // JSONB untuk field dinamis
+            spesifikasi: data
+        }]);
+
+    if (error) {
+        alert('Gagal simpan: ' + error.message);
+    } else {
+        alert('Iklan berhasil dipublikasikan!');
+        e.target.reset(); // Reset form setelah sukses
     }
 });
