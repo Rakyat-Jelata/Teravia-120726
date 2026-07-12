@@ -4,96 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pasang Iklan Properti - TERAVIA</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/component.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Gaya Khusus Form Pasang Iklan Premium */
+        body { background-color: #f8fafc; margin: 0; font-family: 'Segoe UI', sans-serif; }
+        .form-container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .card-form { background: #fff; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eef2f5; }
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; font-size: 15px; }
+        .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; box-sizing: border-box; transition: all 0.3s; }
+        .form-control:focus { border-color: #3b82f6; outline: none; background-color: #f8fafc; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        
+        /* Persona Radio Box */
+        .persona-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 5px; }
+        .persona-option { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; text-align: center; transition: 0.2s; }
+        .persona-option:hover { border-color: #3b82f6; background: #f0fdf4; }
+        .persona-option input { margin-bottom: 8px; accent-color: #3b82f6; transform: scale(1.1); }
+        .persona-option span { font-weight: bold; font-size: 13px; color: #475569; }
+        
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: 0.25s; margin-top: 15px; }
+        .btn-submit:hover { background: linear-gradient(135deg, #2563eb, #1e40af); transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45); }
+    </style>
 </head>
 <body>
 
-    <!-- Navbar akan di-load via JS nantinya -->
-    <header id="navbar-container"></header>
+    <!-- NAVBAR UTAMA (Jalur disesuaikan keluar 1 tingkat) -->
+    <header class="navbar-container">
+        <div class="navbar-brand">
+            <img src="../assets/img/logo.png" alt="Logo TERAVIA" class="logo">
+        </div>
+        <nav class="navbar-menu">
+            <a href="beli.html">Beli</a>
+            <a href="jual.html">Jual</a>
+            <a href="blog.html">Blog</a>
+            <a href="tentang.html">Tentang</a>
+        </nav>
+        <div class="navbar-actions">
+            <a href="pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
+            <a href="../login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
+        </div>
+    </header>
 
-    <main class="container">
-        <h1>Pasang Iklan Properti</h1>
-        
-        <!-- Form Pasang Iklan -->
-        <form id="form-pasang-iklan">
-            <section id="section-info-dasar">
-                <label for="judul">Judul Iklan</label>
-                <input type="text" id="judul" name="judul" required placeholder="Contoh: Rumah Minimalis di Jakarta Selatan">
-                <label for="kategori">Kategori</label>
-<select id="kategori" name="kategori" onchange="renderDynamicFields()">
-    <option value="">Pilih Kategori</option>
-    <option value="hunian">🏠 Hunian</option>
-    <option value="komersial">🏢 Komersial</option>
-    <option value="tanah">🌾 Tanah & Lahan</option>
-</select>
+    <main class="form-container">
+        <div class="card-form">
+            <h2 style="margin-top:0; color:#1e293b;">📋 Form Pasang Iklan Properti</h2>
+            <p style="color:#64748b; font-size:14px; margin-bottom:30px;">Isi detail informasi properti Anda dengan benar. Sebagai member premium, listing Anda akan langsung mendapatkan lencana verifikasi resmi.</p>
 
-<label for="jenis_properti">Jenis Properti</label>
-<select id="jenis_properti" name="jenis_properti">
-    <option value="">Pilih Jenis Properti Dulu...</option>
-</select>
+            <form id="iklan-form">
+                <!-- 1. IDENTITAS VENDOR (PERSONA) -->
+                <div class="form-group">
+                    <label>Tipe Pengiklan (Persona Badge)</label>
+                    <div class="persona-group">
+                        <label class="persona-option">
+                            <input type="radio" name="persona" value="owner" checked required>
+                            <span>🛡️ OWNER</span>
+                        </label>
+                        <label class="persona-option">
+                            <input type="radio" name="persona" value="broker">
+                            <span>💼 BROKER</span>
+                        </label>
+                        <label class="persona-option">
+                            <input type="radio" name="persona" value="developer">
+                            <span>🏗️ DEVELOPER</span>
+                        </label>
+                    </div>
+                </div>
 
-<div id="dynamic-fields-container"></div>
-                
-                <label for="kategori">Kategori</label>
-                <select id="kategori" name="kategori" required>
-                    <option value="">Pilih Kategori</option>
-                    <option value="hunian">🏠 Hunian</option>
-                    <option value="komersial">🏢 Komersial</option>
-                </select>
-            </section>
+                <!-- 2. INFORMASI UTAMA -->
+                <div class="form-group">
+                    <label for="judul">Judul Iklan</label>
+                    <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis Modern Cluster Hoek" required>
+                </div>
 
-            <!-- Bagian ini akan dimanipulasi JS untuk munculkan field dinamis -->
-            <section id="dynamic-fields"></section>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="harga">Harga (Rp)</label>
+                        <input type="number" id="harga" class="form-control" placeholder="Contoh: 1500000000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lokasi">Lokasi / Kota</label>
+                        <input type="text" id="lokasi" class="form-control" placeholder="Contoh: Jakarta Selatan" required>
+                    </div>
+                </div>
 
-            <button type="submit" id="btn-publikasikan">Publikasikan Properti</button>
-        </form>
+                <!-- 3. SPESIFIKASI PROPERTI -->
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label for="kamar-tidur">K. Tidur</label>
+                        <input type="number" id="kamar-tidur" class="form-control" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kamar-mandi">K. Mandi</label>
+                        <input type="number" id="kamar-mandi" class="form-control" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="luas-tanah">Luas (m²)</label>
+                        <input type="number" id="luas-tanah" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+
+                <!-- 4. DESKRIPSI -->
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi Lengkap</label>
+                    <textarea id="deskripsi" class="form-control" rows="4" placeholder="Jelaskan fasilitas, akses jalan, legalitas sertifikat (SHM/HGB), dll." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">PUBLIKASIKAN IKLAN</button>
+            </form>
+        </div>
     </main>
 
-    <footer id="footer-container"></footer>
+    <!-- FOOTER UTAMA -->
+    <footer class="footer-container" style="margin-top: 60px;">
+        <p>© 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
+    </footer>
 
-    <!-- Script Utama -->
-    <script type="module" src="../assets/js/main.js"></script>
-    <script type="module" src="../assets/js/auth.js"></script>
-  <script type="module">
-  import { supabase } from '../assets/js/supabase-client.js';
-
-  async function initPasangIklan() {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) window.location.href = '/login.html';
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('membership_type')
-      .eq('id', user.id)
-      .single();
-
-    if (profile.membership_type === 'FREE') {
-      // 1. Matikan semua form input
-      const forms = document.querySelectorAll('form, input, select, textarea, button');
-      forms.forEach(el => {
-        el.disabled = true;
-        el.readOnly = true;
-      });
-
-      // 2. Tampilkan Overlay Premium (Card Premium)
-      const overlay = document.createElement('div');
-      overlay.id = 'premium-overlay';
-      overlay.innerHTML = `
-        <div class="premium-card">
-          <h2>👑 Upgrade ke TERAVIA Premium</h2>
-          <p>Akun Anda masih FREE. Upgrade untuk memasang iklan.</p>
-          <button onclick="window.location.href='/pages/upgrade.html'">Upgrade Membership</button>
-        </div>
-      `;
-      document.body.appendChild(overlay);
-    }
-  }
-
-  initPasangIklan();
-        </script>
-  
+    <!-- Handler Pemrosesan & Proteksi Multi-layer -->
+    <script type="module" src="../assets/js/iklan-handler.js"></script>
 </body>
 </html>
-
