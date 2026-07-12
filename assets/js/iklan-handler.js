@@ -125,9 +125,8 @@ async function initApiWilayah() {
         provSel.innerHTML = '<option value="" disabled>Gagal memuat data wilayah</option>';
     }
 
-        // === POTONGAN KODE REVISI KECAMATAN (GANTI YANG LAMA DENGAN INI) ===
-        // ==========================================
-    // PAKET EVENT LISTENER WILAYAH & PETA (BERSIH)
+            // ==========================================
+    // PAKET EVENT LISTENER WILAYAH & PETA (PERBAIKAN)
     // ==========================================
     provSel.addEventListener('change', () => {
         handleDropdownCascade(provSel.value, kabSel, 'regencies', '-- Pilih Kabupaten/Kota --');
@@ -138,10 +137,10 @@ async function initApiWilayah() {
     });
 
     kecSel.addEventListener('change', async () => {
-        // 1. Jalankan fungsi tingkat wilayah ke kelurahan
-        handleDropdownCascade(kecSel.value, kelSel, 'districts', '-- Pilih Kelurahan/Desa --');
+        // 1. Jalankan fungsi tingkat wilayah ke kelurahan dengan parameter 'villages' yang benar 
+        handleDropdownCascade(kecSel.value, kelSel, 'villages', '-- Pilih Kelurahan/Desa --');
         
-        // 2. Ambil teks nama wilayah
+        // 2. Ambil teks nama wilayah untuk pencarian peta
         const namaProvinsi = provSel.options[provSel.selectedIndex].text;
         const namaKabupaten = kabSel.options[kabSel.selectedIndex].text;
         const namaKecamatan = kecSel.options[kecSel.selectedIndex].text;
@@ -161,15 +160,16 @@ async function initApiWilayah() {
                 map.setView([lat, lon], 13);
                 marker.setLatLng([lat, lon]);
                 
-                // 5. Masukkan ke input form
+                // 5. Masukkan ke input form dengan nama variabel 'lon' yang benar
                 document.getElementById('latitude').value = lat.toFixed(6);
-                document.getElementById('longitude').value = lng.toFixed(6);
+                document.getElementById('longitude').value = lon.toFixed(6);
             }
         } catch (error) {
             console.error("Gagal memindahkan peta:", error);
         }
     });
 }
+
 
     // === AKHIR POTONGAN KODE REVISI ===
 
