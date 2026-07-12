@@ -1,6 +1,6 @@
-import { supabase } from './supabase-client.js'; // Sesuaikan path file client Anda
+import { supabase } from './supabase-client.js';
+
 // Mapping data kategori ke jenis properti
-// Menggunakan object agar lebih rapi dan mudah di-maintenance
 const propertiMapping = {
     hunian: ['Rumah', 'Apartemen', 'Villa', 'Townhouse', 'Kontrakan', 'Kost'],
     komersial: ['Ruko', 'Kios', 'Kantor', 'Gedung Perkantoran', 'Gudang', 'Pabrik', 'Hotel', 'Resort', 'Restoran', 'Cafe', 'SPBU', 'Rest Area'],
@@ -8,36 +8,47 @@ const propertiMapping = {
     institusi: ['Rumah Sakit', 'Klinik', 'Sekolah', 'Kampus']
 };
 
+// Definisi field untuk setiap jenis properti
+const fieldMapping = {
+    rumah: [
+        { label: 'Luas Tanah (m²)', id: 'luas_tanah', type: 'number' },
+        { label: 'Luas Bangunan (m²)', id: 'luas_bangunan', type: 'number' },
+        { label: 'Kamar Tidur', id: 'kamar_tidur', type: 'number' },
+        { label: 'Kamar Mandi', id: 'kamar_mandi', type: 'number' }
+    ],
+    spbu: [
+        { label: 'Jumlah Dispenser', id: 'jml_dispenser', type: 'number' },
+        { label: 'Jumlah Tangki', id: 'jml_tangki', type: 'number' },
+        { label: 'Merek SPBU', id: 'merek_spbu', type: 'text' }
+    ]
+};
+
 window.renderDynamicFields = function() {
     const kategori = document.getElementById('kategori').value;
     const jenisSelect = document.getElementById('jenis_properti');
     
-    // Reset dropdown jenis
     jenisSelect.innerHTML = '<option value="">Pilih Jenis Properti</option>';
     
-    // Isi dropdown berdasarkan kategori
     if (propertiMapping[kategori]) {
         propertiMapping[kategori].forEach(item => {
             const option = document.createElement('option');
-            // Membuat value yang aman untuk database (lowercase & underscore)
             option.value = item.toLowerCase().replace(/\s+/g, '_');
             option.textContent = item;
             jenisSelect.appendChild(option);
         });
     }
 };
-// Listener untuk memicu munculnya field
+
+// Listener tunggal untuk memicu munculnya field
 document.getElementById('jenis_properti').addEventListener('change', function() {
     const jenis = this.value;
     const container = document.getElementById('dynamic-fields-container');
+    
     container.innerHTML = ''; 
+    container.className = 'grid-container'; // Set class untuk CSS Grid
 
     if (fieldMapping[jenis]) {
-        // Tambahkan class grid-container untuk styling CSS
-        container.classList.add('grid-container'); 
-        
         fieldMapping[jenis].forEach(field => {
-            // Tambahkan logika limit digit
             let attributes = `required placeholder="Masukkan ${field.label}"`;
             if (field.id === 'luas_tanah') attributes += ' maxlength="5"';
             if (field.id === 'luas_bangunan') attributes += ' maxlength="4"';
@@ -52,34 +63,12 @@ document.getElementById('jenis_properti').addEventListener('change', function() 
     }
 });
 
-
-// Listener untuk memicu munculnya field
-document.getElementById('jenis_properti').addEventListener('change', function() {
-    const jenis = this.value;
-    const container = document.getElementById('dynamic-fields-container');
-    container.innerHTML = ''; // Reset container
-
-    if (fieldMapping[jenis]) {
-        fieldMapping[jenis].forEach(field => {
-            container.innerHTML += `
-                <div class="field-group">
-                    <label for="${field.id}">${field.label}</label>
-                    <input type="${field.type}" id="${field.id}" name="${field.id}" required placeholder="Masukkan ${field.label}">
-                </div>
-            `;
-        });
-    }
-});
-
 // Fungsi Submit ke Supabase
 document.getElementById('form-pasang-iklan').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    // Ambil data dari form
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
     
-    // Proses simpan ke Supabase (asumsi supabase sudah di-import di main.js)
     const { error } = await supabase
         .from('listings')
         .insert([{
@@ -87,7 +76,6 @@ document.getElementById('form-pasang-iklan').addEventListener('submit', async (e
             kategori: data.kategori,
             jenis_properti: data.jenis_properti,
             harga: data.harga,
-            // JSONB untuk field dinamis
             spesifikasi: data
         }]);
 
@@ -95,6 +83,7 @@ document.getElementById('form-pasang-iklan').addEventListener('submit', async (e
         alert('Gagal simpan: ' + error.message);
     } else {
         alert('Iklan berhasil dipublikasikan!');
-        e.target.reset(); // Reset form setelah sukses
+        e.target.reset();
+        document.getElementById('dynamic-fields-container').innerHTML = '';
     }
 });
