@@ -21,6 +21,20 @@
             <section id="section-info-dasar">
                 <label for="judul">Judul Iklan</label>
                 <input type="text" id="judul" name="judul" required placeholder="Contoh: Rumah Minimalis di Jakarta Selatan">
+                <label for="kategori">Kategori</label>
+<select id="kategori" name="kategori" onchange="renderDynamicFields()">
+    <option value="">Pilih Kategori</option>
+    <option value="hunian">🏠 Hunian</option>
+    <option value="komersial">🏢 Komersial</option>
+    <option value="tanah">🌾 Tanah & Lahan</option>
+</select>
+
+<label for="jenis_properti">Jenis Properti</label>
+<select id="jenis_properti" name="jenis_properti">
+    <option value="">Pilih Jenis Properti Dulu...</option>
+</select>
+
+<div id="dynamic-fields-container"></div>
                 
                 <label for="kategori">Kategori</label>
                 <select id="kategori" name="kategori" required>
