@@ -26,21 +26,32 @@ window.renderDynamicFields = function() {
         });
     }
 };
-// Definisi field untuk setiap jenis properti
-const fieldMapping = {
-    rumah: [
-        { label: 'Luas Tanah (m²)', id: 'luas_tanah', type: 'number' },
-        { label: 'Luas Bangunan (m²)', id: 'luas_bangunan', type: 'number' },
-        { label: 'Kamar Tidur', id: 'kamar_tidur', type: 'number' },
-        { label: 'Kamar Mandi', id: 'kamar_mandi', type: 'number' }
-    ],
-    spbu: [
-        { label: 'Jumlah Dispenser', id: 'jml_dispenser', type: 'number' },
-        { label: 'Jumlah Tangki', id: 'jml_tangki', type: 'number' },
-        { label: 'Merek SPBU', id: 'merek_spbu', type: 'text' }
-    ]
-    // Anda bisa menambah mapping lainnya di sini
-};
+// Listener untuk memicu munculnya field
+document.getElementById('jenis_properti').addEventListener('change', function() {
+    const jenis = this.value;
+    const container = document.getElementById('dynamic-fields-container');
+    container.innerHTML = ''; 
+
+    if (fieldMapping[jenis]) {
+        // Tambahkan class grid-container untuk styling CSS
+        container.classList.add('grid-container'); 
+        
+        fieldMapping[jenis].forEach(field => {
+            // Tambahkan logika limit digit
+            let attributes = `required placeholder="Masukkan ${field.label}"`;
+            if (field.id === 'luas_tanah') attributes += ' maxlength="5"';
+            if (field.id === 'luas_bangunan') attributes += ' maxlength="4"';
+
+            container.innerHTML += `
+                <div class="field-group">
+                    <label for="${field.id}">${field.label}</label>
+                    <input type="${field.type}" id="${field.id}" name="${field.id}" ${attributes}>
+                </div>
+            `;
+        });
+    }
+});
+
 
 // Listener untuk memicu munculnya field
 document.getElementById('jenis_properti').addEventListener('change', function() {
