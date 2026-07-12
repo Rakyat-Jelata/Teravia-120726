@@ -1,41 +1,413 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERAVIA - Marketplace Properti Indonesia</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta name="description" content="TERAVIA - Marketplace properti terpercaya untuk jual, beli, dan sewa properti di seluruh Indonesia. Rumah, apartemen, tanah, ruko, dan banyak lagi.">
+    <meta name="keywords" content="jual properti, beli properti, sewa properti, rumah, apartemen, tanah, marketplace properti Indonesia">
+    <meta name="author" content="TERAVIA">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TERAVIA - Jual • Beli • Sewa Properti Seluruh Indonesia">
+    <meta property="og:description" content="Platform marketplace properti terpercaya untuk semua kebutuhan properti Anda di Indonesia.">
+    <meta property="og:image" content="./assets/img/logo.png">
+    <meta property="og:url" content="https://teravia.com">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "TERAVIA",
+        "description": "Marketplace properti Indonesia",
+        "url": "https://teravia.com",
+        "logo": "https://teravia.com/assets/img/logo.png",
+        "sameAs": [
+            "https://www.facebook.com/teravia",
+            "https://www.instagram.com/teravia",
+            "https://www.twitter.com/teravia"
+        ]
+    }
+    </script>
 
+    <title>TERAVIA - Jual • Beli • Sewa Properti Seluruh Indonesia</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/component.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    
+    <!-- AOS Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- PASTE DI BAWAH <body> -->
-<header class="navbar">
-    <div class="logo">
-        <a href="index.html"><img src="assets/img/logo.png" alt="TERAVIA Logo" style="height: 40px;"></a>
-    </div>
-    <nav>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="pages/pasang-iklan.html">Pasang Iklan</a></li>
-        </ul>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <a href="./index.html" class="logo-link">
+                    <img src="./assets/img/logo.png" alt="TERAVIA Logo" class="logo-img">
+                    <span class="logo-text">TERAVIA</span>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Nav Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="./index.html" class="nav-link active">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./pages/beli.html" class="nav-link">Beli</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./pages/jual.html" class="nav-link">Jual</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./pages/blog.html" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./pages/tentang.html" class="nav-link">Tentang</a>
+                </li>
+            </ul>
+
+            <!-- Auth Buttons -->
+            <div class="nav-auth">
+                <a href="./login.html" class="btn-login">Masuk</a>
+                <a href="./register.html" class="btn-register">Daftar</a>
+            </div>
+        </div>
     </nav>
-</header>
-    
-    <header id="navbar-container"></header>
-    
-    <section class="hero">
-    <div class="hero-content">
-        <h1>Jual • Beli • Sewa Properti Seluruh Indonesia</h1>
-        <p>Temukan properti impian Anda dengan mudah dan cepat bersama TERAVIA.</p>
-        <a href="pages/pasang-iklan.html" class="btn-primary">Pasang Iklan Sekarang</a>
-    </div>
-</section>
 
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
+            <h1 class="hero-title">Temukan Properti Impian Anda</h1>
+            <p class="hero-subtitle">Platform marketplace properti terpercaya untuk jual, beli, dan sewa properti di seluruh Indonesia</p>
+            
+            <!-- Search Box -->
+            <div class="search-box" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="search-input-group">
+                    <!-- Search Location -->
+                    <div class="search-field">
+                        <label for="searchLocation" class="search-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="searchLocation" 
+                            class="search-input" 
+                            placeholder="Lokasi properti..."
+                            aria-label="Cari lokasi properti"
+                        >
+                    </div>
 
-    <footer id="footer-container"></footer>
+                    <!-- Search Type -->
+                    <div class="search-field">
+                        <label for="searchType" class="search-label">
+                            <i class="fas fa-home"></i>
+                        </label>
+                        <select id="searchType" class="search-input" aria-label="Pilih tipe properti">
+                            <option value="">Tipe Properti</option>
+                            <option value="rumah">Rumah</option>
+                            <option value="apartemen">Apartemen</option>
+                            <option value="tanah">Tanah</option>
+                            <option value="ruko">Ruko</option>
+                            <option value="komersial">Komersial</option>
+                        </select>
+                    </div>
 
-    <script type="module" src="assets/js/main.js"></script>
+                    <!-- Search Status -->
+                    <div class="search-field">
+                        <label for="searchStatus" class="search-label">
+                            <i class="fas fa-tag"></i>
+                        </label>
+                        <select id="searchStatus" class="search-input" aria-label="Pilih status properti">
+                            <option value="">Status</option>
+                            <option value="dijual">Dijual</option>
+                            <option value="disewa">Disewa</option>
+                            <option value="dijual-disewa">Dijual & Disewa</option>
+                        </select>
+                    </div>
+
+                    <!-- Search Button -->
+                    <button class="btn-search" id="btnSearch" aria-label="Cari properti">
+                        <i class="fas fa-search"></i>
+                        <span>Cari</span>
+                    </button>
+                </div>
+
+                <!-- Quick Filters -->
+                <div class="quick-filters" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                    <button class="filter-tag" data-filter="rumah">
+                        <i class="fas fa-home"></i> Rumah
+                    </button>
+                    <button class="filter-tag" data-filter="apartemen">
+                        <i class="fas fa-building"></i> Apartemen
+                    </button>
+                    <button class="filter-tag" data-filter="tanah">
+                        <i class="fas fa-tree"></i> Tanah
+                    </button>
+                    <button class="filter-tag" data-filter="ruko">
+                        <i class="fas fa-store"></i> Ruko
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Background -->
+        <img src="./assets/img/hero-bg.png" alt="Hero Background" class="hero-bg">
+    </section>
+
+    <!-- Featured Properties Section -->
+    <section class="featured-section" id="featured">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Properti Terbaru</h2>
+                <p class="section-subtitle">Dapatkan penawaran terbaik dari properti-properti terbaru di Indonesia</p>
+            </div>
+
+            <!-- Properties Grid -->
+            <div class="properties-grid" id="propertiesGrid" data-aos="fade-up" data-aos-duration="800">
+                <!-- Properties akan diload dari JavaScript -->
+                <div class="loading-skeleton">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="view-more-container" data-aos="fade-up">
+                <a href="./pages/beli.html" class="btn-primary btn-lg">
+                    Lihat Semua Properti
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Jelajahi Kategori</h2>
+                <p class="section-subtitle">Temukan properti sesuai dengan kebutuhan Anda</p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="categories-grid" data-aos="fade-up" data-aos-duration="800">
+                <!-- Hunian -->
+                <a href="./pages/beli.html?kategori=hunian" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="category-title">Hunian</h3>
+                    <p class="category-desc">Rumah, Apartemen, Villa</p>
+                </a>
+
+                <!-- Komersial -->
+                <a href="./pages/beli.html?kategori=komersial" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="category-title">Komersial</h3>
+                    <p class="category-desc">Ruko, Kantor, Toko</p>
+                </a>
+
+                <!-- Tanah & Lahan -->
+                <a href="./pages/beli.html?kategori=tanah" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="category-title">Tanah & Lahan</h3>
+                    <p class="category-desc">Tanah, Kavling, Kebun</p>
+                </a>
+
+                <!-- Institusi -->
+                <a href="./pages/beli.html?kategori=institusi" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3 class="category-title">Institusi</h3>
+                    <p class="category-desc">Sekolah, Rumah Sakit, Klinik</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-section" id="whyChooseUs">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Mengapa Memilih TERAVIA?</h2>
+                <p class="section-subtitle">Kami memastikan pengalaman terbaik dalam mencari properti impian Anda</p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="features-grid" data-aos="fade-up" data-aos-duration="800">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="feature-title">Properti Terverifikasi</h3>
+                    <p class="feature-desc">Semua properti telah melalui proses verifikasi ketat untuk memastikan keaslian data.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">Transaksi Aman</h3>
+                    <p class="feature-desc">Sistem keamanan berlapis melindungi privasi dan data pribadi Anda setiap saat.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Tim Profesional</h3>
+                    <p class="feature-desc">Tim customer service kami siap membantu Anda 24/7 menjawab semua pertanyaan.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Pencarian Cepat</h3>
+                    <p class="feature-desc">Fitur pencarian canggih membantu Anda menemukan properti yang sesuai dalam hitungan detik.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile Friendly</h3>
+                    <p class="feature-desc">Aplikasi web responsif yang dapat diakses dari semua perangkat dengan lancar.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Support Terbaik</h3>
+                    <p class="feature-desc">Dukungan langsung melalui chat, email, atau WhatsApp untuk memudahkan komunikasi Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta" data-aos="zoom-in">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2 class="cta-title">Siap Memasang Iklan?</h2>
+                <p class="cta-subtitle">Bergabunglah dengan ribuan penjual dan penyewa properti yang sukses di TERAVIA</p>
+                <a href="./pages/pasang-iklan.html" class="btn-primary btn-lg">
+                    Mulai Pasang Iklan
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- About -->
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="./assets/img/logo.png" alt="TERAVIA Logo" class="footer-logo-img">
+                            <span class="footer-logo-text">TERAVIA</span>
+                        </div>
+                        <p class="footer-desc">Platform marketplace properti terpercaya untuk jual, beli, dan sewa properti di seluruh Indonesia.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook" class="social-link">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" aria-label="Twitter" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" aria-label="LinkedIn" class="social-link">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="footer-section">
+                        <h4 class="footer-title">Menu</h4>
+                        <ul class="footer-links">
+                            <li><a href="./index.html">Beranda</a></li>
+                            <li><a href="./pages/beli.html">Beli Properti</a></li>
+                            <li><a href="./pages/jual.html">Jual Properti</a></li>
+                            <li><a href="./pages/blog.html">Blog</a></li>
+                            <li><a href="./pages/tentang.html">Tentang Kami</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Kategori -->
+                    <div class="footer-section">
+                        <h4 class="footer-title">Kategori Properti</h4>
+                        <ul class="footer-links">
+                            <li><a href="./pages/beli.html?kategori=hunian">Hunian</a></li>
+                            <li><a href="./pages/beli.html?kategori=komersial">Komersial</a></li>
+                            <li><a href="./pages/beli.html?kategori=tanah">Tanah & Lahan</a></li>
+                            <li><a href="./pages/beli.html?kategori=institusi">Institusi</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Bantuan -->
+                    <div class="footer-section">
+                        <h4 class="footer-title">Bantuan</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Syarat & Ketentuan</a></li>
+                            <li><a href="#">Kebijakan Privasi</a></li>
+                            <li><a href="#">Hubungi Kami</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <p>&copy; 2024 TERAVIA. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart"></i> for property lovers in Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="./assets/js/supabase-config.js"></script>
+    <script src="./assets/js/utils.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
-</html>
-
+                    </html>
+    
