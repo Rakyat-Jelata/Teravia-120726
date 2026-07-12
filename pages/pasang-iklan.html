@@ -3,78 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasang Iklan Properti - TERAVIA</title>
+    <title>Pasang Iklan Properti Premium - TERAVIA</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-    /* 1. Global Reset & Struktur Dasar */
-    * { box-sizing: border-box; }
-    body { background-color: #f4f6f8; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 70px; padding-bottom: 40px; }
-    
-    /* 2. Perbaikan Navbar Utama (Biar tidak berantakan lagi) */
-    .navbar-container {
-        position: fixed; top: 0; left: 0; width: 100%; height: 65px;
-        background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 0 20px; z-index: 1000;
-    }
-    .navbar-brand .logo {
-        height: 35px; /* Mengunci ukuran logo agar tidak jadi raksasa */
-        width: auto; display: block;
-    }
-    .navbar-menu { display: flex; gap: 15px; }
-    .navbar-menu a { text-decoration: none; color: #475569; font-weight: 500; font-size: 14px; }
-    .navbar-actions { display: flex; align-items: center; gap: 10px; }
-    .btn-pasang-iklan { text-decoration: none; background: #2563eb; color: #fff !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
-    .btn-login { text-decoration: none; color: #2563eb; border: 1.5px solid #2563eb; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+        /* 1. Reset Global & Aturan Dasar */
+        * { box-sizing: border-box; }
+        body { background-color: #f4f6f8; margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; padding-top: 80px; padding-bottom: 50px; }
+        
+        /* 2. Komponen Navbar */
+        .navbar-container { position: fixed; top: 0; left: 0; width: 100%; height: 65px; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 1000; }
+        .navbar-brand .logo { height: 35px; width: auto; display: block; }
+        .navbar-menu { display: flex; gap: 15px; }
+        .navbar-menu a { text-decoration: none; color: #475569; font-weight: 500; font-size: 14px; }
+        .navbar-actions { display: flex; align-items: center; gap: 10px; }
+        .btn-pasang-iklan { text-decoration: none; background: #2563eb; color: #fff !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+        .btn-login { text-decoration: none; color: #2563eb; border: 1.5px solid #2563eb; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
 
-    /* 3. Container & Card Form */
-    .form-container { max-width: 650px; margin: 20px auto; padding: 0 15px; }
-    .card-form { background: #css; background: #fff; padding: 30px 20px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eef2f5; }
-    h2 { margin-top: 0; color: #1e293b; font-size: 20px; }
-    p { color: #64748b; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
+        /* 3. Container Form Layout */
+        .form-container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .card-form { background: #fff; padding: 35px 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); border: 1px solid #eef2f5; }
+        h2 { margin-top: 0; color: #1e293b; font-size: 22px; }
+        .section-title { font-size: 16px; color: #1e293b; border-left: 4px solid #2563eb; padding-left: 10px; margin: 30px 0 15px 0; font-weight: 700; }
+        
+        /* 4. Form Controls */
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #334155; font-size: 14px; }
+        .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; transition: all 0.25s; background: #fff; color: #1e293b; }
+        .form-control:focus { border-color: #3b82f6; outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .input-unit-box { position: relative; display: flex; align-items: center; }
+        .input-unit-box .form-control { padding-right: 65px; }
+        .input-unit-box .unit-tag { position: absolute; right: 12px; color: #64748b; font-size: 12px; font-weight: 600; pointer-events: none; }
 
-    /* 4. Elemen Formulir */
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #334155; font-size: 14px; }
-    .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
-    .form-control:focus { border-color: #3b82f6; outline: none; }
+        /* 5. Responsive Flex Grid */
+        .grid-main { display: grid; grid-template-columns: repeat(12, 1fr); gap: 15px; }
+        .col-12 { grid-column: span 12; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
 
-    /* Layout Grid Kolom (Desktop/Tablet) */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    .persona-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        /* 6. Persona Badge Radio Button */
+        .persona-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .persona-option { display: flex; align-items: center; justify-content: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; font-size: 13px; color: #475569; }
+        .persona-option input { margin-right: 8px; accent-color: #3b82f6; }
+        .persona-option:has(input:checked) { border-color: #3b82f6; background-color: #eff6ff; color: #2563eb; }
 
-    /* Komponen Opsi Persona */
-    .persona-option { display: flex; align-items: center; justify-content: center; padding: 12px 5px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-    .persona-option:hover { border-color: #3b82f6; }
-    .persona-option input { margin-right: 6px; accent-color: #3b82f6; }
-    .persona-option span { font-weight: bold; font-size: 12px; color: #475569; }
+        /* 7. Fitur Transisi Halus Kontainer Spesifikasi */
+        #dynamic-spec-container { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 1; transform: translateY(0); }
+        .spec-hidden { opacity: 0 !important; transform: translateY(10px) !important; }
 
-    /* Tombol Submit */
-    .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); margin-top: 10px; }
+        /* 8. Zona Upload Gambar & Preview */
+        .upload-dropzone { border: 2px dashed #cbd5e1; padding: 30px; border-radius: 12px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; }
+        .upload-dropzone:hover { border-color: #3b82f6; background: #f0fdf4; }
+        .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin-top: 15px; }
+        .preview-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; background: #f1f5f9; }
+        .preview-item img { width: 100%; height: 100%; object-fit: cover; }
+        .preview-item .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(239,68,68,0.9); color: white; border: none; width: 22px; height: 22px; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-    /* 5. Footer */
-    .footer-container { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 40px; }
+        /* 9. Tombol Submit */
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(59,130,246,0.25); margin-top: 20px; transition: 0.2s; }
+        .btn-submit:hover { transform: translateY(-1.5px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
 
-    /* ==========================================================================
-       6. Responsive Breakpoint Mobile (Kunci agar pas di layar HP Anda)
-       ========================================================================== */
-    @media (max-width: 576px) {
-        body { padding-top: 120px; } /* Memberi ruang karena navbar mobile menumpuk */
-        .navbar-container { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
-        .navbar-menu { gap: 12px; }
-        .grid-2, .grid-3, .persona-group { 
-            grid-template-columns: 1fr !important; /* Paksa baris kolom menumpuk vertikal di HP */
-            gap: 12px !important; 
+        /* 10. Responsive Breakpoint Mobile */
+        @media (max-width: 768px) {
+            body { padding-top: 130px; }
+            .navbar-container { flex-direction: column; height: auto; padding: 12px; gap: 8px; }
+            .col-6, .col-4, .col-3 { grid-column: span 12 !important; }
+            .persona-group { grid-template-columns: 1fr; gap: 8px; }
         }
-        .persona-option { justify-content: flex-start; padding: 12px 15px; }
-    }
-</style>
-
+    </style>
 </head>
 <body>
 
-    <!-- NAVBAR UTAMA (Jalur disesuaikan keluar 1 tingkat) -->
+    <!-- NAVBAR UTAMA -->
     <header class="navbar-container">
         <div class="navbar-brand">
             <img src="../assets/img/logo.png" alt="Logo TERAVIA" class="logo">
@@ -93,79 +93,126 @@
 
     <main class="form-container">
         <div class="card-form">
-            <h2 style="margin-top:0; color:#1e293b;">📋 Form Pasang Iklan Properti</h2>
-            <p style="color:#64748b; font-size:14px; margin-bottom:30px;">Isi detail informasi properti Anda dengan benar. Sebagai member premium, listing Anda akan langsung mendapatkan lencana verifikasi resmi.</p>
+            <h2>📋 Pasang Iklan Properti Premium</h2>
+            <p>Lengkapi formulir dengan spesifikasi akurat untuk mempermudah calon pembeli menemukan listing properti Anda.</p>
 
             <form id="iklan-form">
-                <!-- 1. IDENTITAS VENDOR (PERSONA) -->
+                <!-- SEGMENT 1: IDENTITAS -->
                 <div class="form-group">
-                    <label>Tipe Pengiklan (Persona Badge)</label>
+                    <label>Tipe Pengiklan</label>
                     <div class="persona-group">
-                        <label class="persona-option">
-                            <input type="radio" name="persona" value="owner" checked required>
-                            <span>🛡️ OWNER</span>
-                        </label>
-                        <label class="persona-option">
-                            <input type="radio" name="persona" value="broker">
-                            <span>💼 BROKER</span>
-                        </label>
-                        <label class="persona-option">
-                            <input type="radio" name="persona" value="developer">
-                            <span>🏗️ DEVELOPER</span>
-                        </label>
+                        <label class="persona-option"><input type="radio" name="persona" value="owner" checked> <span>🛡️ OWNER</span></label>
+                        <label class="persona-option"><input type="radio" name="persona" value="broker"> <span>💼 BROKER</span></label>
+                        <label class="persona-option"><input type="radio" name="persona" value="developer"> <span>🏗️ DEVELOPER</span></label>
                     </div>
                 </div>
 
-                <!-- 2. INFORMASI UTAMA -->
+                <!-- SEGMENT 2: INFORMASI DASAR -->
+                <div class="section-title">Aspek Transaksi & Klasifikasi</div>
+                <div class="grid-main">
+                    <div class="form-group col-4">
+                        <label for="status-listing">Status Listing</label>
+                        <select id="status-listing" class="form-control" required>
+                            <option value="" disabled selected>-- Pilih Status --</option>
+                            <option value="Dijual">Dijual</option>
+                            <option value="Disewakan">Disewakan</option>
+                            <option value="Dijual & Disewakan">Dijual & Disewakan</option>
+                            <option value="Oper Alih">Oper Alih</option>
+                            <option value="Lelang">Lelang</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="kategori-properti">Kategori</label>
+                        <select id="kategori-properti" class="form-control" required>
+                            <option value="" disabled selected>-- Pilih Kategori --</option>
+                            <option value="Hunian">🏠 Hunian</option>
+                            <option value="Komersial">🏢 Komersial</option>
+                            <option value="Tanah">🌾 Tanah & Lahan</option>
+                            <option value="Institusi">🏛️ Institusi & Fasilitas</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="jenis-properti">Jenis Properti</label>
+                        <select id="jenis-properti" class="form-control" required>
+                            <option value="" disabled selected>-- Pilih Jenis --</option>
+                            <!-- Daftar jenis diisi otomatis via JS berdasarkan kategori -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- INFO HARGA & JUDUL -->
+                <div class="grid-main" style="margin-top: 10px;">
+                    <div class="form-group col-8">
+                        <label for="judul">Judul Iklan</label>
+                        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="harga">Harga</label>
+                        <div class="input-unit-box">
+                            <input type="number" id="harga" class="form-control" placeholder="Contoh: 850000000" required>
+                            <span class="unit-tag">Rupiah</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEGMENT 3: SPESIFIKASI DINAMIS -->
+                <div class="section-title">Detail Spesifikasi Properti</div>
+                <div id="dynamic-spec-container">
+                    <p style="color: #94a3b8; font-style: italic;">Silakan pilih jenis properti terlebih dahulu untuk memuat kolom spesifikasi khusus...</p>
+                </div>
+
+                <!-- SEGMENT 4: INTEGRASI API LOKASI WILAYAH -->
+                <div class="section-title">Lokasi Akurat Properti</div>
+                <div class="grid-main">
+                    <div class="form-group col-6">
+                        <label for="reg-provinsi">Provinsi</label>
+                        <select id="reg-provinsi" class="form-control" required>
+                            <option value="" disabled selected>Memuat Provinsi...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="reg-kabupaten">Kabupaten / Kota</label>
+                        <select id="reg-kabupaten" class="form-control" disabled required>
+                            <option value="" disabled selected>-- Pilih Provinsi Dulu --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="reg-kecamatan">Kecamatan</label>
+                        <select id="reg-kecamatan" class="form-control" disabled required>
+                            <option value="" disabled selected>-- Pilih Kabupaten Dulu --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="reg-kelurahan">Kelurahan / Desa</label>
+                        <select id="reg-kelurahan" class="form-control" disabled required>
+                            <option value="" disabled selected>-- Pilih Kecamatan Dulu --</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="alamat-detail">Alamat Detail (Nama Jalan, Blok, No. Rumah)</label>
+                        <input type="text" id="alamat-detail" class="form-control" placeholder="Contoh: Jl. Anggrek Raya No. 12, Komplek Permata Hijau" required>
+                    </div>
+                </div>
+
+                <!-- SEGMENT 5: COMPRESSOR UPLOAD GAMBAR -->
+                <div class="section-title">Galeri Foto Properti</div>
                 <div class="form-group">
-                    <label for="judul">Judul Iklan</label>
-                    <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis Modern Cluster Hoek" required>
+                    <label>Unggah Foto Properti (Minimal 5, Maksimal 20 Foto)</label>
+                    <div class="upload-dropzone" id="dropzone">
+                        <div style="font-size: 32px; margin-bottom: 8px;">📸</div>
+                        <strong style="color: #2563eb;">Klik untuk pilih foto</strong> atau seret file ke sini
+                        <div style="font-size: 11px; color:#64748b; margin-top:5px;">File dikonversi ke format .WebP otomatis untuk kompresi maksimal</div>
+                        <input type="file" id="image-picker" multiple accept="image/*" style="display: none;">
+                    </div>
+                    <div class="preview-grid" id="preview-container"></div>
                 </div>
 
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label for="harga">Harga (Rp)</label>
-                        <input type="number" id="harga" class="form-control" placeholder="Contoh: 1500000000" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lokasi">Lokasi / Kota</label>
-                        <input type="text" id="lokasi" class="form-control" placeholder="Contoh: Jakarta Selatan" required>
-                    </div>
-                </div>
-
-                <!-- 3. SPESIFIKASI PROPERTI -->
-                <div class="grid-3">
-                    <div class="form-group">
-                        <label for="kamar-tidur">K. Tidur</label>
-                        <input type="number" id="kamar-tidur" class="form-control" placeholder="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="kamar-mandi">K. Mandi</label>
-                        <input type="number" id="kamar-mandi" class="form-control" placeholder="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="luas-tanah">Luas (m²)</label>
-                        <input type="number" id="luas-tanah" class="form-control" placeholder="0" required>
-                    </div>
-                </div>
-
-                <!-- 4. DESKRIPSI -->
-                <div class="form-group">
-                    <label for="deskripsi">Deskripsi Lengkap</label>
-                    <textarea id="deskripsi" class="form-control" rows="4" placeholder="Jelaskan fasilitas, akses jalan, legalitas sertifikat (SHM/HGB), dll." required></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">PUBLIKASIKAN IKLAN</button>
+                <button type="submit" class="btn-submit">PUBLIKASIKAN IKLAN SEKARANG</button>
             </form>
         </div>
     </main>
 
-    <!-- FOOTER UTAMA -->
-    <footer class="footer-container" style="margin-top: 60px;">
-        <p>© 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
-    </footer>
-
-    <!-- Handler Pemrosesan & Proteksi Multi-layer -->
     <script type="module" src="../assets/js/iklan-handler.js"></script>
 </body>
 </html>
+
