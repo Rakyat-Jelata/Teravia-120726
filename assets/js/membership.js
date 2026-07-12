@@ -14,8 +14,11 @@ export function initLayer1Protection() {
         
         if (!isPremium) {
             e.preventDefault(); // Batalkan navigasi asli
-            alert("⚠️ Akses Ditolak: Anda harus mendaftar ke Membership Premium (TERAVIA STARTER) terlebih dahulu untuk dapat memasang iklan!");
-            // Opsional: Alihkan ke halaman registrasi/login jika sudah ada nanti
+            alert("⚠️ Akses Ditolak: Anda harus mendaftar ke Membership Premium (TERAVIA STARTER) terlebih dahulu!");
+            
+            // KORELASI: Alihkan langsung ke halaman pembayaran membership
+            // Karena tombol ini ditekan dari index.html (root), jalurnya masuk ke folder pages
+            window.location.href = 'pages/membership.html';
         }
     });
 }
@@ -28,17 +31,19 @@ export function applyLayer2Protection() {
         const isPremium = localStorage.getItem('isPremiumUser') === 'true';
         
         if (!isPremium) {
-            // Jika memaksa masuk lewat URL, kosongkan layar dan tendang kembali ke beranda
+            // Jika memaksa masuk lewat URL pasang-iklan.html, kosongkan layar dan arahkan ke pendaftaran
             document.body.innerHTML = `
                 <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; text-align:center; padding:20px;">
                     <h1 style="color:#e74c3c;">🔒 Akses Terkunci</h1>
                     <p>Halaman ini hanya dapat diakses oleh akun TERAVIA STARTER Premium.</p>
-                    <p>Mengalihkan Anda kembali ke Beranda...</p>
+                    <p>Mengalihkan Anda ke halaman aktivasi Membership...</p>
                 </div>
             `;
             setTimeout(() => {
-                window.location.href = '../index.html';
-            }, 3000);
+                // KORELASI: Karena posisi pasang-iklan.html ada di dalam folder pages, 
+                // untuk ke membership.html kita cukup panggil nama filenya langsung (sesama folder pages)
+                window.location.href = './membership.html';
+            }, 2500);
         } else {
             resolve(true);
         }
