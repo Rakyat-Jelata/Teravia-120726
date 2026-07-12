@@ -8,7 +8,6 @@
     <!-- Leaflet Maps API -->
 <link rel="stylesheet" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
     <style>
         /* 1. Reset Global & Aturan Dasar */
         * { box-sizing: border-box; }
@@ -55,6 +54,16 @@
         #dynamic-spec-container { transition: opacity 0.3s ease, transform 0.3s ease; opacity: 1; transform: translateY(0); }
         .spec-hidden { opacity: 0 !important; transform: translateY(10px) !important; }
 
+        /* 7.5. Pengaturan Peta Interaktif Leaflet */
+        #map { 
+            height: 350px; 
+            width: 100%; 
+            border-radius: 12px; 
+            border: 2px solid #e2e8f0; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            z-index: 1; 
+        }
+
         /* 8. Zona Upload Gambar & Preview */
         .upload-dropzone { border: 2px dashed #cbd5e1; padding: 30px; border-radius: 12px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; }
         .upload-dropzone:hover { border-color: #3b82f6; background: #f0fdf4; }
@@ -67,18 +76,21 @@
         .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 14px rgba(59,130,246,0.25); margin-top: 20px; transition: 0.2s; }
         .btn-submit:hover { transform: translateY(-1.5px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
 
-        /* 10. Responsive Breakpoint Mobile */
+        /* 10. Tambahan Elemen Sekunder */
+        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 8px; }
+        .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #475569; cursor: pointer; }
+        .checkbox-item input { accent-color: #2563eb; width: 16px; height: 16px; }
+
+        /* 11. Responsive Breakpoint Mobile */
         @media (max-width: 768px) {
             body { padding-top: 130px; }
             .navbar-container { flex-direction: column; height: auto; padding: 12px; gap: 8px; }
             .col-6, .col-4, .col-3 { grid-column: span 12 !important; }
             .persona-group { grid-template-columns: 1fr; gap: 8px; }
+            #map { height: 250px; } /* Ukuran peta mengecil di layar ponsel */
         }
-        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 8px; }
-.checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #475569; cursor: pointer; }
-.checkbox-item input { accent-color: #2563eb; width: 16px; height: 16px; }
-        
-    </style>
+      </style>
+
 </head>
 <body>
 
