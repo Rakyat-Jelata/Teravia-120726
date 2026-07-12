@@ -256,3 +256,39 @@ function initFormSubmission() {
         window.location.href = '../index.html';
     });
 }
+
+// Letakkan di bagian paling atas file iklan-handler.js
+let map;
+let marker;
+
+// Fungsi untuk memuat peta pertama kali
+function tampilkanPetaAwal() {
+    // Koordinat default Pusat Indonesia
+    const posisiPusat = [-0.7893, 113.9213]; 
+    
+    // 1. Inisialisasi peta pada div id="map" dengan zoom level 5 (bisa melihat seluruh Indonesia)
+    map = L.map('map').setView(posisiPusat, 5);
+
+    // 2. Muat desain peta dari OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 3. Tambahkan Pin (Marker) yang bisa digeser-geser (draggable)
+    marker = L.marker(posisiPusat, { draggable: true }).addTo(map);
+
+    // 4. Update input hidden latitude & longitude saat pertama kali dimuat
+    updateKoordinatInput(posisiPusat[0], posisiPusat[1]);
+
+    // 5. Deteksi event ketika pin selesai digeser manual oleh user
+    marker.on('dragend', function (e) {
+        const posisiBaru = marker.getLatLng();
+        updateKoordinatInput(posisiBaru.lat, posisiBaru.lng);
+    });
+}
+
+// Fungsi bantu untuk memasukkan angka koordinat ke input hidden HTML
+function updateKoordinatInput(lat, lng) {
+    document.getElementById('latitude').value = lat.toFixed(6);
+    document.getElementById('longitude').value = lng.toFixed(6);
+}
