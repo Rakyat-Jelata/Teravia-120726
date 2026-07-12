@@ -1,1 +1,131 @@
-       
+      /* teravia/assets/css/main.css */
+
+/* --- SYSTEM DESIGN VARIABLES --- */
+:root {
+    --primary-color: #0F172A; /* Slate 900 - Premium Dark */
+    --accent-color: #D97706;  /* Amber 600 - Premium Gold Accent */
+    --bg-light: #F8FAFC;      /* Slate 50 - Soft Background */
+    --surface-white: #FFFFFF;
+    --text-main: #1E293B;     /* Slate 800 */
+    --text-muted: #64748B;    /* Slate 500 */
+    --border-color: #E2E8F0;  /* Slate 200 */
+    --success-color: #16A34A; /* Emerald 600 */
+    --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- RESET & GLOBAL STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-system);
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- LAYOUT HEADER & HERO (INDEX) --- */
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--surface-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    height: 32px;
+    object-fit: contain;
+}
+
+.navbar-menu {
+    display: none; /* Mobile first hidden, main.css di-override responsive.css */
+}
+
+.navbar-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* --- HERO & PROMO BANNER --- */
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    padding: 4rem 1rem;
+    text-align: center;
+    color: var(--surface-white);
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.hero-content p {
+    font-size: 1rem;
+    color: #E2E8F0;
+    margin-bottom: 2rem;
+}
+
+.promo-banner-box {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--accent-color);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 1rem;
+    display: inline-block;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.promo-badge {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: 0 0.25rem;
+}
+
+.new-price {
+    color: #FBBF24;
+}
+
+.countdown-timer {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    color: #94A3B8;
+}
+
