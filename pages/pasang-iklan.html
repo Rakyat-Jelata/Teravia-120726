@@ -6,61 +6,71 @@
     <title>Pasang Iklan Properti - TERAVIA</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        /* Gaya Khusus Form Pasang Iklan Premium */
-        body { background-color: #f8fafc; margin: 0; font-family: 'Segoe UI', sans-serif; }
-        .form-container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
-        .card-form { background: #fff; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eef2f5; }
-        .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; font-size: 15px; }
-        .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; box-sizing: border-box; transition: all 0.3s; }
-        .form-control:focus { border-color: #3b82f6; outline: none; background-color: #f8fafc; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-        
-        /* Persona Radio Box */
-        .persona-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 5px; }
-        .persona-option { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; cursor: pointer; text-align: center; transition: 0.2s; }
-        .persona-option:hover { border-color: #3b82f6; background: #f0fdf4; }
-        .persona-option input { margin-bottom: 8px; accent-color: #3b82f6; transform: scale(1.1); }
-        .persona-option span { font-weight: bold; font-size: 13px; color: #475569; }
-        
-        .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); transition: 0.25s; margin-top: 15px; }
-        .btn-submit:hover { background: linear-gradient(135deg, #2563eb, #1e40af); transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45); }
+    /* 1. Global Reset & Struktur Dasar */
+    * { box-sizing: border-box; }
+    body { background-color: #f4f6f8; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 70px; padding-bottom: 40px; }
+    
+    /* 2. Perbaikan Navbar Utama (Biar tidak berantakan lagi) */
+    .navbar-container {
+        position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+        background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 0 20px; z-index: 1000;
+    }
+    .navbar-brand .logo {
+        height: 35px; /* Mengunci ukuran logo agar tidak jadi raksasa */
+        width: auto; display: block;
+    }
+    .navbar-menu { display: flex; gap: 15px; }
+    .navbar-menu a { text-decoration: none; color: #475569; font-weight: 500; font-size: 14px; }
+    .navbar-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-pasang-iklan { text-decoration: none; background: #2563eb; color: #fff !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+    .btn-login { text-decoration: none; color: #2563eb; border: 1.5px solid #2563eb; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
 
-        /* ==========================================================================
-   TAMBAHKAN KODE DI BAWAH INI PADA BAGIAN PALING BAWAH DI DALAM TAG <style> ANDA
-   ========================================================================== */
+    /* 3. Container & Card Form */
+    .form-container { max-width: 650px; margin: 20px auto; padding: 0 15px; }
+    .card-form { background: #css; background: #fff; padding: 30px 20px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eef2f5; }
+    h2 { margin-top: 0; color: #1e293b; font-size: 20px; }
+    p { color: #64748b; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
 
-/* 1. Mencegah input melebar keluar layar di HP */
-* { 
-    box-sizing: border-box; 
-}
+    /* 4. Elemen Formulir */
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #334155; font-size: 14px; }
+    .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+    .form-control:focus { border-color: #3b82f6; outline: none; }
 
-/* 2. Responsivitas Grid Form (Kunci agar tidak berantakan di HP) */
-@media (max-width: 576px) {
-    .form-container {
-        margin: 20px auto;
-        padding: 0 10px;
+    /* Layout Grid Kolom (Desktop/Tablet) */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .persona-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    /* Komponen Opsi Persona */
+    .persona-option { display: flex; align-items: center; justify-content: center; padding: 12px 5px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+    .persona-option:hover { border-color: #3b82f6; }
+    .persona-option input { margin-right: 6px; accent-color: #3b82f6; }
+    .persona-option span { font-weight: bold; font-size: 12px; color: #475569; }
+
+    /* Tombol Submit */
+    .btn-submit { width: 100%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); margin-top: 10px; }
+
+    /* 5. Footer */
+    .footer-container { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 40px; }
+
+    /* ==========================================================================
+       6. Responsive Breakpoint Mobile (Kunci agar pas di layar HP Anda)
+       ========================================================================== */
+    @media (max-width: 576px) {
+        body { padding-top: 120px; } /* Memberi ruang karena navbar mobile menumpuk */
+        .navbar-container { flex-direction: column; height: auto; padding: 10px; gap: 8px; }
+        .navbar-menu { gap: 12px; }
+        .grid-2, .grid-3, .persona-group { 
+            grid-template-columns: 1fr !important; /* Paksa baris kolom menumpuk vertikal di HP */
+            gap: 12px !important; 
+        }
+        .persona-option { justify-content: flex-start; padding: 12px 15px; }
     }
-    .card-form {
-        padding: 25px 20px;
-    }
-    .grid-2, .grid-3, .persona-group { 
-        grid-template-columns: 1fr !important; /* Paksa menumpuk ke bawah di layar HP sempit */
-        gap: 12px !important; 
-    }
-    .persona-option {
-        flex-direction: row !important; /* Buat ikon dan teks sejajar horizontal di mobile */
-        justify-content: flex-start !important;
-        padding: 12px 20px !important;
-    }
-    .persona-option input {
-        margin-bottom: 0 !important;
-        margin-right: 12px !important;
-    }
-}
-        
-    </style>
+</style>
+
 </head>
 <body>
 
