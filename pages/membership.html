@@ -6,21 +6,101 @@
     <title>Upgrade Premium - TERAVIA STARTER</title>
     <!-- Hubungkan CSS Global Anda di sini (sesuaikan jalurnya jika ada file css terpisah) -->
     <link rel="stylesheet" href="../assets/css/style.css"> 
-    <style>
-        /* Gaya khusus halaman pembayaran agar rapi & scannable */
-        .pay-container { max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; }
-        .card-pay { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 30px; border: 1px solid #eef2f3; }
+        <style>
+        /* Gaya khusus halaman pembayaran agar rapi, scannable & premium */
+        body {
+            background-color: #f8fafc; /* Warna latar belakang agar komponen card lebih menonjol */
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .pay-container { 
+            max-width: 520px; /* Dipersempit sedikit agar layout card terlihat lebih proporsional di mobile */
+            margin: 50px auto; 
+            padding: 0 20px; 
+        }
+        .card-pay { 
+            background: #fff; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Menggunakan bayangan ultra-soft agar terkesan clean */
+            padding: 35px 25px; 
+            border: 1px solid #eef2f5; 
+        }
         .text-center { text-align: center; }
-        .badge-starter { background: #e1f5fe; color: #0288d1; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
-        .price-box { margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 8px; }
+        
+        /* Badge atas disesuaikan dengan aksen biru premium Teravia */
+        .badge-starter { 
+            background: #e0f2fe; 
+            color: #0369a1; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            font-size: 13px; 
+            letter-spacing: 0.5px;
+        }
+        
+        /* Box harga dibuat lebih kontras dan rapi */
+        .price-box { 
+            margin: 25px 0; 
+            background: #f8fafc; 
+            padding: 18px; 
+            border-radius: 12px; 
+            border: 1px dashed #cbd5e1;
+        }
         .method-group { margin: 25px 0; }
-        .method-option { display: flex; align-items: center; padding: 15px; border: 2px solid #ebdada; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
-        .method-option:hover { border-color: #0288d1; background: #f7fcfe; }
-        .method-option input { margin-right: 15px; transform: scale(1.2); }
-        .btn-pay { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-pay:hover { background: #0056b3; }
-        .loading-overlay { display: none; margin-top: 15px; color: #555; font-style: italic; }
+        
+        /* Komponen pilihan pembayaran dengan efek transisi micro-interaction */
+        .method-option { 
+            display: flex; 
+            align-items: center; 
+            padding: 16px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+        }
+        
+        /* Efek saat jari menekan atau kursor mendekati pilihan */
+        .method-option:hover { 
+            border-color: #3b82f6; 
+            background: #f0fdf4; /* Warna hijau/biru tipis pertanda area interaktif */
+            transform: translateY(-1px);
+        }
+        
+        .method-option input { 
+            margin-right: 15px; 
+            transform: scale(1.25); 
+            accent-color: #3b82f6; /* Warna radio button mengikuti tema modern */
+        }
+        
+        /* Desain tombol utama dengan efek gradasi dan bayangan timbul */
+        .btn-pay { 
+            width: 100%; 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transition: all 0.25s ease; 
+        }
+        .btn-pay:hover { 
+            background: linear-gradient(135deg, #2563eb, #1e40af); 
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
+            transform: translateY(-1.5px);
+        }
+        .btn-pay:disabled {
+            background: #94a3b8;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        .loading-overlay { display: none; margin-top: 15px; color: #64748b; font-style: italic; font-size: 14px; }
     </style>
+
 </head>
 <body>
 
