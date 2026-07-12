@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Premium - TERAVIA STARTER</title>
+    <!-- Hubungkan CSS Global Anda di sini (sesuaikan jalurnya jika ada file css terpisah) -->
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <style>
+        /* Gaya khusus halaman pembayaran agar rapi & scannable */
+        .pay-container { max-width: 600px; margin: 40px auto; padding: 20px; font-family: sans-serif; }
+        .card-pay { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 30px; border: 1px solid #eef2f3; }
+        .text-center { text-align: center; }
+        .badge-starter { background: #e1f5fe; color: #0288d1; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .price-box { margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 8px; }
+        .method-group { margin: 25px 0; }
+        .method-option { display: flex; align-items: center; padding: 15px; border: 2px solid #ebdada; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        .method-option:hover { border-color: #0288d1; background: #f7fcfe; }
+        .method-option input { margin-right: 15px; transform: scale(1.2); }
+        .btn-pay { width: 100%; background: #007bff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-pay:hover { background: #0056b3; }
+        .loading-overlay { display: none; margin-top: 15px; color: #555; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div class="pay-container">
+        <div class="card-pay">
+            <div class="text-center">
+                <span class="badge-starter">💎 MEMBERSHIP PREMIUM</span>
+                <h2 style="margin: 10px 0 5px 0;">Upgrade ke TERAVIA STARTER</h2>
+                <p style="color: #666; font-size: 14px;">Buka akses penuh untuk memasang iklan properti Anda selamanya.</p>
+            </div>
+
+            <div class="price-box text-center">
+                <p style="margin: 0; color: #888; text-decoration: line-through;">Rp 500.000</p>
+                <h1 style="margin: 5px 0; color: #2c3e50;">Rp 50.000 <span style="font-size: 16px; color: #27ae60;">/ Sekali Bayar</span></h1>
+            </div>
+
+            <!-- FORM METODE PEMBAYARAN -->
+            <form id="payment-form">
+                <div class="method-group">
+                    <h3>Pilih Metode Pembayaran:</h3>
+                    
+                    <label class="method-option">
+                        <input type="radio" name="paymentMethod" value="va_bca" required>
+                        <div>
+                            <strong>BCA Virtual Account</strong>
+                            <div style="font-size: 12px; color: #666;">Konfirmasi otomatis secara instan</div>
+                        </div>
+                    </label>
+
+                    <label class="method-option">
+                        <input type="radio" name="paymentMethod" value="gopay">
+                        <div>
+                            <strong>GoPay / QRIS</strong>
+                            <div style="font-size: 12px; color: #666;">Scan kode QR via aplikasi e-wallet</div>
+                        </div>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-pay" id="pay-button">BAYAR SEKARANG</button>
+                <div id="loading-status" class="loading-overlay text-center">🔄 Menghubungkan ke sistem pembayaran...</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gunakan sistem modular JavaScript -->
+    <script type="module" src="../assets/js/payment-handler.js"></script>
+</body>
+</html>
