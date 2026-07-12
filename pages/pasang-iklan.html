@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pasang Iklan Properti Premium - TERAVIA</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Leaflet Maps API -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <style>
         /* 1. Reset Global & Aturan Dasar */
         * { box-sizing: border-box; }
@@ -197,7 +201,15 @@
                         <input type="text" id="alamat-detail" class="form-control" placeholder="Contoh: Jl. Anggrek Raya No. 12, Komplek Permata Hijau" required>
                     </div>
                 </div>
-
+                <!-- WADAH PETA INTERAKTIF -->
+<div class="form-group col-12" style="margin-top: 15px;">
+    <label>Titik Lokasi Properti (Pinpoint Maps) 📍</label>
+    <div id="map" style="height: 300px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1;"></div>
+    <!-- Input tersembunyi untuk menyimpan koordinat yang akan dikirim ke database -->
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+</div>
+                
                 <!-- SEGMENT 5: COMPRESSOR UPLOAD GAMBAR -->
                 <div class="section-title">Galeri Foto Properti</div>
                 <div class="form-group">
