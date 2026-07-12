@@ -1,21 +1,21 @@
 // teravia/assets/js/main.js
 
-// 1. Import modul keamanan proteksi membership
 import { initLayer1Protection, applyLayer2Protection } from './membership.js';
+// Import fungsi timer dari file utils
+import { initPromoCountdown } from './utils.js';
 
-/**
- * Global Initializer untuk TERAVIA
- * Berjalan otomatis di setiap halaman yang memanggil main.js
- */
 document.addEventListener('DOMContentLoaded', async () => {
     
-    // Jalankan Proteksi Layer 1 secara Global (Intersepsi klik tombol Pasang Iklan)
+    // 1. Jalankan Proteksi Layer 1 secara Global
     initLayer1Protection();
 
-    // Jalankan Proteksi Layer 2 khusus jika user berada di halaman pasang-iklan.html
+    // 2. Jalankan Proteksi Layer 2 khusus jika user berada di halaman pasang-iklan.html
     if (window.location.pathname.includes('pasang-iklan.html')) {
         await applyLayer2Protection();
     }
 
-    console.log("TERAVIA Core Engine & Membership Protection initialized successfully.");
+    // 3. Jalankan Timer Promo Countdown jika elemennya ada di halaman (seperti di index.html)
+    initPromoCountdown('promo-countdown', 2.75); // Target durasi 2 jam 45 menit
+
+    console.log("TERAVIA Core Engine & Premium Utilities initialized successfully.");
 });
