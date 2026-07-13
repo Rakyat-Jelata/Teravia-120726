@@ -4,128 +4,358 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upgrade Membership - TERAVIA</title>
+    <!-- Google Fonts untuk font yang lebih clean -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+        }
+
         body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: url('assets/img/hero-bg.png') no-repeat center center fixed; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 50%, #dbeafe 100%),
+                        url('assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
-            padding: 20px; 
-            color: #334155; 
+            padding: 40px 20px; 
+            color: var(--text-main); 
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 0;
         }
-        .container { max-width: 800px; width: 100%; }
+
+        .container { max-width: 680px; width: 100%; }
         
         .glass-card { 
-            background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
-            margin-bottom: 25px;
+            background: var(--bg-glass); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            padding: 35px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); 
+            margin-bottom: 30px;
+        }
+
+        h2.title {
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        p.subtitle {
+            margin: 0 0 28px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .form-group { margin-bottom: 24px; }
+        
+        label.section-label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 12px; 
+            color: var(--text-main); 
+            font-size: 15px;
+        }
+
+        /* Custom Radio Grid untuk Paket */
+        .packet-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media(max-width: 480px) {
+            .packet-grid { grid-template-columns: 1fr; }
+        }
+
+        .packet-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .packet-option input {
+            position: absolute;
+            opacity: 0;
+            width: 0; height: 0;
+        }
+
+        .packet-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid transparent;
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .packet-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .packet-option input:checked + .packet-card {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .packet-name { font-weight: 700; font-size: 16px; color: #1e293b; }
+        .packet-price { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        
+        .badge-discount {
+            font-size: 10px;
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 600;
+            align-self: flex-start;
+            margin-top: 4px;
+        }
+
+        /* Select Dropdown Modern */
+        .form-control { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 1px solid rgba(0, 0, 0, 0.08); 
+            border-radius: 14px; 
+            font-size: 15px; 
+            font-family: inherit;
+            background: rgba(255,255,255,0.7); 
+            color: var(--text-main);
+            outline: none;
+            cursor: pointer;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
         
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; color: #1e293b; }
-        .form-control { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; font-size: 16px; background: rgba(255,255,255,0.6); }
+        /* Display Total */
+        .price-display { 
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(37, 99, 235, 0.02) 100%);
+            padding: 20px; 
+            border-radius: 16px; 
+            text-align: center; 
+            margin: 28px 0; 
+            border: 1px solid rgba(37, 99, 235, 0.1); 
+        }
+        .price-display small { font-size: 13px; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 4px;}
+        .price-display h2 { margin: 0; color: var(--primary); font-size: 32px; font-weight: 800; }
         
-        .price-display { background: rgba(255, 255, 255, 0.5); padding: 15px; border-radius: 12px; text-align: center; margin: 20px 0; border: 1px solid rgba(255,255,255,0.8); }
-        .price-display h2 { margin: 0; color: #2563eb; font-size: 28px; }
-        
+        /* Tombol Premium */
         .btn-submit { 
             width: 100%; 
-            background-color: #2563eb; 
+            background: var(--primary); 
             color: white; 
             border: none; 
             padding: 16px; 
-            border-radius: 12px; 
-            font-size: 18px; 
-            font-weight: bold; 
+            border-radius: 14px; 
+            font-size: 16px; 
+            font-weight: 700; 
             cursor: pointer; 
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
+        .btn-submit:hover { 
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+        .btn-submit:active { transform: translateY(1px); }
 
-        /* Tabel Presisi */
+        /* Tabel Perbandingan Modern */
         .comparison-table { 
-            background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: blur(10px); 
-            padding: 20px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255, 255, 255, 0.3); 
-            overflow-x: auto; 
+            background: var(--bg-glass); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-glass); 
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
         }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { 
-            padding: 10px 5px; 
-            text-align: center; 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-            white-space: nowrap; 
-        }
-        th { color: #1e293b; font-weight: 700; }
+        .comparison-table h3 { font-size: 18px; font-weight: 700; margin: 0 0 20px 0; text-align: center;}
         
-        .price-original { text-decoration: line-through; color: #94a3b8; font-size: 0.8em; display: block; }
-        .price-discount { color: #dc2626; font-weight: bold; }
-        .note { margin-top: 20px; font-style: italic; color: #475569; font-size: 0.85em; text-align: center; }
+        .table-wrapper { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+        
+        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        th { color: var(--text-muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { font-weight: 500; }
+        
+        tr:last-child td { border-bottom: none; }
+        
+        .price-original { text-decoration: line-through; color: #94a3b8; font-size: 12px; margin-right: 4px; }
+        .price-discount { color: #ef4444; font-weight: 600; }
+        
+        /* Status Icons */
+        .icon-check { color: #10b981; fill: currentColor; width: 20px; height: 20px; }
+        .icon-cross { color: #cbd5e1; fill: currentColor; width: 18px; height: 18px; }
+
+        .note { 
+            margin-top: 24px; 
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 12px;
+            color: #475569; 
+            font-size: 13px; 
+            line-height: 1.5;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- Card Utama Form Upgrade -->
     <div class="glass-card">
-        <h2 style="margin-top:0; color: #1e293b;">Upgrade Membership</h2>
+        <h2 class="title">Upgrade Membership</h2>
+        <p class="subtitle">Pilih paket terbaik untuk tingkatkan konversi penjualan Anda</p>
+        
+        <!-- Pilihan Tipe Akun (Radio Grid menggantikan Select biasa) -->
         <div class="form-group">
-            <label>Pilih Tipe Akun</label>
-            <select id="select-paket" class="form-control" onchange="updateHarga()">
-                <option value="bronze" data-harga="Free">Bronze</option>
-                <option value="gold" data-harga="Rp 100.000">Gold</option>
-                <option value="silver" data-harga="Rp 250.000">Silver</option>
-                <option value="platinum" data-harga="Rp 500.000">Platinum</option>
+            <label class="section-label">Pilih Tipe Akun</label>
+            <div class="packet-grid">
+                
+                <label class="packet-option">
+                    <input type="radio" name="paket" value="bronze" data-harga="Free" checked onchange="updateHarga(this)">
+                    <div class="packet-card">
+                        <span class="packet-name">Bronze</span>
+                        <span class="packet-price">Gratis</span>
+                    </div>
+                </label>
+
+                <label class="packet-option">
+                    <input type="radio" name="paket" value="gold" data-harga="Rp 100.000" onchange="updateHarga(this)">
+                    <div class="packet-card">
+                        <span class="packet-name">Gold</span>
+                        <span class="packet-price">Rp 100.000</span>
+                        <span class="badge-discount">Hemat 50%</span>
+                    </div>
+                </label>
+
+                <label class="packet-option">
+                    <input type="radio" name="paket" value="silver" data-harga="Rp 250.000" onchange="updateHarga(this)">
+                    <div class="packet-card">
+                        <span class="packet-name">Silver</span>
+                        <span class="packet-price">Rp 250.000</span>
+                        <span class="badge-discount">Hemat 37%</span>
+                    </div>
+                </label>
+
+                <label class="packet-option">
+                    <input type="radio" name="paket" value="platinum" data-harga="Rp 500.000" onchange="updateHarga(this)">
+                    <div class="packet-card">
+                        <span class="packet-name">Platinum</span>
+                        <span class="packet-price">Rp 500.000</span>
+                        <span class="badge-discount">Hemat 37%</span>
+                    </div>
+                </label>
+
+            </div>
+        </div>
+
+        <!-- Metode Pembayaran -->
+        <div class="form-group">
+            <label class="section-label">Metode Pembayaran</label>
+            <select class="form-control">
+                <option>Virtual Account (BCA, Mandiri, BNI)</option>
+                <option>E-Wallet / QRIS (OVO, Dana, LinkAja)</option>
+                <option>Transfer Bank Manual</option>
             </select>
         </div>
+
+        <!-- Total Harga -->
         <div class="price-display">
             <small>Total Investasi</small>
             <h2 id="display-harga">Free</h2>
         </div>
-        <div class="form-group">
-            <label>Metode Pembayaran</label>
-            <select class="form-control">
-                <option>Transfer Bank BCA</option>
-                <option>E-Wallet (QRIS)</option>
-                <option>Virtual Account</option>
-            </select>
-        </div>
-        <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN</button>
+
+        <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN SEKARANG</button>
     </div>
 
+    <!-- Tabel Perbandingan Benefit -->
     <div class="comparison-table">
-        <h3 style="margin-top:0; text-align:center;">Perbandingan Benefit</h3>
-        <table>
-            <thead>
-                <tr><th>Tipe</th><th>Listing</th><th>Sundul</th><th>Harga</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Bronze</td><td>❌</td><td>❌</td><td>Free</td></tr>
-                <tr><td>Gold</td><td>✅ 10</td><td>✅ 10</td><td><span class="price-original">200rb</span><span class="price-discount">100.000</span></td></tr>
-                <tr><td>Silver</td><td>✅ 50</td><td>✅ 50</td><td><span class="price-original">400rb</span><span class="price-discount">250.000</span></td></tr>
-                <tr><td>Platinum</td><td>✅ 100</td><td>✅ 100</td><td><span class="price-original">800rb</span><span class="price-discount">500.000</span></td></tr>
-            </tbody>
-        </table>
+        <h3>Perbandingan Benefit Paket</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipe</th>
+                        <th style="text-align: center;">Listing</th>
+                        <th style="text-align: center;">Sundul</th>
+                        <th style="text-align: right;">Harga SpesiaL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 700;">Bronze</td>
+                        <td style="text-align: center;"><svg class="icon-cross" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg></td>
+                        <td style="text-align: center;"><svg class="icon-cross" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg></td>
+                        <td style="text-align: right; color: var(--text-muted);">Free</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #b45309;">Gold</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 10</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 10</td>
+                        <td style="text-align: right;"><span class="price-original">200rb</span><span class="price-discount">100.000</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #475569;">Silver</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 50</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 50</td>
+                        <td style="text-align: right;"><span class="price-original">400rb</span><span class="price-discount">250.000</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: var(--primary);">Platinum</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 100</td>
+                        <td style="text-align: center; color: #10b981; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 100</td>
+                        <td style="text-align: right;"><span class="price-original">800rb</span><span class="price-discount">500.000</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="note">
-            📢 <i>Catatan: Setiap listingan yang diupload ke database Teravia akan dibantu pemasarannya secara eksklusif menggunakan ads.</i>
+            <span>📢</span>
+            <span>Dengan bergabung, setiap listingan yang diupload ke database <strong>Teravia</strong> akan dibantu pemasarannya secara eksklusif menggunakan sistem Ads pintar kami.</span>
         </div>
     </div>
 </div>
 
 <script>
-    function updateHarga() {
-        const select = document.getElementById('select-paket');
-        document.getElementById('display-harga').innerText = select.options[select.selectedIndex].getAttribute('data-harga');
+    function updateHarga(element) {
+        const harga = element.getAttribute('data-harga');
+        document.getElementById('display-harga').innerText = harga;
     }
+
     function prosesUpgrade() {
-        localStorage.setItem('user_status', document.getElementById('select-paket').value);
-        alert('Upgrade berhasil!');
+        const pilihanPaket = document.querySelector('input[name="paket"]:checked').value;
+        localStorage.setItem('user_status', pilihanPaket);
+        alert('Upgrade ke paket ' + pilihanPaket.toUpperCase() + ' berhasil diproses!');
         window.location.href = 'pasang-iklan.html';
     }
 </script>
