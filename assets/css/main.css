@@ -1,0 +1,150 @@
+/* ==========================================================================
+   1. VARIABLES & CORE SETTINGS
+   ========================================================================== */
+:root {
+    /* Palette */
+    --color-primary: #3B82F6;       /* Biru Teravia sesuai screenshot */
+    --color-secondary: #10B981;     /* Hijau Teravia */
+    --color-bg-body: #F9FAFB;       /* Super Light Grey */
+    --color-text-dark: #1F2937;     /* High Contrast Text */
+    --color-text-muted: #6B7280;
+    
+    /* Strict Specification Border Radius */
+    --radius-button: 16px;          /* 14px - 18px */
+    --radius-card: 22px;            /* 20px - 24px */
+    --radius-search: 26px;          /* 24px - 28px */
+    --radius-input: 14px;           /* 14px - 16px */
+    
+    /* Premium Soft Shadows */
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.02);
+    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.06);
+    
+    --transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset Base */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+body { background-color: var(--color-bg-body); color: var(--color-text-dark); -webkit-font-smoothing: antialiased; }
+
+/* ==========================================================================
+   2. NAVBAR STYLE (Solid White, Premium & Clean)
+   ========================================================================== */
+.main-navbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid #F3F4F6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo-img { height: 40px; object-fit: contain; }
+.nav-links { display: flex; list-style: none; gap: 24px; }
+.nav-links a { text-decoration: none; color: var(--color-text-muted); font-weight: 500; font-size: 14px; transition: var(--transition); }
+.nav-links a.active, .nav-links a:hover { color: var(--color-primary); }
+
+.nav-actions { display: flex; align-items: center; gap: 16px; }
+.btn-secondary { background: #EFF6FF; color: var(--color-primary); border: none; padding: 10px 20px; border-radius: var(--radius-button); font-weight: 600; cursor: pointer; }
+.user-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.avatar { width: 32px; height: 32px; background: var(--color-primary); color: white; display: grid; place-items: center; border-radius: 50%; font-weight: bold; }
+
+/* ==========================================================================
+   3. HERO & SEARCH GLASSMORPHISM (Core Feature)
+   ========================================================================== */
+.hero-section {
+    background: url('../img/hero-bg.png') no-repeat center center;
+    background-size: cover;
+    padding: 80px 24px 120px 24px;
+    text-align: center;
+}
+.hero-text h1 { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+.hero-text p { color: var(--color-text-muted); margin-bottom: 40px; }
+.text-brand { color: var(--color-primary); font-weight: 600; }
+
+/* Search Tabs */
+.search-tabs { display: inline-flex; background: #FFFFFF; padding: 6px; border-radius: 16px; margin-bottom: -16px; position: relative; z-index: 2; box-shadow: var(--shadow-soft); }
+.tab-btn { border: none; background: transparent; padding: 10px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; color: var(--color-text-muted); }
+.tab-btn.active { background: var(--color-primary); color: #FFFFFF; }
+
+/* Glassmorphism Aksen pada Search Panel */
+.search-panel.glass-premium {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-search);
+    box-shadow: var(--shadow-premium);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 24px 24px;
+}
+.search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 120px; gap: 16px; text-align: left; }
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-group label { font-size: 12px; font-weight: 600; color: var(--color-text-muted); }
+.input-group input, .input-group select { border: 1px solid #E5E7EB; background: #FFFFFF; padding: 12px 16px; border-radius: var(--radius-input); outline: none; font-size: 14px; color: var(--color-text-dark); }
+
+.btn-search { background: var(--color-primary); color: white; border: none; border-radius: var(--radius-button); font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; margin-top: 18px; }
+
+.popular-tags { display: flex; gap: 8px; margin-top: 20px; align-items: center; font-size: 13px; color: var(--color-text-muted); }
+.tag { background: rgba(255, 255, 255, 0.6); padding: 6px 14px; border-radius: 20px; text-decoration: none; color: var(--color-text-dark); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
+.tag:hover { background: var(--color-primary); color: white; }
+
+/* ==========================================================================
+   4. LAYOUT MARKETPLACE (Solid Cards - No Glassmorphism)
+   ========================================================================== */
+.main-content-layout {
+    max-width: 1440px;
+    margin: 40px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+/* Card Properti Sesuai Aturan: Solid Background Putih */
+.property-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-card);
+    border: 1px solid #F3F4F6;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: var(--transition);
+}
+.property-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-premium); }
+.card-img-container { position: relative; height: 200px; background: #E5E7EB; }
+.card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+.badge { position: absolute; top: 12px; left: 12px; padding: 6px 14px; border-radius: 30px; color: white; font-size: 12px; font-weight: 600; }
+.badge-dijual { background: var(--color-primary); }
+.badge-disewa { background: var(--color-secondary); }
+
+.card-body { padding: 20px; }
+.card-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--color-text-dark); }
+.card-location { font-size: 13px; color: var(--color-text-muted); margin-bottom: 12px; }
+.card-specs { display: flex; gap: 16px; font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #F3F4F6; }
+
+.card-footer-price { display: flex; justify-content: space-between; align-items: center; }
+.price { font-size: 18px; font-weight: 700; color: var(--color-primary); }
+.cert { font-size: 11px; background: #F3F4F6; padding: 4px 8px; border-radius: 6px; font-weight: 600; color: var(--color-text-muted); }
+
+/* ==========================================================================
+   5. RESPONSIVE BREAKPOINTS (Mobile First Design)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .property-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+
+@media (min-width: 1024px) {
+    .main-content-layout { grid-template-columns: 2fr 1fr; }
+    .hero-text h1 { font-size: 48px; }
+}
+
+@media (min-width: 1440px) {
+    .property-grid { grid-template-columns: repeat(2, 1fr); } /* Menyesuaikan struktur 2 kolom sidebar */
+                                         }
+  
