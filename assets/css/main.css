@@ -1,150 +1,148 @@
 /* ==========================================================================
-   1. VARIABLES & CORE SETTINGS
+   1. ROOT & TOKEN CONFIGURATION
    ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-    /* Palette */
-    --color-primary: #3B82F6;       /* Biru Teravia sesuai screenshot */
-    --color-secondary: #10B981;     /* Hijau Teravia */
-    --color-bg-body: #F9FAFB;       /* Super Light Grey */
-    --color-text-dark: #1F2937;     /* High Contrast Text */
-    --color-text-muted: #6B7280;
+    --primary: #3B82F6;       /* Biru Teravia */
+    --secondary: #10B981;     /* Hijau Teravia */
+    --bg-gray: #F8FAFC;       /* Abu-abu Sangat Muda */
+    --text-dark: #0F172A;     /* Warna Teks Utama */
+    --text-muted: #64748B;
     
-    /* Strict Specification Border Radius */
-    --radius-button: 16px;          /* 14px - 18px */
-    --radius-card: 22px;            /* 20px - 24px */
-    --radius-search: 26px;          /* 24px - 28px */
-    --radius-input: 14px;           /* 14px - 16px */
+    /* Ukuran Border Radius Sesuai Ketentuan */
+    --r-button: 16px;         /* 14-18px */
+    --r-card: 22px;           /* 20-24px */
+    --r-search: 26px;         /* 24-28px */
+    --r-input: 14px;          /* 14-16px */
     
-    /* Premium Soft Shadows */
-    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.02);
-    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.06);
-    
-    --transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-soft: 0 4px 30px rgba(15, 23, 42, 0.03);
+    --shadow-premium: 0 25px 60px rgba(15, 23, 42, 0.06);
 }
 
-/* Reset Base */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-body { background-color: var(--color-bg-body); color: var(--color-text-dark); -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-gray); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+.container { max-width: 1440px; margin: 0 auto; padding: 0 40px; }
 
 /* ==========================================================================
-   2. NAVBAR STYLE (Solid White, Premium & Clean)
+   2. MAIN NAVBAR
    ========================================================================== */
-.main-navbar {
-    background: #FFFFFF;
-    border-bottom: 1px solid #F3F4F6;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-.navbar-container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.logo-img { height: 40px; object-fit: contain; }
-.nav-links { display: flex; list-style: none; gap: 24px; }
-.nav-links a { text-decoration: none; color: var(--color-text-muted); font-weight: 500; font-size: 14px; transition: var(--transition); }
-.nav-links a.active, .nav-links a:hover { color: var(--color-primary); }
+.main-navbar { background: #FFFFFF; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; }
+.nav-container { height: 80px; display: flex; align-items: center; justify-content: space-between; }
+.brand-logo img { height: 42px; object-fit: contain; }
+.nav-links { display: flex; list-style: none; gap: 32px; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 600; }
+.nav-links a.active, .nav-links a:hover { color: var(--primary); }
 
-.nav-actions { display: flex; align-items: center; gap: 16px; }
-.btn-secondary { background: #EFF6FF; color: var(--color-primary); border: none; padding: 10px 20px; border-radius: var(--radius-button); font-weight: 600; cursor: pointer; }
-.user-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.avatar { width: 32px; height: 32px; background: var(--color-primary); color: white; display: grid; place-items: center; border-radius: 50%; font-weight: bold; }
+.nav-actions { display: flex; align-items: center; gap: 20px; }
+.btn-wishlist { background: none; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text-dark); }
+.btn-pasang { background: #EFF6FF; color: var(--primary); border: none; padding: 12px 24px; border-radius: var(--r-button); font-weight: 700; cursor: pointer; }
+.user-profile { display: flex; align-items: center; gap: 8px; background: #F1F5F9; padding: 6px 14px; border-radius: 40px; cursor: pointer; }
+.avatar { width: 28px; height: 28px; background: var(--primary); color: white; display: grid; place-items: center; border-radius: 50%; font-size: 12px; font-weight: bold; }
+.username { font-size: 13px; font-weight: 600; }
+.chevron { font-size: 9px; color: var(--text-muted); }
 
 /* ==========================================================================
-   3. HERO & SEARCH GLASSMORPHISM (Core Feature)
+   3. HERO AREA WITH FLOATING SEARCH
    ========================================================================== */
-.hero-section {
-    background: url('../img/hero-bg.png') no-repeat center center;
-    background-size: cover;
-    padding: 80px 24px 120px 24px;
-    text-align: center;
-}
-.hero-text h1 { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
-.hero-text p { color: var(--color-text-muted); margin-bottom: 40px; }
-.text-brand { color: var(--color-primary); font-weight: 600; }
+.hero-section { background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%); padding-top: 50px; padding-bottom: 140px; position: relative; }
+.hero-content-wrapper { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 40px; }
+.hero-text h1 { font-size: 48px; font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 16px; }
+.hero-text p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.text-brand { color: var(--primary); font-weight: 700; }
+.hero-image-box { border-radius: var(--r-card); overflow: hidden; height: 440px; box-shadow: var(--shadow-premium); }
+.hero-image-box img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Search Tabs */
-.search-tabs { display: inline-flex; background: #FFFFFF; padding: 6px; border-radius: 16px; margin-bottom: -16px; position: relative; z-index: 2; box-shadow: var(--shadow-soft); }
-.tab-btn { border: none; background: transparent; padding: 10px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; color: var(--color-text-muted); }
-.tab-btn.active { background: var(--color-primary); color: #FFFFFF; }
+/* Floating Search Panel Placement */
+.floating-search-area { position: absolute; bottom: -80px; left: 40px; right: 40px; max-width: 1360px; margin: 0 auto; z-index: 10; }
+.search-tabs { display: flex; gap: 6px; margin-left: 24px; margin-bottom: -1px; }
+.tab-btn { border: none; background: #FFFFFF; padding: 12px 24px; border-radius: 14px 14px 0 0; font-size: 14px; font-weight: 700; color: var(--text-muted); cursor: pointer; box-shadow: 0 -4px 10px rgba(0,0,0,0.02); }
+.tab-btn.active { background: var(--primary); color: #FFFFFF; }
 
-/* Glassmorphism Aksen pada Search Panel */
-.search-panel.glass-premium {
-    background: rgba(255, 255, 255, 0.8);
+/* Glassmorphism Specification */
+.search-card.glass-premium {
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: var(--radius-search);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--r-search);
+    padding: 30px;
     box-shadow: var(--shadow-premium);
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 24px 24px 24px;
 }
-.search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) 120px; gap: 16px; text-align: left; }
-.input-group { display: flex; flex-direction: column; gap: 6px; }
-.input-group label { font-size: 12px; font-weight: 600; color: var(--color-text-muted); }
-.input-group input, .input-group select { border: 1px solid #E5E7EB; background: #FFFFFF; padding: 12px 16px; border-radius: var(--radius-input); outline: none; font-size: 14px; color: var(--color-text-dark); }
+.search-form { display: grid; grid-template-columns: repeat(4, 1fr) 100px; gap: 20px; align-items: flex-end; }
+.form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.form-group label { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+.form-group input, .form-group select { border: 1px solid #E2E8F0; background: #FFFFFF; padding: 14px 16px; border-radius: var(--r-input); font-size: 14px; color: var(--text-dark); outline: none; width: 100%; }
+.btn-search-submit { background: var(--primary); color: white; border: none; height: 48px; border-radius: var(--r-button); font-weight: 750; cursor: pointer; font-size: 15px; }
 
-.btn-search { background: var(--color-primary); color: white; border: none; border-radius: var(--radius-button); font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; margin-top: 18px; }
-
-.popular-tags { display: flex; gap: 8px; margin-top: 20px; align-items: center; font-size: 13px; color: var(--color-text-muted); }
-.tag { background: rgba(255, 255, 255, 0.6); padding: 6px 14px; border-radius: 20px; text-decoration: none; color: var(--color-text-dark); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
-.tag:hover { background: var(--color-primary); color: white; }
+.popular-tags { display: flex; gap: 10px; margin-top: 20px; align-items: center; font-size: 12px; color: var(--text-muted); }
+.popular-tags a { background: #FFFFFF; padding: 6px 14px; border-radius: 20px; text-decoration: none; color: var(--text-dark); border: 1px solid #E2E8F0; }
 
 /* ==========================================================================
-   4. LAYOUT MARKETPLACE (Solid Cards - No Glassmorphism)
+   4. CATEGORIES SECTION
    ========================================================================== */
-.main-content-layout {
-    max-width: 1440px;
-    margin: 40px auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-}
-
-/* Card Properti Sesuai Aturan: Solid Background Putih */
-.property-card {
-    background: #FFFFFF;
-    border-radius: var(--radius-card);
-    border: 1px solid #F3F4F6;
-    box-shadow: var(--shadow-soft);
-    overflow: hidden;
-    transition: var(--transition);
-}
-.property-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-premium); }
-.card-img-container { position: relative; height: 200px; background: #E5E7EB; }
-.card-img-container img { width: 100%; height: 100%; object-fit: cover; }
-.badge { position: absolute; top: 12px; left: 12px; padding: 6px 14px; border-radius: 30px; color: white; font-size: 12px; font-weight: 600; }
-.badge-dijual { background: var(--color-primary); }
-.badge-disewa { background: var(--color-secondary); }
-
-.card-body { padding: 20px; }
-.card-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--color-text-dark); }
-.card-location { font-size: 13px; color: var(--color-text-muted); margin-bottom: 12px; }
-.card-specs { display: flex; gap: 16px; font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #F3F4F6; }
-
-.card-footer-price { display: flex; justify-content: space-between; align-items: center; }
-.price { font-size: 18px; font-weight: 700; color: var(--color-primary); }
-.cert { font-size: 11px; background: #F3F4F6; padding: 4px 8px; border-radius: 6px; font-weight: 600; color: var(--color-text-muted); }
+.categories-section { padding-top: 140px; padding-bottom: 40px; }
+.categories-container { display: flex; justify-content: space-between; gap: 16px; }
+.cat-card { flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: var(--r-card); padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow-soft); transition: all 0.2s; }
+.cat-card.active { background: #EFF6FF; border-color: var(--primary); color: var(--primary); font-weight: 700; }
+.cat-icon-box { font-size: 24px; }
 
 /* ==========================================================================
-   5. RESPONSIVE BREAKPOINTS (Mobile First Design)
+   5. MARKETPLACE CONTENT GRID (Solid White Cards)
    ========================================================================== */
-@media (min-width: 768px) {
-    .property-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-}
+.main-marketplace-content { padding-bottom: 60px; }
+.content-grid { display: grid; grid-template-columns: 2.8fr 1fr; gap: 32px; }
 
-@media (min-width: 1024px) {
-    .main-content-layout { grid-template-columns: 2fr 1fr; }
-    .hero-text h1 { font-size: 48px; }
-}
+.column-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; }
+.column-header h2 { font-size: 24px; font-weight: 800; }
+.column-header p { font-size: 14px; color: var(--text-muted); }
+.see-all { text-decoration: none; color: var(--primary); font-weight: 700; font-size: 14px; }
 
-@media (min-width: 1440px) {
-    .property-grid { grid-template-columns: repeat(2, 1fr); } /* Menyesuaikan struktur 2 kolom sidebar */
-                                         }
-  
+.property-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+/* Strict Rule: Solid Background White Card for Readability */
+.property-card-solid { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: var(--r-card); overflow: hidden; box-shadow: var(--shadow-soft); transition: all 0.2s; }
+.property-card-solid:hover { transform: translateY(-4px); box-shadow: var(--shadow-premium); }
+.thumb-area { height: 220px; background: #E2E8F0; position: relative; }
+.badge { position: absolute; top: 16px; left: 16px; padding: 6px 14px; border-radius: 30px; color: white; font-size: 11px; font-weight: 700; }
+.badge-blue { background: var(--primary); }
+.badge-green { background: var(--secondary); }
+.fav-btn { position: absolute; top: 16px; right: 16px; border: none; background: white; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-soft); }
+
+.body-area { padding: 24px; }
+.body-area h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.loc-text { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.spec-row { display: flex; gap: 16px; font-size: 13px; color: var(--text-muted); padding-bottom: 16px; border-bottom: 1px solid #F1F5F9; margin-bottom: 16px; }
+.price-row { display: flex; justify-content: space-between; align-items: center; }
+.price-val { font-size: 18px; font-weight: 800; color: var(--primary); }
+.cert-val { font-size: 11px; background: #F1F5F9; padding: 4px 10px; border-radius: 6px; font-weight: 700; color: var(--text-muted); }
+
+.slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 32px; }
+.dot { width: 8px; height: 8px; background: #CBD5E1; border-radius: 50%; }
+.dot.active { background: var(--primary); width: 24px; border-radius: 10px; }
+
+/* ==========================================================================
+   6. SIDEBAR COMPONENT
+   ========================================================================== */
+.sidebar-column { display: flex; flex-direction: column; gap: 32px; }
+.widget-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: var(--r-card); padding: 24px; box-shadow: var(--shadow-soft); }
+.widget-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.widget-title-row h3 { font-size: 16px; font-weight: 800; }
+.widget-title-row a { text-decoration: none; font-size: 13px; color: var(--primary); font-weight: 600; }
+.widget-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.widget-list li { display: flex; justify-content: space-between; font-size: 14px; padding-bottom: 10px; border-bottom: 1px solid #F8FAFC; }
+
+.widget-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.map-box-mock { height: 160px; background: #E2E8F0; border-radius: var(--r-input); position: relative; overflow: hidden; }
+.map-inner-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.05); display: grid; place-items: center; }
+.btn-map-trigger { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: var(--r-button); font-weight: 700; cursor: pointer; }
+
+/* ==========================================================================
+   7. FOOTER PREMIUM BANNER
+   ========================================================================== */
+.premium-cta-section { padding-bottom: 80px; }
+.cta-banner-card { background: #EFF6FF; border: 1px solid #DBEAFE; border-radius: var(--r-card); padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; }
+.cta-info { display: flex; gap: 40px; }
+.cta-icon-item { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; }
+.btn-premium-action { background: var(--primary); color: white; border: none; padding: 14px 28px; border-radius: var(--r-button); font-weight: 700; cursor: pointer; }
+                      
