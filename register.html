@@ -3,206 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun Baru - TERAVIA</title>
+    <title>Register Member - TERAVIA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #3dfff9;
-            --primary-hover: #00e5de;
-            --bg-panel: #0300D6;
-            --text-main: #0f172a;
-        }
-
+        /* Gaya dasar diimpor sama agar konsisten */
+        :root { --primary: #3dfff9; --white: #ffffff; }
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
-
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(3, 0, 214, 0.2) 100%),
+                        url('assets/img/hero-bg.png') no-repeat center center fixed; 
+            background-size: cover; min-height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; padding: 40px 20px;
         }
-
-        .register-card {
-            background: var(--bg-panel);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 40px 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(3, 0, 214, 0.3);
-            max-width: 460px;
-            width: 100%;
-            text-align: center;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25); padding: 40px 35px; border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); max-width: 440px; width: 100%; text-align: center;
         }
-
-        .logo-placeholder {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-        .logo-placeholder span { color: var(--primary); }
-
-        .register-card p {
-            margin: 0 0 32px 0;
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: inherit;
-            background: rgba(0, 0, 0, 0.2);
-            color: #ffffff;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(61, 255, 249, 0.3);
-        }
-
-        .btn-register {
-            width: 100%;
-            background: var(--primary);
-            color: var(--text-main);
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 14px rgba(61, 255, 249, 0.3);
-        }
-
-        .btn-register:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(61, 255, 249, 0.5);
-        }
-
-        .error-msg {
-            color: #ff4a4a;
-            font-size: 13px;
-            margin-bottom: 16px;
-            display: none;
-            font-weight: 600;
-        }
-
-        .footer-links {
-            margin-top: 24px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        .footer-links a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
+        .logo-img { height: 45px; width: auto; margin-bottom: 25px; }
+        .form-title { font-size: 26px; font-weight: 700; color: var(--white); margin: 0 0 35px 0; }
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 5px; color: rgba(255, 255, 255, 0.85); font-size: 14px; }
+        .form-control { width: 100%; padding: 10px 0; border: none; border-bottom: 2px solid rgba(255, 255, 255, 0.4); font-size: 16px; font-family: inherit; background: transparent; color: var(--white); outline: none; }
+        .form-control:focus { border-bottom-color: var(--primary); }
+        .btn-submit { width: 100%; background: var(--white); color: #0300D6; border: none; padding: 14px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); }
+        .btn-submit:hover { background: var(--primary); color: #0f172a; }
+        .footer-text { margin-top: 30px; font-size: 13px; color: rgba(255, 255, 255, 0.7); }
+        .footer-text a { color: var(--white); text-decoration: none; font-weight: 700; }
+        .footer-text a:hover { color: var(--primary); text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="register-card">
-    <div class="logo-placeholder">TERA<span>VIA</span></div>
-    <p>Mulai langkah Anda untuk memasarkan properti secara cerdas</p>
-    
-    <div id="error-box" class="error-msg"></div>
+<div class="glass-card">
+    <img src="assets/img/logo.png" alt="TERAVIA Logo" class="logo-img" onerror="this.style.display='none'">
+    <h1 class="form-title">Register</h1>
 
-    <form id="member-register-form" onsubmit="handleRegister(event)">
+    <form onsubmit="handleRegister(event)">
         <div class="form-group">
             <label for="fullname">Nama Lengkap</label>
-            <input type="text" id="fullname" class="form-control" placeholder="Masukkan nama lengkap Anda" required autocomplete="name">
+            <input type="text" id="fullname" class="form-control" required>
         </div>
 
         <div class="form-group">
-            <label for="email">Alamat Email</label>
-            <input type="email" id="email" class="form-control" placeholder="nama@email.com" required autocomplete="email">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" required>
         </div>
         
         <div class="form-group">
             <label for="password">Password Baru</label>
-            <input type="password" id="password" class="form-control" placeholder="Minimal 6 karakter" minlength="6" required>
-        </div>
-
-        <div class="form-group">
-            <label for="confirm-password">Konfirmasi Password</label>
-            <input type="password" id="confirm-password" class="form-control" placeholder="Ulangi password baru" required>
+            <input type="password" id="password" class="form-control" minlength="6" required>
         </div>
         
-        <button type="submit" class="btn-register">DAFTAR SEKARANG</button>
+        <button type="submit" class="btn-submit">Register</button>
     </form>
 
-    <div class="footer-links">
-        Sudah memiliki akun? <a href="login.html">Masuk di sini</a>
+    <div class="footer-text">
+        Already have an account? <a href="login.html">Login</a>
     </div>
 </div>
 
 <script>
     function handleRegister(e) {
         e.preventDefault();
-        const name = document.getElementById('fullname').value;
         const email = document.getElementById('email').value;
-        const pass = document.getElementById('password').value;
-        const confirmPass = document.getElementById('confirm-password').value;
-        const errorBox = document.getElementById('error-box');
-
-        // Validasi kecocokan password
-        if (pass !== confirmPass) {
-            errorBox.style.display = 'block';
-            errorBox.innerText = "Konfirmasi password tidak cocok!";
-            
-            // Efek shake error
-            const card = document.querySelector('.register-card');
-            card.style.transform = 'translateX(6px)';
-            setTimeout(() => card.style.transform = 'translateX(-6px)', 50);
-            setTimeout(() => card.style.transform = 'translateX(0)', 100);
-            return;
-        }
-
-        errorBox.style.display = 'none';
-        
-        // Simulasi pendaftaran berhasil: simpan data user dan set otomatis login
         localStorage.setItem('is_member_logged_in', 'true');
         localStorage.setItem('member_email', email);
-        localStorage.setItem('member_name', name);
-        localStorage.setItem('user_status', 'bronze'); // Setiap user baru mulai dari level Bronze
-
-        alert('Registrasi Berhasil! Selamat bergabung di TERAVIA.');
-        // Langsung arahkan masuk ke halaman dashboard member
+        localStorage.setItem('user_status', 'bronze');
+        alert('Registrasi sukses!');
         window.location.href = 'pages/dashboard-member.html';
     }
 </script>
 
 </body>
 </html>
-
