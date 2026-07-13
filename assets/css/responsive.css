@@ -1,10 +1,8 @@
 /* teravia/assets/css/responsive.css */
 
 /* ==========================================
-   BREAKPOINT: 320px, 375px, 425px (Mobile View)
+   BREAKPOINT MIKRO: 320px Ke Atas (Mobile View)
    ========================================== */
-/* Kategori mobile sudah ter-cover oleh mobile-first style di main.css & component.css. 
-   Kita hanya memberikan optimalisasi padding mikro agar tidak ada elemen yang terpotong. */
 @media screen and (min-width: 320px) {
     .hero-content h1 {
         font-size: 1.75rem;
@@ -14,85 +12,129 @@
     }
 }
 
-/* --- COMPONENT FORCE DISPLAY HAMBURGER ON MOBILE --- */
+/* ==========================================
+   BREAKPOINT MAX: 767px Ke Bawah (Khusus Tampilan HP)
+   ========================================== */
 @media screen and (max-width: 767px) {
-    /* Paksa tombol hamburger muncul, diberi ukuran & posisi jelas */
+    .navbar-desktop-only {
+        display: none !important; /* Hapus menu versi desktop total di layar HP */
+    }
+
     .menu-toggle {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        cursor: pointer !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 5px !important;
-        width: 30px !important;
-        height: 30px !important;
-        position: relative !important;
-        z-index: 1002 !important;
+        display: flex !important; /* Munculkan hamburger di HP */
     }
 
-    /* Paksa garis hamburger memiliki warna gelap dan ukuran yang kelihatan */
-    .menu-toggle .bar {
-        display: block !important;
-        width: 25px !important;
-        height: 3px !important;
-        background-color: #1e293b !important; /* Warna charcoal/gelap biar kontras */
-        margin: 4px 0 !important;
-        transition: all 0.3s ease !important;
-        border-radius: 2px !important;
-    }
-
-    /* Menyembunyikan menu bawaan sebelum di-klik */
-    .navbar-responsive-wrapper {
+    /* Sistem Dropdown Khusus Mobile */
+    .navbar-mobile-dropdown {
         position: absolute !important;
         top: 100% !important;
         left: 0 !important;
         right: 0 !important;
-        background-color: #ffffff !important;
+        background-color: var(--surface-white, #ffffff) !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         max-height: 0 !important;
         overflow: hidden !important;
-        transition: max-height 0.3s ease-in-out !important;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05) !important;
-        z-index: 1001 !important;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease !important;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08) !important;
+        z-index: 1000 !important;
         padding: 0 !important;
     }
 
-    /* Ketika hamburger aktif dibuka */
-    .navbar-responsive-wrapper.active {
+    /* Trigger Aktif via JS */
+    .navbar-mobile-dropdown.active {
         max-height: 400px !important;
         padding: 1.5rem 0 !important;
     }
 
+    .navbar-mobile-dropdown a {
+        display: block !important;
+        padding: 0.75rem 0 !important;
+        color: var(--text-main, #334155) !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+        width: 85% !important;
+        text-align: center !important;
+    }
+
+    .navbar-mobile-dropdown .btn-pasang-iklan {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .navbar-mobile-dropdown .btn-login {
+        box-sizing: border-box !important;
+    }
+
+    /* Animasi Hamburger Transform ke X */
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
+}
+
+/* ==========================================
+   BREAKPOINT: 768px Ke Atas (Tablet & Desktop Setup)
+   ========================================== */
+@media screen and (min-width: 768px) {
+    .navbar-mobile-dropdown {
+        display: none !important; /* Sembunyikan dropdown mobile di desktop */
+    }
+
+    .navbar-container {
+        padding: 1rem 3rem;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    /* Menggeser Sejajar ke Kanan Mendekati Tombol Pasang Iklan */
+    .navbar-desktop-only {
+        display: flex !important;
+        align-items: center !important;
+        flex-grow: 1 !important;
+        justify-content: flex-end !important;
+    }
+
     .navbar-menu {
         display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 1.25rem !important;
-        margin-bottom: 1.5rem !important;
-        margin-right: 0 !important;
+        gap: 2rem !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        color: var(--text-main) !important;
+        margin-right: 2.5rem !important; /* Dorong menu merapat dekat tombol */
     }
 
     .navbar-actions {
         display: flex !important;
-        flex-direction: column !important;
-        width: 85 !important;
-        gap: 0.75rem !important;
+        gap: 1rem !important;
+        align-items: center !important;
     }
 
-    .navbar-actions a {
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
+    .navbar-menu a:hover {
+        color: var(--accent-color) !important;
     }
 
-    /* Animasi X saat aktif */
-    .menu-toggle.active .bar:nth-child(1) { transform: translateY(11px) rotate(45deg) !important; }
-    .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
-    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg) !important; }
+    /* Hero Section */
+    .hero-section {
+        padding: 6rem 2rem;
+    }
+    .hero-content h1 {
+        font-size: 2.75rem;
+    }
+
+    /* Grid Paket Premium Layer 2 */
+    .paket-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    /* Widget Dashboard Membership */
+    .widget-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
 }
 
 /* ==========================================
@@ -102,19 +144,13 @@
     .container {
         padding: 0 2rem;
     }
-
-    /* Hero Content Optimization */
     .hero-section {
         padding: 8rem 2rem;
     }
-
-    /* Grid Paket Premium Layer 2 (Split Menjadi 4 Kolom Sejajar pada Layar Lebar) */
     .paket-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
     }
-
-    /* Penyesuaian Ukuran Card Utama di Halaman Pasang Iklan */
     .premium-card {
         max-width: 600px;
         padding: 2.5rem;
@@ -126,102 +162,18 @@
    ========================================== */
 @media screen and (min-width: 1440px) {
     .container {
-        max-width: 1340px; /* Memberikan bentangan ruang yang lebih lega dan premium */
+        max-width: 1340px;
     }
-    
     .hero-content h1 {
         font-size: 3.5rem;
     }
-
     .card-paket-item {
         padding: 2rem 1.5rem;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    /* Efek Hover Halus Menjaga Tampilan Tetap Profesional & Tidak Berlebihan */
     .card-paket-item:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
     }
 }
 
-/* --- STYLE UNTUK MOBILE VIEW ONLY (Di bawah tablet) --- */
-@media screen and (max-width: 767px) {
-    .menu-toggle {
-        display: flex; /* Munculkan hamburger di HP */
-    }
-
-    .navbar-responsive-wrapper {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: var(--surface-white, #ffffff);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-in-out, padding 0.3s ease;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-        z-index: 999;
-    }
-
-    /* Ketika Hamburger Aktif Terbuka */
-    .navbar-responsive-wrapper.active {
-        max-height: 400px;
-        padding: 1.5rem 0;
-    }
-
-    .navbar-menu {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.25rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .navbar-menu a {
-        display: block;
-        font-weight: 500;
-        color: var(--text-main);
-        text-decoration: none;
-    }
-
-    .navbar-actions {
-        display: flex;
-        flex-direction: column;
-        width: 85%;
-        gap: 0.75rem;
-    }
-
-    /* Tombol memanjang rapi menyesuaikan layar HP */
-    .navbar-actions a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-    }
-
-    /* Efek Transisi Hamburger menjadi X */
-    .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-   }
-
-   /* --- FORCE DISPLAY HAMBURGER ON MOBILE --- */
-@media screen and (max-width: 767px) {
-    .menu-toggle {
-        display: flex !important; /* Memaksa hamburger muncul di bawah 768px */
-    }
-    
-    .navbar-menu {
-        display: flex !important; /* Memaksa menu vertikal muncul saat aktif */
-    }
-
-    /* Menyembunyikan wrapper utama sebelum hamburger diklik */
-    .navbar-responsive-wrapper {
-        display: flex !important; /* Tetap flex agar susunan vertikal rapi */
-    }
-}
-   
