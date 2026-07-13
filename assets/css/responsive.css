@@ -14,53 +14,86 @@
     }
 }
 
-/* ==========================================
-   BREAKPOINT: 768px (Tablet View)
-   ========================================== */
-@media screen and (min-width: 768px) {
-    /* Navbar Desktop Setup */
-    .navbar-container {
-        padding: 1rem 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+/* --- COMPONENT FORCE DISPLAY HAMBURGER ON MOBILE --- */
+@media screen and (max-width: 767px) {
+    /* Paksa tombol hamburger muncul, diberi ukuran & posisi jelas */
+    .menu-toggle {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 5px !important;
+        width: 30px !important;
+        height: 30px !important;
+        position: relative !important;
+        z-index: 1002 !important;
     }
 
-    /* Mendorong menu ke kanan mendekati tombol */
+    /* Paksa garis hamburger memiliki warna gelap dan ukuran yang kelihatan */
+    .menu-toggle .bar {
+        display: block !important;
+        width: 25px !important;
+        height: 3px !important;
+        background-color: #1e293b !important; /* Warna charcoal/gelap biar kontras */
+        margin: 4px 0 !important;
+        transition: all 0.3s ease !important;
+        border-radius: 2px !important;
+    }
+
+    /* Menyembunyikan menu bawaan sebelum di-klik */
     .navbar-responsive-wrapper {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        background-color: #ffffff !important;
         display: flex !important;
-        align-items: center;
-        flex-grow: 1;
-        justify-content: flex-end;
-        position: static !important;
-        box-shadow: none !important;
-        max-height: none !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        transition: max-height 0.3s ease-in-out !important;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05) !important;
+        z-index: 1001 !important;
         padding: 0 !important;
-        background: transparent !important;
+    }
+
+    /* Ketika hamburger aktif dibuka */
+    .navbar-responsive-wrapper.active {
+        max-height: 400px !important;
+        padding: 1.5rem 0 !important;
     }
 
     .navbar-menu {
-        display: flex;
-        gap: 2rem;
-        font-weight: 500;
-        font-size: 0.95rem;
-        color: var(--text-main);
-        margin-right: 2.5rem; /* Menggeser menu mendekati tombol pasang iklan */
-    }
-    
-    .navbar-actions {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-    
-    .navbar-menu a:hover {
-        color: var(--accent-color);
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.25rem !important;
+        margin-bottom: 1.5rem !important;
+        margin-right: 0 !important;
     }
 
-    .menu-toggle {
-        display: none !important; /* Sembunyikan hamburger di desktop */
+    .navbar-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 85 !important;
+        gap: 0.75rem !important;
     }
+
+    .navbar-actions a {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* Animasi X saat aktif */
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(11px) rotate(45deg) !important; }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg) !important; }
+}
 
 /* ==========================================
    BREAKPOINT: 1024px (Desktop Laptop View)
