@@ -10,65 +10,71 @@
             background: url('assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
-            padding: 40px 20px; 
+            padding: 20px; 
             color: #334155; 
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .container { max-width: 800px; width: 100%; margin: 0 auto; }
+        .container { max-width: 800px; width: 100%; }
         
-        /* Glassmorphism Cards */
         .glass-card { 
-            background: rgba(255, 255, 255, 0.7); 
+            background: rgba(255, 255, 255, 0.75); 
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 40px; 
+            padding: 30px; 
             border-radius: 20px; 
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2); 
-            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15); 
+            margin-bottom: 25px;
         }
         
-        .form-group { margin-bottom: 25px; }
-        label { display: block; font-weight: 600; margin-bottom: 10px; color: #1e293b; }
-        .form-control { width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; font-size: 16px; background: rgba(255,255,255,0.6); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #1e293b; }
+        .form-control { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; font-size: 16px; background: rgba(255,255,255,0.6); }
         
-        .price-display { background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 12px; text-align: center; margin: 25px 0; border: 1px solid rgba(255,255,255,0.8); }
-        .price-display h2 { margin: 0; color: #2563eb; font-size: 32px; }
+        .price-display { background: rgba(255, 255, 255, 0.5); padding: 15px; border-radius: 12px; text-align: center; margin: 20px 0; border: 1px solid rgba(255,255,255,0.8); }
+        .price-display h2 { margin: 0; color: #2563eb; font-size: 28px; }
         
         .btn-submit { 
             width: 100%; 
             background-color: #2563eb; 
             color: white; 
             border: none; 
-            padding: 18px; 
+            padding: 16px; 
             border-radius: 12px; 
             font-size: 18px; 
             font-weight: bold; 
             cursor: pointer; 
-            transition: 0.3s; 
         }
-        .btn-submit:hover { background-color: #1d4ed8; }
 
-        /* Tabel Styling */
-        .comparison-table { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        th { color: #1e293b; }
+        /* Tabel Presisi */
+        .comparison-table { 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(10px); 
+            padding: 20px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            overflow-x: auto; 
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+        th, td { 
+            padding: 10px 5px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+            white-space: nowrap; 
+        }
+        th { color: #1e293b; font-weight: 700; }
         
-        .price-original { text-decoration: line-through; color: #94a3b8; font-size: 0.85em; display: block; }
+        .price-original { text-decoration: line-through; color: #94a3b8; font-size: 0.8em; display: block; }
         .price-discount { color: #dc2626; font-weight: bold; }
-        .note { margin-top: 25px; font-style: italic; color: #475569; font-size: 0.9em; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
+        .note { margin-top: 20px; font-style: italic; color: #475569; font-size: 0.85em; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Section Pembayaran -->
     <div class="glass-card">
         <h2 style="margin-top:0; color: #1e293b;">Upgrade Membership</h2>
-        
         <div class="form-group">
             <label>Pilih Tipe Akun</label>
             <select id="select-paket" class="form-control" onchange="updateHarga()">
@@ -78,12 +84,10 @@
                 <option value="platinum" data-harga="Rp 500.000">Platinum</option>
             </select>
         </div>
-
         <div class="price-display">
             <small>Total Investasi</small>
             <h2 id="display-harga">Free</h2>
         </div>
-
         <div class="form-group">
             <label>Metode Pembayaran</label>
             <select class="form-control">
@@ -92,21 +96,14 @@
                 <option>Virtual Account</option>
             </select>
         </div>
-
         <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN</button>
     </div>
 
-    <!-- Section Perbandingan -->
     <div class="comparison-table">
-        <h3 style="margin-top:0;">Perbandingan Benefit</h3>
+        <h3 style="margin-top:0; text-align:center;">Perbandingan Benefit</h3>
         <table>
             <thead>
-                <tr>
-                    <th>Tipe Akun</th>
-                    <th>Fitur Listing</th>
-                    <th>Fitur Sundul</th>
-                    <th>Harga</th>
-                </tr>
+                <tr><th>Tipe</th><th>Listing</th><th>Sundul</th><th>Harga</th></tr>
             </thead>
             <tbody>
                 <tr><td>Bronze</td><td>❌</td><td>❌</td><td>Free</td></tr>
@@ -124,17 +121,13 @@
 <script>
     function updateHarga() {
         const select = document.getElementById('select-paket');
-        const harga = select.options[select.selectedIndex].getAttribute('data-harga');
-        document.getElementById('display-harga').innerText = harga;
+        document.getElementById('display-harga').innerText = select.options[select.selectedIndex].getAttribute('data-harga');
     }
-
     function prosesUpgrade() {
-        const paket = document.getElementById('select-paket').value;
-        localStorage.setItem('user_status', paket);
-        alert('Upgrade berhasil! Akun Anda kini paket ' + paket.toUpperCase());
+        localStorage.setItem('user_status', document.getElementById('select-paket').value);
+        alert('Upgrade berhasil!');
         window.location.href = 'pasang-iklan.html';
     }
 </script>
-
 </body>
 </html>
