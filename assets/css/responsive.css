@@ -175,4 +175,20 @@
     .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
     .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
    }
+
+   /* --- FORCE DISPLAY HAMBURGER ON MOBILE --- */
+@media screen and (max-width: 767px) {
+    .menu-toggle {
+        display: flex !important; /* Memaksa hamburger muncul di bawah 768px */
+    }
+    
+    .navbar-menu {
+        display: flex !important; /* Memaksa menu vertikal muncul saat aktif */
+    }
+
+    /* Menyembunyikan wrapper utama sebelum hamburger diklik */
+    .navbar-responsive-wrapper {
+        display: flex !important; /* Tetap flex agar susunan vertikal rapi */
+    }
+}
    
