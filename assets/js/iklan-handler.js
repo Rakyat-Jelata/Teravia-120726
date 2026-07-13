@@ -96,10 +96,17 @@ function animateSpecTransition(container, newHtml) {
 
 function toggleJudulFieldVisibility(isAuto) {
     const judulInput = document.getElementById('judul');
+    if (!judulInput) return;
+
+    // Pastikan ukuran lebar input tetap penuh dan terlihat normal
+    judulInput.style.width = "100%";
+    judulInput.style.display = "block";
+
     if (isAuto) {
-        judulInput.placeholder = "✨ Judul akan dibuat otomatis berdasarkan spesifikasi Anda...";
-        judulInput.readOnly = true;
-        judulInput.style.backgroundColor = "#f1f5f9";
+        // Tetap bisa diketik manual, tapi diberi petunjuk dan warna latar pembeda
+        judulInput.placeholder = "✨ Ketik judul di sini, atau biarkan sistem membuatkannya otomatis saat dikirim...";
+        judulInput.readOnly = false; // 🔓 Diubah jadi false agar tetap bisa diketik manual
+        judulInput.style.backgroundColor = "#f8fafc"; // Warna abu-abu terang yang lembut
     } else {
         judulInput.placeholder = "Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun";
         judulInput.readOnly = false;
@@ -107,6 +114,7 @@ function toggleJudulFieldVisibility(isAuto) {
         judulInput.value = "";
     }
 }
+
 
 /**
  * Engine Integrasi API Wilayah Indonesia
