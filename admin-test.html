@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin Test</title>
+</head>
+<body>
+    <h1>Panel Admin</h1>
+    <button onclick="setAdminAccess()">Aktifkan Akses Admin</button>
+    <script>
+        function setAdminAccess() {
+            localStorage.setItem('user_status', 'admin');
+            alert('Akses admin diaktifkan! Anda sekarang bisa mengakses halaman pasang iklan.');
+            window.location.href = 'pasang-iklan.html';
+        }
+    </script>
+</body>
+</html>
+
