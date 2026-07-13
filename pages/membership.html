@@ -3,149 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upgrade Premium - TERAVIA STARTER</title>
-    <!-- Hubungkan CSS Global Anda di sini (sesuaikan jalurnya jika ada file css terpisah) -->
-    <link rel="stylesheet" href="../assets/css/style.css"> 
-        <style>
-        /* Gaya khusus halaman pembayaran agar rapi, scannable & premium */
-        body {
-            background-color: #f8fafc; /* Warna latar belakang agar komponen card lebih menonjol */
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .pay-container { 
-            max-width: 520px; /* Dipersempit sedikit agar layout card terlihat lebih proporsional di mobile */
-            margin: 50px auto; 
-            padding: 0 20px; 
-        }
-        .card-pay { 
-            background: #fff; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Menggunakan bayangan ultra-soft agar terkesan clean */
-            padding: 35px 25px; 
-            border: 1px solid #eef2f5; 
-        }
-        .text-center { text-align: center; }
-        
-        /* Badge atas disesuaikan dengan aksen biru premium Teravia */
-        .badge-starter { 
-            background: #e0f2fe; 
-            color: #0369a1; 
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            font-size: 13px; 
-            letter-spacing: 0.5px;
-        }
-        
-        /* Box harga dibuat lebih kontras dan rapi */
-        .price-box { 
-            margin: 25px 0; 
-            background: #f8fafc; 
-            padding: 18px; 
-            border-radius: 12px; 
-            border: 1px dashed #cbd5e1;
-        }
-        .method-group { margin: 25px 0; }
-        
-        /* Komponen pilihan pembayaran dengan efek transisi micro-interaction */
-        .method-option { 
-            display: flex; 
-            align-items: center; 
-            padding: 16px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 12px; 
-            margin-bottom: 12px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-        }
-        
-        /* Efek saat jari menekan atau kursor mendekati pilihan */
-        .method-option:hover { 
-            border-color: #3b82f6; 
-            background: #f0fdf4; /* Warna hijau/biru tipis pertanda area interaktif */
-            transform: translateY(-1px);
-        }
-        
-        .method-option input { 
-            margin-right: 15px; 
-            transform: scale(1.25); 
-            accent-color: #3b82f6; /* Warna radio button mengikuti tema modern */
-        }
-        
-        /* Desain tombol utama dengan efek gradasi dan bayangan timbul */
-        .btn-pay { 
-            width: 100%; 
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
-            color: white; 
-            border: none; 
-            padding: 16px; 
-            border-radius: 12px; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            transition: all 0.25s ease; 
-        }
-        .btn-pay:hover { 
-            background: linear-gradient(135deg, #2563eb, #1e40af); 
-            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
-            transform: translateY(-1.5px);
-        }
-        .btn-pay:disabled {
-            background: #94a3b8;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        .loading-overlay { display: none; margin-top: 15px; color: #64748b; font-style: italic; font-size: 14px; }
+    <title>Pilih Paket Membership - TERAVIA</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .membership-container { max-width: 900px; width: 95%; text-align: center; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; transition: 0.3s; }
+        .card:hover { border-color: #2563eb; transform: translateY(-5px); }
+        .card h3 { color: #1e293b; margin-bottom: 10px; }
+        .price { font-size: 24px; font-weight: bold; color: #2563eb; margin: 15px 0; }
+        .btn-select { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; }
     </style>
-
 </head>
 <body>
 
-    <div class="pay-container">
-        <div class="card-pay">
-            <div class="text-center">
-                <span class="badge-starter">💎 MEMBERSHIP PREMIUM</span>
-                <h2 style="margin: 10px 0 5px 0;">Upgrade ke TERAVIA STARTER</h2>
-                <p style="color: #666; font-size: 14px;">Buka akses penuh untuk memasang iklan properti Anda selamanya.</p>
-            </div>
+<div class="membership-container">
+    <h1>Pilih Tipe Akun Anda</h1>
+    <p>Upgrade untuk membuka akses penuh ke fitur pasang iklan premium kami.</p>
 
-            <div class="price-box text-center">
-                <p style="margin: 0; color: #888; text-decoration: line-through;">Rp 500.000</p>
-                <h1 style="margin: 5px 0; color: #2c3e50;">Rp 50.000 <span style="font-size: 16px; color: #27ae60;">/ Sekali Bayar</span></h1>
-            </div>
+    <div class="pricing-grid">
+        <!-- Paket Free -->
+        <div class="card">
+            <h3>Basic (Free)</h3>
+            <div class="price">Rp 0</div>
+            <p>Fitur terbatas untuk kebutuhan personal.</p>
+            <button class="btn-select" onclick="pilihPaket('free')">Pilih Paket</button>
+        </div>
 
-            <!-- FORM METODE PEMBAYARAN -->
-            <form id="payment-form">
-                <div class="method-group">
-                    <h3>Pilih Metode Pembayaran:</h3>
-                    
-                    <label class="method-option">
-                        <input type="radio" name="paymentMethod" value="va_bca" required>
-                        <div>
-                            <strong>BCA Virtual Account</strong>
-                            <div style="font-size: 12px; color: #666;">Konfirmasi otomatis secara instan</div>
-                        </div>
-                    </label>
+        <!-- Paket Premium -->
+        <div class="card">
+            <h3>Premium</h3>
+            <div class="price">Rp 199.000<small>/bln</small></div>
+            <p>Akses pasang iklan tanpa batas & fitur promosi.</p>
+            <button class="btn-select" onclick="pilihPaket('premium')">Pilih Paket</button>
+        </div>
 
-                    <label class="method-option">
-                        <input type="radio" name="paymentMethod" value="gopay">
-                        <div>
-                            <strong>GoPay / QRIS</strong>
-                            <div style="font-size: 12px; color: #666;">Scan kode QR via aplikasi e-wallet</div>
-                        </div>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn-pay" id="pay-button">BAYAR SEKARANG</button>
-                <div id="loading-status" class="loading-overlay text-center">🔄 Menghubungkan ke sistem pembayaran...</div>
-            </form>
+        <!-- Paket Developer -->
+        <div class="card">
+            <h3>Developer</h3>
+            <div class="price">Rp 499.000<small>/bln</small></div>
+            <p>Fitur khusus untuk pengembang properti skala besar.</p>
+            <button class="btn-select" onclick="pilihPaket('developer')">Pilih Paket</button>
         </div>
     </div>
+</div>
 
-    <!-- Gunakan sistem modular JavaScript -->
-    <script type="module" src="../assets/js/payment-handler.js"></script>
+<script>
+    function pilihPaket(tipe) {
+        // Simulasi update status ke localStorage (nanti diganti integrasi backend)
+        localStorage.setItem('user_status', tipe);
+        alert('Selamat! Akun Anda kini tipe: ' + tipe.toUpperCase());
+        window.location.href = 'pasang-iklan.html';
+    }
+</script>
+
 </body>
 </html>
