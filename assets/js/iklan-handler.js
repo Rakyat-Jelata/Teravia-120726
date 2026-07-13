@@ -460,6 +460,73 @@ function singkatTeksHarga(nominal) {
     return nominal.toString();
 }
 
+// Tambahkan baris pemanggilan ini di dalam function initFormEngine() paling bawah:
+// initFormSubmission();
+// initAiGenerator(); // <-- Sematkan di bawah initFormSubmission
+
+function initAiGenerator() {
+    const btnAI = document.getElementById('btn-ai-deskripsi');
+    const inputDeskripsi = document.getElementById('deskripsi');
+
+    if (btnAI && inputDeskripsi) {
+        btnAI.addEventListener('click', function() {
+            // 1. Ambil nilai judul dan harga untuk validasi awal
+            const judulIklan = document.getElementById('judul').value.trim();
+            const hargaMentah = document.getElementById('harga').value.trim();
+
+            // Validasi: Jika judul atau harga kosong, hentikan proses
+            if (!judulIklan || !hargaMentah || hargaMentah === '0') {
+                alert('Silakan isi "Judul Iklan" dan "Harga" terlebih dahulu sebelum menggunakan fitur AI! ⚠️');
+                return; 
+            }
+
+            // 2. Ambil data dasar lainnya dari form
+            const jenisProperti = document.getElementById('jenis-properti').value || 'Properti';
+            const statusListing = document.getElementById('status-listing').value;
+            
+            // 3. LOGIKA RADIO BUTTON: Mengambil tipe pengiklan (persona) yang aktif
+            const tipePengiklan = document.querySelector('input[name="persona"]:checked')?.value;
+            
+            // 4. Ambil data lokasi (Kecamatan & Kabupaten)
+            const kecamatanSelect = document.getElementById('reg-kecamatan');
+            const kabupatenSelect = document.getElementById('reg-kabupaten');
+            
+            const namaKecamatan = kecamatanSelect.options[kecamatanSelect.selectedIndex]?.text || '';
+            const namaKabupaten = kabupatenSelect.options[kabupatenSelect.selectedIndex]?.text || '';
+            
+            let lokasiText = 'lokasi strategis';
+            if (namaKecamatan && !kecamatanSelect.disabled && !namaKecamatan.includes('--')) {
+                lokasiText = `kawasan ${namaKecamatan}, ${namaKabupaten}`;
+            }
+
+            // 5. Logika Kondisional: Status Listing (Dijual / Disewakan)
+            let kataAksi = 'memiliki'; 
+            let kataHubung = 'Harga';
+
+            if (statusListing === 'Disewakan') {
+                kataAksi = 'menyewa';
+                kataHubung = 'Harga Sewa';
+            } else if (statusListing === 'Oper Alih') {
+                kataAksi = 'mengambil alih';
+                kataHubung = 'Nilai Oper Alih';
+            }
+
+            // 6. Logika Kondisional: Tipe Pengiklan (Berdasarkan value huruf kecil di HTML)
+            let sebutanKontak = 'kami'; 
+            if (tipePengiklan === 'owner') {
+                sebutanKontak = 'pemilik langsung';
+            } else if (tipePengiklan === 'broker' || tipePengiklan === 'developer') {
+                sebutanKontak = 'tim agen kami';
+            }
+
+            // 7. Rangkai template teks deskripsi otomatis berbasis AI
+            const teksDeskripsiAI = `Kesempatan emas untuk ${kataAksi} ${jenisProperti.toLowerCase()} berkualitas di ${lokasiText}.\n\nProperti bertajuk '${judulIklan}' ini menawarkan nilai investasi luar biasa dengan ${kataHubung} Rp ${hargaMentah}.\n\nUnit ini dirancang dengan tata ruang efisien yang sangat cocok untuk mendukung kenyamanan aktivitas Anda. Jangan lewatkan peluang berharga ini, segera hubungi ${sebutanKontak} untuk informasi lebih lanjut dan jadwalkan kunjungan lokasi!`;
+
+            // 8. Tampilkan hasil ke dalam textarea deskripsi
+            inputDeskripsi.value = teksDeskripsiAI;
+        });
+    }
+}
 
 // Fungsi bantu untuk memasukkan angka koordinat ke input hidden HTML
 function updateKoordinatInput(lat, lng) {
