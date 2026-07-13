@@ -36,12 +36,12 @@
         z-index: 1005 !important;
     }
 
-    /* Paksa 3 garis hitam pekat muncul dengan dimensi pasti */
+    /* Paksa 3 garis biru gelap pekat muncul dengan dimensi pasti */
     .menu-toggle .bar {
         display: block !important;
         width: 25px !important;
         height: 3px !important;
-        background-color: #1e293b !important; /* Menggunakan hitam arang solid agar kontras tinggi */
+        background-color: #0200A8 !important; /* Menggunakan biru gelap solid agar kontras tinggi */
         transition: all 0.3s ease-in-out !important;
         border-radius: 2px !important;
         opacity: 1 !important;
@@ -76,7 +76,7 @@
         max-height: 0 !important;
         overflow: hidden !important;
         transition: max-height 0.3s ease-in-out, padding 0.3s ease !important;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08) !important;
+        box-shadow: 0 10px 15px rgba(3, 0, 214, 0.08) !important;
         z-index: 1000 !important;
         padding: 0 !important;
     }
@@ -90,7 +90,7 @@
     .navbar-mobile-dropdown a {
         display: block !important;
         padding: 0.75rem 0 !important;
-        color: var(--text-main, #334155) !important;
+        color: var(--text-main, #1A1F3A) !important;
         text-decoration: none !important;
         font-weight: 500 !important;
         width: 85% !important;
@@ -152,7 +152,7 @@
     }
 
     .navbar-menu a:hover {
-        color: var(--accent-color) !important;
+        color: var(--primary-color) !important;
     }
 
     /* Hero Section */
@@ -212,7 +212,7 @@
     }
     .card-paket-item:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
+        box-shadow: 0 12px 20px -5px rgba(3, 0, 214, 0.1);
     }
 }
 
