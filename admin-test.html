@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sandbox & Testing - TERAVIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --bg-glass: rgba(255, 255, 255, 0.8);
+            --border-glass: rgba(255, 255, 255, 0.5);
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 40px 20px; 
+            color: var(--text-main); 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .admin-container { max-width: 1000px; width: 100%; display: grid; grid-template-columns: 1fr; gap: 24px; }
+
+        .header-panel { text-align: center; margin-bottom: 10px; }
+        .header-panel h1 { margin: 0; font-size: 28px; font-weight: 800; color: #1e293b; }
+        .header-panel p { color: var(--text-muted); margin: 5px 0 0 0; font-size: 14px; }
+
+        .glass-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .glass-panel h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+
+        /* Grid untuk layout panel kontrol atas */
+        .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media(max-width: 768px) { .top-grid { grid-template-columns: 1fr; } }
+
+        /* Kustomisasi Tombol Quick Action */
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-outline { background: transparent; border-color: #cbd5e1; color: var(--text-main); }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+        /* Status Badge */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-bronze { background: #e2e8f0; color: #475569; }
+        .badge-gold { background: #fef3c7; color: #d97706; }
+        .badge-silver { background: #f1f5f9; color: #64748b; }
+        .badge-platinum { background: #dbeafe; color: #2563eb; }
+        .badge-pending { background: #ffedd5; color: #ea580c; }
+
+        /* Tabel Approval */
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+        th, td { padding: 14px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        th { color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+        
+        /* Live Console Logger */
+        .console-box {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            border-radius: 12px;
+            height: 150px;
+            overflow-y: auto;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    
+    <!-- Header -->
+    <div class="header-panel">
+        <h1>TERAVIA Sandbox Admin</h1>
+        <p>Fasilitas Pengujian Fitur & Approval Simulasi (Trial & Error Mode)</p>
+    </div>
+
+    <!-- Top Grid Kontrol Cepat & Status Saat Ini -->
+    <div class="top-grid">
+        <!-- Panel 1: Status Pengguna Saat Ini -->
+        <div class="glass-panel">
+            <h2>⚙️ State Override (Ubah Status Instant)</h2>
+            <p style="font-size: 14px; margin-bottom: 15px;">
+                Status Akun Anda Saat Ini: <span id="current-status-badge" class="badge badge-bronze">Bronze</span>
+            </p>
+            <div class="btn-group">
+                <button class="btn btn-outline" onclick="forceStatus('bronze')">Set Bronze</button>
+                <button class="btn btn-outline" style="color:#d97706;" onclick="forceStatus('gold')">Set Gold</button>
+                <button class="btn btn-outline" style="color:#64748b;" onclick="forceStatus('silver')">Set Silver</button>
+                <button class="btn btn-outline" style="color:#2563eb;" onclick="forceStatus('platinum')">Set Platinum</button>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">*Mengklik tombol di atas akan langsung memanipulasi localStorage untuk simulasi sisi client.</p>
+        </div>
+
+        <!-- Panel 2: Live System Log -->
+        <div class="glass-panel">
+            <h2>💻 Live Console Logs</h2>
+            <div class="console-box" id="system-log">
+                [SYSTEM] Sandbox terinisialisasi... Ready untuk pengujian.<br>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 3: Antrean Approval Membership -->
+    <div class="glass-panel">
+        <h2>⏳ Antrean Approval Membership (Simulasi Masuk)</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Paket Diajukan</th>
+                        <th>Metode Bayar</th>
+                        <th>Status Bukti</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="membership-queue">
+                    <!-- Data dummy awal jika data kosong -->
+                    <tr id="row-dummy-1">
+                        <td><b>#TRV-9921</b> (Andi Properti)</td>
+                        <td><span class="badge badge-gold">Gold</span></td>
+                        <td>QRIS (E-Wallet)</td>
+                        <td><span class="badge badge-success" style="text-transform:none;">Terverifikasi Otomatis</span></td>
+                        <td>
+                            <button class="btn btn-success" style="padding: 6px 12px; font-size:12px;" onclick="approveMembership('gold', 'row-dummy-1')">Approve</button>
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size:12px;" onclick="rejectAction('row-dummy-1')">Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Panel 4: Antrean Approval Pasang Iklan -->
+    <div class="glass-panel">
+        <h2>🏠 Antrean Approval Pasang Iklan</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pengiklan</th>
+                        <th>Detail Properti</th>
+                        <th>Jenis Paket</th>
+                        <th>Status Ads</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row-iklan-1">
+                        <td><b>Budi Pro</b> <br><small>Status: Platinum</small></td>
+                        <td>Cluster Premium Cilandak<br><span style="font-size:12px; color:var(--text-muted);">Rp 2.5 Milyar</span></td>
+                        <td><span class="badge badge-platinum">Platinum</span></td>
+                        <td><span style="color:var(--success); font-weight:600; font-size:12px;">🚀 Eksklusif Ads Aktif</span></td>
+                        <td>
+                            <button class="btn btn-success" style="padding: 6px 12px; font-size:12px;" onclick="logMessage('[IKLAN] Cluster Premium Cilandak disetujui & Live ke publik!')">Approve</button>
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size:12px;" onclick="rejectAction('row-iklan-1')">Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Ambil data status terkini dari local storage saat load
+    document.addEventListener("DOMContentLoaded", function() {
+        checkCurrentStatus();
+        detectUpgradeFormRequest();
+    });
+
+    function checkCurrentStatus() {
+        const currentStatus = localStorage.getItem('user_status') || 'bronze';
+        const badge = document.getElementById('current-status-badge');
+        badge.innerText = currentStatus;
+        badge.className = 'badge badge-' + currentStatus;
+    }
+
+    // Fungsi paksa ganti status dari dashboard admin
+    function forceStatus(status) {
+        localStorage.setItem('user_status', status);
+        checkCurrentStatus();
+        logMessage(`[STATE OVERRIDE] Status berhasil dipaksa berubah menjadi <b>${status.toUpperCase()}</b>`);
+    }
+
+    // Logger Sistem Simulasi
+    function logMessage(msg) {
+        const logBox = document.getElementById('system-log');
+        logBox.innerHTML += `> ${msg}<br>`;
+        logBox.scrollTop = logBox.scrollHeight; // Auto scroll ke bawah
+    }
+
+    // Simulasi Menyetujui Upgrade Membership
+    function approveMembership(paket, rowId) {
+        localStorage.setItem('user_status', paket);
+        checkCurrentStatus();
+        logMessage(`[APPROVAL SUCCESS] Request pada baris ${rowId} telah <b>DISETUJUI</b>. User menjadi ${paket.toUpperCase()}.`);
+        document.getElementById(rowId).style.opacity = '0.4';
+        document.getElementById(rowId).querySelectorAll('button').forEach(b => b.disabled = true);
+    }
+
+    // Simulasi Menolak Aksi
+    function rejectAction(rowId) {
+        logMessage(`[APPROVAL REJECTED] Pengajuan pada baris ${rowId} telah <b>DITOLAK</b> oleh admin.`);
+        document.getElementById(rowId).style.opacity = '0.4';
+        document.getElementById(rowId).querySelectorAll('button').forEach(b => b.disabled = true);
+    }
+
+    // Fitur Cerdas: Mengecek jika user baru saja klik tombol "Upgrade" dari halaman sebelah
+    function detectUpgradeFormRequest() {
+        const tempUpgrade = localStorage.getItem('user_status');
+        if(tempUpgrade && tempUpgrade !== 'bronze') {
+            logMessage(`[INFO] Mendeteksi request upgrade terakhir masuk untuk tipe: <b>${tempUpgrade.toUpperCase()}</b>`);
+            
+            // Tambahkan baris dinamis ke tabel antrean untuk simulasi
+            const queueTable = document.getElementById('membership-queue');
+            const newRowId = 'row-dynamic-' + Date.now();
+            const newRow = `
+                <tr id="${newRowId}">
+                    <td><b>#TRV-USER-NOW</b> (User Saat Ini)</td>
+                    <td><span class="badge badge-${tempUpgrade}">${tempUpgrade}</span></td>
+                    <td>Simulasi VA / QRIS</td>
+                    <td><span class="badge badge-pending">Menunggu Cek Admin</span></td>
+                    <td>
+                        <button class="btn btn-success" style="padding: 6px 12px; font-size:12px;" onclick="approveMembership('${tempUpgrade}', '${newRowId}')">Approve</button>
+                        <button class="btn btn-danger" style="padding: 6px 12px; font-size:12px;" onclick="rejectAction('${newRowId}')">Reject</button>
+                    </td>
+                </tr>
+            `;
+            queueTable.insertAdjacentHTML('afterbegin', newRow);
+        }
+    }
+</script>
+
+</body>
+</html>
