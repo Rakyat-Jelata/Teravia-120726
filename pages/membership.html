@@ -7,8 +7,7 @@
     <style>
         body { 
             font-family: 'Segoe UI', sans-serif; 
-            /* Menggunakan gambar dari assets/img */
-            background: url('../assets/img/hero-bg.png') no-repeat center center fixed; 
+            background: url('assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
             padding: 40px 20px; 
@@ -19,7 +18,7 @@
         }
         .container { max-width: 800px; width: 100%; margin: 0 auto; }
         
-        /* Efek Glassmorphism */
+        /* Glassmorphism Cards */
         .glass-card { 
             background: rgba(255, 255, 255, 0.7); 
             backdrop-filter: blur(15px);
@@ -52,34 +51,37 @@
         }
         .btn-submit:hover { background-color: #1d4ed8; }
 
-        /* Tabel tetap semi-transparan agar serasi */
-        .comparison-table { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; overflow-x: auto; border: 1px solid rgba(255, 255, 255, 0.3); }
+        /* Tabel Styling */
+        .comparison-table { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.05); }
         th { color: #1e293b; }
+        
+        .price-original { text-decoration: line-through; color: #94a3b8; font-size: 0.85em; display: block; }
+        .price-discount { color: #dc2626; font-weight: bold; }
+        .note { margin-top: 25px; font-style: italic; color: #475569; font-size: 0.9em; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Container Pembayaran (Glassmorphism) -->
+    <!-- Section Pembayaran -->
     <div class="glass-card">
         <h2 style="margin-top:0; color: #1e293b;">Upgrade Membership</h2>
-        <p>Pilih paket langganan untuk membuka fitur premium di Teravia.</p>
         
         <div class="form-group">
-            <label>Tipe Paket</label>
+            <label>Pilih Tipe Akun</label>
             <select id="select-paket" class="form-control" onchange="updateHarga()">
-                <option value="bronze" data-harga="Rp 100.000">Bronze</option>
+                <option value="bronze" data-harga="Free">Bronze</option>
+                <option value="gold" data-harga="Rp 100.000">Gold</option>
                 <option value="silver" data-harga="Rp 250.000">Silver</option>
-                <option value="gold" data-harga="Rp 500.000">Gold</option>
-                <option value="platinum" data-harga="Rp 1.000.000">Platinum</option>
+                <option value="platinum" data-harga="Rp 500.000">Platinum</option>
             </select>
         </div>
 
         <div class="price-display">
             <small>Total Investasi</small>
-            <h2 id="display-harga">Rp 100.000</h2>
+            <h2 id="display-harga">Free</h2>
         </div>
 
         <div class="form-group">
@@ -94,25 +96,28 @@
         <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN</button>
     </div>
 
-    <!-- Tabel Perbandingan (Glassmorphism) -->
+    <!-- Section Perbandingan -->
     <div class="comparison-table">
         <h3 style="margin-top:0;">Perbandingan Benefit</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Fitur</th>
-                    <th>Bronze</th>
-                    <th>Silver</th>
-                    <th>Gold</th>
-                    <th>Platinum</th>
+                    <th>Tipe Akun</th>
+                    <th>Fitur Listing</th>
+                    <th>Fitur Sundul</th>
+                    <th>Harga</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Jumlah Iklan</td><td>5</td><td>15</td><td>50</td><td>Unlimited</td></tr>
-                <tr><td>Top Ads</td><td>-</td><td>1x</td><td>5x</td><td>Unlimited</td></tr>
-                <tr><td>Verifikasi Akun</td><td>Basic</td><td>Verified</td><td>Priority</td><td>VIP</td></tr>
+                <tr><td>Bronze</td><td>❌</td><td>❌</td><td>Free</td></tr>
+                <tr><td>Gold</td><td>✅ 10</td><td>✅ 10</td><td><span class="price-original">200rb</span><span class="price-discount">100.000</span></td></tr>
+                <tr><td>Silver</td><td>✅ 50</td><td>✅ 50</td><td><span class="price-original">400rb</span><span class="price-discount">250.000</span></td></tr>
+                <tr><td>Platinum</td><td>✅ 100</td><td>✅ 100</td><td><span class="price-original">800rb</span><span class="price-discount">500.000</span></td></tr>
             </tbody>
         </table>
+        <div class="note">
+            📢 <i>Catatan: Setiap listingan yang diupload ke database Teravia akan dibantu pemasarannya secara eksklusif menggunakan ads.</i>
+        </div>
     </div>
 </div>
 
@@ -126,9 +131,10 @@
     function prosesUpgrade() {
         const paket = document.getElementById('select-paket').value;
         localStorage.setItem('user_status', paket);
-        alert('Upgrade berhasil! Anda kini berlangganan paket ' + paket.toUpperCase());
+        alert('Upgrade berhasil! Akun Anda kini paket ' + paket.toUpperCase());
         window.location.href = 'pasang-iklan.html';
     }
 </script>
+
 </body>
 </html>
