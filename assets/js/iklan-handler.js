@@ -98,12 +98,16 @@ function toggleJudulFieldVisibility(isAuto) {
     const judulInput = document.getElementById('judul');
     if (!judulInput) return;
 
-    // Kita biarkan ukuran mengikuti class HTML (col-8), 
-    // hanya sesuaikan placeholder dan status readOnly
+    // 🚀 PAKSA LEBAR DAN TAMPILAN AGAR TETAP LEBAR DI DESKTOP MAUPUN MOBILE
+    judulInput.removeAttribute('style'); // Bersihkan sisa inline style yang rusak
+    judulInput.style.setProperty('width', '100%', 'important');
+    judulInput.style.setProperty('display', 'block', 'important');
+
     if (isAuto) {
+        // Tetap biarkan user mengetik manual (sesuai permintaan sebelumnya)
         judulInput.placeholder = "✨ Ketik judul di sini, atau biarkan sistem membuatkannya otomatis saat dikirim...";
-        judulInput.readOnly = false; // Tetap bisa diketik manual ✍️
-        judulInput.style.backgroundColor = "#f8fafc"; // Latar sedikit abu-abu sebagai penanda
+        judulInput.readOnly = false; 
+        judulInput.style.backgroundColor = "#f8fafc"; 
     } else {
         judulInput.placeholder = "Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun";
         judulInput.readOnly = false;
@@ -111,7 +115,6 @@ function toggleJudulFieldVisibility(isAuto) {
         judulInput.value = "";
     }
 }
-
 
 /**
  * Engine Integrasi API Wilayah Indonesia
