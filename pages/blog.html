@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Panduan Properti - TERAVIA</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. Reset Global & Aturan Dasar */
+        * { box-sizing: border-box; transition: all 0.25s ease-in-out; }
+        body { 
+            background-color: #f8fafc; 
+            margin: 0; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            padding-top: 90px; 
+            padding-bottom: 60px; 
+            color: #0f172a;
+        }
+        
+        /* 2. Komponen Navbar (Selaras dengan pasang-iklan.html) */
+        .navbar-container { position: fixed; top: 0; left: 0; width: 100%; height: 65px; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 1000; }
+        .navbar-brand .logo { height: 35px; width: auto; display: block; }
+        .navbar-menu { display: flex; gap: 20px; }
+        .navbar-menu a { text-decoration: none; color: #475569; font-weight: 500; font-size: 14px; }
+        .navbar-menu a.active { color: #2563eb; font-weight: 700; }
+        .navbar-actions { display: flex; align-items: center; gap: 10px; }
+        .btn-pasang-iklan { text-decoration: none; background: #2563eb; color: #fff !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+        .btn-login { text-decoration: none; color: #2563eb; border: 1.5px solid #2563eb; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+
+        /* 3. Hero Section Mini */
+        .blog-header { text-align: center; max-width: 700px; margin: 0 auto 40px auto; padding: 0 20px; }
+        .blog-header h1 { font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+        .blog-header p { color: #64748b; font-size: 16px; margin: 0; }
+
+        /* 4. Kategori Filter Tabs */
+        .category-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { background: #ffffff; border: 1px solid #e2e8f0; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; color: #475569; cursor: pointer; }
+        .tab-btn:hover, .tab-btn.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
+
+        /* 5. Main Blog Grid Layout */
+        .blog-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        
+        /* 6. Card Artikel Premium */
+        .blog-card { background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #eef2f5; box-shadow: 0 4px 6px rgba(15, 23, 42, 0.02); display: flex; flex-direction: column; }
+        .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08); }
+        
+        .card-img-wrapper { width: 100%; aspect-ratio: 16/10; background: #e2e8f0; position: relative; overflow: hidden; }
+        /* Placeholder visual jika aset gambar belum ada */
+        .card-img-wrapper::before { content: "📷 TERAVIA Blog Image"; position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: 600; font-size: 14px; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; }
+        
+        .card-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #2563eb; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .card-title { font-size: 18px; font-weight: 700; margin: 0 0 10px 0; line-height: 1.4; color: #1e293b; text-decoration: none; }
+        .card-title:hover { color: #1d4ed8; }
+        .card-excerpt { font-size: 14px; color: #64748b; line-height: 1.6; margin: 0 0 20px 0; flex-grow: 1; }
+        
+        .card-footer { display: flex; align-items: center; gap: 10px; border-top: 1px solid #f1f5f9; padding-top: 15px; font-size: 12px; color: #94a3b8; font-weight: 500; }
+        .author-avatar { width: 28px; height: 28px; border-radius: 50%; background: #cbd5e1; }
+
+        /* 7. Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            body { padding-top: 140px; }
+            .navbar-container { flex-direction: column; height: auto; padding: 12px; gap: 8px; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .blog-header h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR UTAMA -->
+    <header class="navbar-container">
+        <div class="navbar-brand">
+            <img src="../assets/img/logo.png" alt="Logo TERAVIA" class="logo">
+        </div>
+        <nav class="navbar-menu">
+            <a href="beli.html">Beli</a>
+            <a href="jual.html">Jual</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="tentang.html">Tentang</a>
+        </nav>
+        <div class="navbar-actions">
+            <a href="pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
+            <a href="../login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
+        </div>
+    </header>
+
+    <!-- MAIN INTERFACE -->
+    <main class="blog-container">
+        
+        <!-- Header Judul Blog -->
+        <div class="blog-header">
+            <h1>Wawasan & Panduan Properti</h1>
+            <p>Temukan tips finansial, tren pasar real estate terbaru, dan panduan menata hunian impian Anda langsung dari pakar Teravia.</p>
+        </div>
+
+        <!-- Filter Kategori Keren -->
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterKategori('semua')">Semua Artikel</button>
+            <button class="tab-btn" onclick="filterKategori('tips')">Tips & Trik</button>
+            <button class="tab-btn" onclick="filterKategori('pasar')">Tren Pasar</button>
+            <button class="tab-btn" onclick="filterKategori('keuangan')">Finansial KPR</button>
+        </div>
+
+        <!-- Grid Artikel -->
+        <div class="blog-grid" id="blog-grid-wrapper">
+            
+            <!-- Artikel 1 -->
+            <div class="blog-card" data-cat="tips">
+                <div class="card-img-wrapper">
+                    <!-- Tinggal arahkan src ke file gambar asli jika sudah ada -->
+                    <img src="../assets/img/blog-1.jpg" alt="Tips Dekor Rumah" onerror="this.style.display='none'">
+                </div>
+                <div class="card-content">
+                    <span class="card-tag">Tips & Trik</span>
+                    <a href="#" class="card-title">5 Trik Cerdas Menata Rumah Tipe 36 Agar Terasa Luas</a>
+                    <p class="card-excerpt">Punya rumah minimalis bukan hambatan. Dengan teknik pemilihan furnitur multifungsi dan ilusi cermin ini, ruangan sempit jadi lega!</p>
+                    <div class="card-footer">
+                        <div class="author-avatar"></div>
+                        <span>Oleh Tim Desain Teravia • 3 Menit Baca</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 2 -->
+            <div class="blog-card" data-cat="keuangan">
+                <div class="card-img-wrapper">
+                    <img src="../assets/img/blog-2.jpg" alt="Panduan KPR" onerror="this.style.display='none'">
+                </div>
+                <div class="card-content">
+                    <span class="card-tag">Finansial KPR</span>
+                    <a href="#" class="card-title">Panduan Pemula: Cara Lolos BI Checking Saat Pengajuan KPR</a>
+                    <p class="card-excerpt">Jangan sampai impian punya rumah kandas karena skor kredit buruk. Pelajari indikator penilaian bank dan tips membersihkan riwayat BI checking.</p>
+                    <div class="card-footer">
+                        <div class="author-avatar"></div>
+                        <span>Oleh Rian Finansial • 5 Menit Baca</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 3 -->
+            <div class="blog-card" data-cat="pasar">
+                <div class="card-img-wrapper">
+                    <img src="../assets/img/blog-3.jpg" alt="Tren Properti" onerror="this.style.display='none'">
+                </div>
+                <div class="card-content">
+                    <span class="card-tag">Tren Pasar</span>
+                    <a href="#" class="card-title">Analisis Properti 2026: Mengapa Koridor Barat Jakarta Kian Seksi?</a>
+                    <p class="card-excerpt">Didorong infrastruktur tol baru dan ekspansi kota mandiri, harga tanah di wilayah ini diprediksi melonjak tajam hingga akhir tahun.</p>
+                    <div class="card-footer">
+                        <div class="author-avatar"></div>
+                        <span>Oleh Tim Riset Teravia • 4 Menit Baca</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- LOGIKA INTERAKTIF SWITCH FILTER -->
+    <script>
+        function filterKategori(kategori) {
+            // 1. Ubah tombol active tab
+            const tombols = document.querySelectorAll('.tab-btn');
+            tombols.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 2. Filter kartu artikel berdasarkan data-cat attribute
+            const cards = document.querySelectorAll('.blog-card');
+            cards.forEach(card => {
+                if (kategori === 'semua') {
+                    card.style.display = 'flex';
+                    // Animasi muncul kembali
+                    setTimeout(() => card.style.opacity = '1', 10);
+                } else {
+                    if (card.getAttribute('data-cat') === kategori) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
