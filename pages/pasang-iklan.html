@@ -6,8 +6,8 @@
     <title>Pasang Iklan Properti Premium - TERAVIA</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Leaflet Maps API -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* 1. Reset Global & Aturan Dasar */
         * { box-sizing: border-box; }
@@ -87,10 +87,9 @@
             .navbar-container { flex-direction: column; height: auto; padding: 12px; gap: 8px; }
             .col-6, .col-4, .col-3 { grid-column: span 12 !important; }
             .persona-group { grid-template-columns: 1fr; gap: 8px; }
-            #map { height: 250px; } /* Ukuran peta mengecil di layar ponsel */
+            #map { height: 250px; }
         }
-      </style>
-
+    </style>
 </head>
 <body>
 
@@ -117,7 +116,8 @@
             <p>Lengkapi formulir dengan spesifikasi akurat untuk mempermudah calon pembeli menemukan listing properti Anda.</p>
 
             <form id="iklan-form">
-                <!-- SEGMENT 1: IDENTITAS -->
+                
+                <!-- 1. TIPE PENGIKLAN -->
                 <div class="form-group">
                     <label>Tipe Pengiklan</label>
                     <div class="persona-group">
@@ -127,7 +127,15 @@
                     </div>
                 </div>
 
-                <!-- SEGMENT 2: INFORMASI DASAR -->
+                <!-- 2. JUDUL IKLAN (Satu baris penuh dari kiri ke kanan) -->
+                <div class="grid-main" style="margin-top: 15px;">
+                    <div class="form-group col-12">
+                        <label for="judul">Judul Iklan</label>
+                        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
+                    </div>
+                </div>
+
+                <!-- 3. DETAIL PROPERTI (STATUS - KATEGORI - JENIS) -->
                 <div class="section-title">Aspek Transaksi & Klasifikasi</div>
                 <div class="grid-main">
                     <div class="form-group col-4">
@@ -155,115 +163,46 @@
                         <label for="jenis-properti">Jenis Properti</label>
                         <select id="jenis-properti" class="form-control" required>
                             <option value="" disabled selected>-- Pilih Jenis --</option>
+                        </select>
+                    </div>
+                </div>
 
+                <!-- 4. HARGA (Satu baris penuh di bawah detail properti) -->
+                <div class="grid-main" style="margin-top: 15px;">
+                    <div class="form-group col-12">
+                        <label for="harga">Harga</label>
+                        <div class="input-unit-box">
+                            <input type="text" id="harga" class="form-control" placeholder="Contoh: 850.000.000" required>
+                            <span class="unit-tag">Rupiah</span>
+                        </div>
+                        <small id="harga-terbilang" style="display: block; margin-top: 5px; color: #64748b; font-style: italic;">
+                            Ketik nominal untuk melihat format teks...
+                        </small>
+                    </div>
+                </div>
 
-                   <!-- Urutan 3: DETAIL PROPERTI (STATUS - KATEGORI - JENIS berdampingan) 📋 -->
-<div class="section-title">Aspek Transaksi & Klasifikasi</div>
-<div class="grid-main">
-    <div class="form-group col-4">
-        <label for="status-listing">Status Listing</label>
-        <select id="status-listing" class="form-control" required>
-            <option value="" disabled selected>-- Pilih Status --</option>
-            <option value="Dijual">Dijual</option>
-            <option value="Disewakan">Disewakan</option>
-            <option value="Dijual & Disewakan">Dijual & Disewakan</option>
-            <option value="Oper Alih">Oper Alih</option>
-            <option value="Lelang">Lelang</option>
-        </select>
-    </div>
-    <div class="form-group col-4">
-        <label for="kategori-properti">Kategori</label>
-        <select id="kategori-properti" class="form-control" required>
-            <option value="" disabled selected>-- Pilih Kategori --</option>
-            <option value="Hunian">🏠 Hunian</option>
-            <option value="Komersial">🏢 Komersial</option>
-            <option value="Tanah">🌾 Tanah & Lahan</option>
-<!-- SEGMENT 1: IDENTITAS (Tetap di paling atas) -->
-<div class="form-group">
-    <label>Tipe Pengiklan</label>
-    <div class="persona-group">
-        <label class="persona-option"><input type="radio" name="persona" value="owner" checked> <span>🛡️ OWNER</span></label>
-        <label class="persona-option"><input type="radio" name="persona" value="broker"> <span>💼 BROKER</span></label>
-        <label class="persona-option"><input type="radio" name="persona" value="developer"> <span>🏗️ DEVELOPER</span></label>
-    </div>
-</div>
-
-<!-- Urutan 2: JUDUL IKLAN (Satu baris penuh dari kiri ke kanan) 📏 -->
-<div class="grid-main" style="margin-top: 15px;">
-    <div class="form-group col-12">
-        <label for="judul">Judul Iklan</label>
-        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
-    </div>
-</div>
-
-<!-- Urutan 3: DETAIL PROPERTI (STATUS - KATEGORI - JENIS berdampingan) 📋 -->
-<div class="section-title">Aspek Transaksi & Klasifikasi</div>
-<div class="grid-main">
-    <div class="form-group col-4">
-        <label for="status-listing">Status Listing</label>
-        <select id="status-listing" class="form-control" required>
-            <option value="" disabled selected>-- Pilih Status --</option>
-            <option value="Dijual">Dijual</option>
-            <option value="Disewakan">Disewakan</option>
-            <option value="Dijual & Disewakan">Dijual & Disewakan</option>
-            <option value="Oper Alih">Oper Alih</option>
-            <option value="Lelang">Lelang</option>
-        </select>
-    </div>
-    <div class="form-group col-4">
-        <label for="kategori-properti">Kategori</label>
-        <select id="kategori-properti" class="form-control" required>
-            <option value="" disabled selected>-- Pilih Kategori --</option>
-            <option value="Hunian">🏠 Hunian</option>
-            <option value="Komersial">🏢 Komersial</option>
-            <option value="Tanah">🌾 Tanah & Lahan</option>
-            <option value="Institusi">🏛️ Institusi & Fasilitas</option>
-        </select>
-    </div>
-    <div class="form-group col-4">
-        <label for="jenis-properti">Jenis Properti</label>
-        <select id="jenis-properti" class="form-control" required>
-            <option value="" disabled selected>-- Pilih Jenis --</option>
-        </select>
-    </div>
-</div>
-
-<!-- Urutan 4: HARGA (Berdiri sendiri di bawah detail properti) 💵 -->
-<div class="grid-main" style="margin-top: 10px;">
-    <div class="form-group col-12">
-        <label for="harga">Harga</label>
-        <div class="input-unit-box">
-            <input type="text" id="harga" class="form-control" placeholder="Contoh: 850.000.000" required>
-            <span class="unit-tag">Rupiah</span>
-        </div>
-        <small id="harga-terbilang" style="display: block; margin-top: 5px; color: #64748b; font-style: italic;">
-            Ketik nominal untuk melihat format teks...
-        </small>
-    </div>
-</div>
-
-                <!-- 📝 BARIS BARU: KOLOM DESKRIPSI & GENERATOR AI -->
-<div class="grid-main" style="margin-top: 15px;">
-    <div class="form-group col-12">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label for="deskripsi" style="margin-bottom: 0;">Deskripsi Properti</label>
-            <!-- Tombol Pemicu AI ✨ -->
-            <button type="button" id="btn-ai-deskripsi" style="background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; transition: opacity 0.2s;">
-                ✨ Buat Deskripsi Otomatis (AI)
-            </button>
-        </div>
-        <textarea id="deskripsi" class="form-control" rows="6" placeholder="Ceritakan keunggulan properti Anda atau klik tombol AI di atas untuk membuat deskripsi otomatis yang menarik..." required style="resize: vertical;"></textarea>
-    </div>
-</div>
+                <!-- KOLOM DESKRIPSI & GENERATOR AI -->
+                <div class="grid-main" style="margin-top: 15px;">
+                    <div class="form-group col-12">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label for="deskripsi" style="margin-bottom: 0;">Deskripsi Properti</label>
+                            <button type="button" id="btn-ai-deskripsi" style="background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; transition: opacity 0.2s;">
+                                ✨ Buat Deskripsi Otomatis (AI)
+                            </button>
+                        </div>
+                        <textarea id="deskripsi" class="form-control" rows="6" placeholder="Ceritakan keunggulan properti Anda atau klik tombol AI di atas untuk membuat deskripsi otomatis yang menarik..." required style="resize: vertical;"></textarea>
+                    </div>
+                </div>
                 
                 <div id="rent-spec-container" style="transition: all 0.3s ease; margin-bottom: 20px;"></div> 
-                <!-- SEGMENT 3: SPESIFIKASI DINAMIS -->
+
+                <!-- SPESIFIKASI DINAMIS -->
                 <div class="section-title">Detail Spesifikasi Properti</div>
                 <div id="dynamic-spec-container">
                     <p style="color: #94a3b8; font-style: italic;">Silakan pilih jenis properti terlebih dahulu untuk memuat kolom spesifikasi khusus...</p>
                 </div>
 
-                <!-- SEGMENT 4: INTEGRASI API LOKASI WILAYAH -->
+                <!-- INTEGRASI API LOKASI WILAYAH -->
                 <div class="section-title">Lokasi Akurat Properti</div>
                 <div class="grid-main">
                     <div class="form-group col-6">
@@ -295,23 +234,21 @@
                         <input type="text" id="alamat-detail" class="form-control" placeholder="Contoh: Jl. Anggrek Raya No. 12, Komplek Permata Hijau" required>
                     </div>
                 </div>
+
                 <!-- WADAH PETA INTERAKTIF -->
                 <div class="form-group col-12" style="margin-top: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <label style="margin-bottom: 0;">Titik Lokasi Properti (Pinpoint Maps) 📍</label>
-                <!-- Tombol Geolocation Baru 🌐 -->
-                <button type="button" id="btn-geolocation" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s;">
-                🎯 Gunakan Lokasi Saya
-                </button>
-    </div>
-    <div id="map" style="height: 300px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1;"></div>
-    <!-- Input tersembunyi untuk menyimpan koordinat yang akan dikirim ke database -->
-    <input type="hidden" id="latitude" name="latitude">
-    <input type="hidden" id="longitude" name="longitude">
-</div>
-
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="margin-bottom: 0;">Titik Lokasi Properti (Pinpoint Maps) 📍</label>
+                        <button type="button" id="btn-geolocation" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s;">
+                            🎯 Gunakan Lokasi Saya
+                        </button>
+                    </div>
+                    <div id="map" style="height: 300px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1;"></div>
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                </div>
                 
-                <!-- SEGMENT 5: COMPRESSOR UPLOAD GAMBAR -->
+                <!-- GALERI FOTO -->
                 <div class="section-title">Galeri Foto Properti</div>
                 <div class="form-group">
                     <label>Unggah Foto Properti (Minimal 5, Maksimal 20 Foto)</label>
@@ -331,5 +268,5 @@
 
     <script type="module" src="../assets/js/iklan-handler.js"></script>
 </body>
-</html>
-
+                            </html>
+                                                                   
