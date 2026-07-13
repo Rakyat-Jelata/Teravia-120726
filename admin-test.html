@@ -209,7 +209,7 @@
     // PROTEKSI SANKSI AKSES: Cek session login admin
     if (sessionStorage.getItem('admin_session') !== 'authenticated_true') {
         alert('Akses ditolak! Silakan login terlebih dahulu.');
-        window.location.href = 'login.html';
+        window.location.href = 'admin-login.html';
         return;
     }
 
