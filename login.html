@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Sandbox - TERAVIA</title>
+    <title>Masuk Akun Member - TERAVIA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
         :root {
             --primary: #3dfff9;
             --primary-hover: #00e5de;
-            --bg-panel: #0300D6; /* Warna baru pilihan ngana */
+            --bg-panel: #0300D6;
             --text-main: #0f172a;
         }
 
@@ -35,21 +35,23 @@
             padding: 40px 30px;
             border-radius: 24px;
             box-shadow: 0 20px 50px rgba(3, 0, 214, 0.3);
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
         }
 
-        .login-card h1 {
-            margin: 0 0 8px 0;
+        .logo-placeholder {
             font-size: 24px;
             font-weight: 800;
             color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
+        .logo-placeholder span { color: var(--primary); }
 
         .login-card p {
             margin: 0 0 32px 0;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.75);
             font-size: 14px;
         }
 
@@ -113,59 +115,71 @@
             font-weight: 600;
         }
 
-        .credential-tip {
+        .footer-links {
             margin-top: 24px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 12px;
+            font-size: 13px;
             color: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <h1>TERAVIA Admin Panel</h1>
-    <p>Silakan masuk ke sistem manajemen pengujian</p>
+    <div class="logo-placeholder">TERA<span>VIA</span></div>
+    <p>Masuk untuk mengelola dan memasang iklan properti Anda</p>
     
-    <div id="error-box" class="error-msg">Username atau password salah!</div>
+    <div id="error-box" class="error-msg">Email atau password salah!</div>
 
-    <form id="login-form" onsubmit="handleLogin(event)">
+    <form id="member-login-form" onsubmit="handleMemberLogin(event)">
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="form-control" placeholder="Masukkan username" required autocomplete="off">
+            <label for="email">Alamat Email</label>
+            <input type="email" id="email" class="form-control" placeholder="nama@email.com" required autocomplete="email">
         </div>
         
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Masukkan password" required>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
         </div>
         
-        <button type="submit" class="btn-login">MASUK DASHBOARD</button>
+        <button type="submit" class="btn-login">MASUK AKUN</button>
     </form>
 
-    <div class="credential-tip">
-        🔑 Akun Uji Coba:<br>
-        <span style="color: #ffffff;">Username: <b>admin</b> | Password: <b>admin123</b></span>
+    <div class="footer-links">
+        Belum punya akun? <a href="#">Daftar Baru</a>
     </div>
 </div>
 
 <script>
-    function handleLogin(e) {
+    function handleMemberLogin(e) {
         e.preventDefault();
-        const user = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const pass = document.getElementById('password').value;
         const errorBox = document.getElementById('error-box');
 
-        if (user === 'admin' && pass === 'admin123') {
+        // Simulasi akun member trial & error (Bisa pakai email apa saja, password: user123)
+        if (pass === 'user123') {
             errorBox.style.display = 'none';
-            sessionStorage.setItem('admin_session', 'authenticated_true');
-            alert('Login sukses! Selamat datang kembali Admin.');
-            window.location.href = 'admin-test.html';
+            
+            // Simpan status login member biasa
+            localStorage.setItem('is_member_logged_in', 'true');
+            localStorage.setItem('member_email', email);
+            
+            alert('Login Berhasil! Mengalihkan ke Dashboard Member...');
+            // Redirect masuk ke folder pages/dashboard-member.html
+            window.location.href = 'pages/dashboard-member.html';
         } else {
             errorBox.style.display = 'block';
+            errorBox.innerText = "Password salah! (Gunakan password uji coba: user123)";
+            
+            // Efek shake error
             const card = document.querySelector('.login-card');
             card.style.transform = 'translateX(6px)';
             setTimeout(() => card.style.transform = 'translateX(-6px)', 50);
@@ -176,4 +190,3 @@
 
 </body>
 </html>
-
