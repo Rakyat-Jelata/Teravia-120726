@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TERAVIA | Jual • Beli • Sewa Properti Seluruh Indonesia</title>
-    <meta name="description" content="Temukan properti terbaik untuk Anda. Jual, beli, atau sewa properti dengan mudah dan aman di seluruh Indonesia bersama TERAVIA.">
+    <meta name="description" content="Temukan properti terbaik untuk Anda bersama TERAVIA.">
+    <!-- Font Premium Inter / Plus Jakarta Sans -->
     <link rel="stylesheet" href="src/css/main.css">
 </head>
 <body>
 
-    <!-- NAVBAR UTAMA (Solid Background, Clean White) -->
+    <!-- NAVBAR UTAMA (Solid Putih Bersih) -->
     <header class="main-navbar">
         <div class="navbar-container">
             <a href="/" class="brand-logo" aria-label="TERAVIA Home">
-                <img src="src/assets/img/logo.png" alt="TERAVIA Logo" class="logo-img">
+                <img src="assets/img/logo.png" alt="TERAVIA Logo" class="logo-img">
             </a>
             
+            <!-- Menu Utama Desktop -->
             <nav class="nav-menu" aria-label="Navigasi Utama">
                 <ul class="nav-links">
                     <li><a href="#" class="active">Beranda</a></li>
@@ -27,179 +29,144 @@
                 </ul>
             </nav>
 
+            <!-- Aksi Kanan -->
             <div class="nav-actions">
-                <button class="btn-wishlist" aria-label="Favorit Saya">
-                    <span class="icon-heart"></span> Favorit
-                </button>
-                <button class="btn-secondary">+ Pasang Iklan</button>
-                <div class="user-profile">
+                <button class="btn-wishlist-desktop" aria-label="Favorit"><span class="icon-heart"></span> Favorit</button>
+                <button class="btn-pasang-desktop">+ Pasang Iklan</button>
+                <div class="user-profile-desktop">
                     <span class="avatar">A</span>
                     <span class="username">Asep</span>
-                    <span class="icon-chevron-down"></span>
                 </div>
+                <!-- Hamburger Menu Hanya Muncul di Mobile -->
+                <button class="mobile-burger-btn" aria-label="Buka Menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- HERO SECTION (Menggunakan Background hero-bg.png & Glassmorphic Search Bar) -->
+        <!-- HERO SECTION (Presisi menggunakan hero-bg.png sebagai background penyeimbang kanan) -->
         <section class="hero-section">
             <div class="hero-container">
-                <div class="hero-text">
+                <div class="hero-left-content">
                     <h1>Temukan properti terbaik untuk Anda</h1>
-                    <p>Jual, beli, atau sewa properti dengan mudah dan aman di seluruh Indonesia bersama <span class="text-brand">Teravia</span>.</p>
-                </div>
-
-                <!-- Tab Pilihan (Beli, Sewa, Properti Baru) -->
-                <div class="search-tabs">
-                    <button class="tab-btn active"><span class="icon-buy"></span> Beli</button>
-                    <button class="tab-btn"><span class="icon-rent"></span> Sewa</button>
-                    <button class="tab-btn"><span class="icon-new"></span> Properti Baru</button>
-                </div>
-
-                <!-- Glassmorphic Search Bar Panel -->
-                <div class="search-panel glass-premium">
-                    <form class="search-form" role="search">
-                        <div class="input-group">
-                            <label for="search-lokasi">Lokasi</label>
-                            <input type="text" id="search-lokasi" placeholder="Kota, area, atau alamat">
-                        </div>
-                        <div class="input-group">
-                            <label for="search-kategori">Kategori</label>
-                            <select id="search-kategori">
-                                <option>Semua Kategori</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="search-tipe">Tipe Properti</label>
-                            <select id="search-tipe">
-                                <option>Semua Tipe</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="search-harga">Harga</label>
-                            <select id="search-harga">
-                                <option>Min - Maks</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-search" aria-label="Cari Properti">
-                            <span class="icon-search"></span> Cari
-                        </button>
-                    </form>
+                    <p class="hero-subtext">Jual, beli, atau sewa properti dengan mudah dan aman di seluruh Indonesia bersama <span class="text-brand">Teravia</span>.</p>
                     
-                    <div class="popular-tags">
-                        <span>Pencarian populer:</span>
-                        <a href="#" class="tag">Jakarta Selatan</a>
-                        <a href="#" class="tag">Rumah Minimalis</a>
-                        <a href="#" class="tag">Apartemen</a>
-                        <a href="#" class="tag">Bandung</a>
-                        <a href="#" class="tag">Surabaya</a>
+                    <!-- Tab Pilihan Atas Search Bar -->
+                    <div class="search-tabs">
+                        <button class="tab-btn active">🏠 Beli</button>
+                        <button class="tab-btn">🔑 Sewa</button>
+                        <button class="tab-btn">🏢 Properti Baru</button>
+                    </div>
+
+                    <!-- Glassmorphic Search Bar Panel -->
+                    <div class="search-panel glass-premium">
+                        <form class="search-form" role="search">
+                            <div class="input-group">
+                                <label for="mob-lokasi">Lokasi</label>
+                                <input type="text" id="mob-lokasi" placeholder="Kota, area, atau alamat">
+                            </div>
+                            <div class="input-group">
+                                <label for="mob-kategori">Kategori</label>
+                                <select id="mob-kategori">
+                                    <option>Semua Kategori</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="mob-tipe">Tipe Properti</label>
+                                <select id="mob-tipe">
+                                    <option>Semua Tipe</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="mob-harga">Harga</label>
+                                <select id="mob-harga">
+                                    <option>Min - Maks</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-search" aria-label="Cari Properti">
+                                🔍 <span class="search-text-desktop">Cari</span>
+                            </button>
+                        </form>
+                        
+                        <!-- Pencarian Populer Bawah Form -->
+                        <div class="popular-tags">
+                            <span class="tags-title">Pencarian populer:</span>
+                            <div class="tags-scroll-container">
+                                <a href="#" class="tag">Jakarta Selatan</a>
+                                <a href="#" class="tag">Rumah Minimalis</a>
+                                <a href="#" class="tag">Apartemen</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Sisi Kanan Gambar Besar di Desktop, menjadi background dinamis di Mobile -->
+                <div class="hero-right-image"></div>
             </div>
         </section>
 
         <!-- KATEGORI ICON BAR -->
-        <section class="category-bar-section">
-            <div class="category-container">
-                <button class="category-item active">
-                    <div class="icon-box"><span class="icon-all"></span></div>
-                    <span>Semua</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-home"></span></div>
-                    <span>Rumah</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-apt"></span></div>
-                    <span>Apartemen</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-ruko"></span></div>
-                    <span>Ruko</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-land"></span></div>
-                    <span>Tanah</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-kost"></span></div>
-                    <span>Kost</span>
-                </button>
-                <button class="category-item">
-                    <div class="icon-box"><span class="icon-villa"></span></div>
-                    <span>Villa</span>
-                </button>
+        <section class="category-section">
+            <div class="category-wrapper">
+                <button class="cat-item active"><div class="cat-icon">🎪</div><span>Semua</span></button>
+                <button class="cat-item"><div class="cat-icon">🏠</div><span>Rumah</span></button>
+                <button class="cat-item"><div class="cat-icon">🏢</div><span>Apartemen</span></button>
+                <button class="cat-item"><div class="cat-icon">🏪</div><span>Ruko</span></button>
+                <button class="cat-item"><div class="cat-icon">🏔️</div><span>Tanah</span></button>
             </div>
         </section>
 
-        <!-- TWO COLUMN MAIN CONTENT -->
-        <div class="main-content-layout">
-            <!-- Kiri: Listing Grid -->
-            <section class="listing-section">
-                <div class="section-header">
+        <!-- LAYOUT KONTEN UTAMA (2 Kolom Desktop, 1 Kolom Mobile Terstruktur) -->
+        <div class="content-layout">
+            <!-- Kolom Kiri: Rekomendasi Properti -->
+            <section class="main-listings">
+                <div class="section-title-bar">
                     <div>
                         <h2>Rekomendasi Properti</h2>
                         <p>Properti terbaik pilihan untuk Anda</p>
                     </div>
-                    <a href="#" class="link-see-all">Lihat Semua &rarr;</a>
+                    <a href="#" class="see-all-link">Lihat Semua →</a>
                 </div>
 
                 <div class="property-grid">
-                    <!-- Card 1: Rumah Minimalis Modern (Solid White Card) -->
+                    <!-- Card Properti 1 (Solid White, No Glassmorphism) -->
                     <article class="property-card">
-                        <div class="card-img-container">
-                            <span class="badge badge-dijual">Dijual</span>
-                            <button class="btn-fav" aria-label="Tambah ke Favorit"><span class="icon-heart-outline"></span></button>
-                            <img src="placeholder.jpg" alt="Rumah Minimalis Modern">
+                        <div class="card-image-box">
+                            <span class="badge badge-sell">Dijual</span>
+                            <button class="wishlist-toggle">🤍</button>
+                            <div class="img-placeholder-fallback"></div>
                         </div>
-                        <div class="card-body">
-                            <h3 class="card-title">Rumah Minimalis Modern</h3>
-                            <p class="card-location">BSD City, Tangerang Selatan</p>
-                            <div class="card-specs">
-                                <span>🛏️ 3</span>
-                                <span>🚿 2</span>
-                                <span>📐 120 m²</span>
+                        <div class="card-details">
+                            <h3>Rumah Minimalis Modern</h3>
+                            <p class="loc">BSD City, Tangerang Selatan</p>
+                            <div class="specs">
+                                <span>🛏️ 3 Td</span><span>🚿 2 Km</span><span>📐 120m²</span>
                             </div>
-                            <div class="card-footer-price">
-                                <span class="price">Rp 1.250.000.000</span>
-                                <span class="cert">SHM</span>
+                            <div class="card-bottom">
+                                <span class="price-amount">Rp 1.250.000.000</span>
+                                <span class="cert-badge">SHM</span>
                             </div>
                         </div>
                     </article>
-                    
-                    <!-- Card Komponen lainnya dimasukkan secara berulang via JS Modular nantinya -->
                 </div>
             </section>
 
-            <!-- Kanan: Sidebar (Lokasi Populer & Peta) -->
-            <aside class="sidebar-section">
-                <!-- Widget Lokasi Populer -->
-                <div class="widget-box solid-white">
-                    <div class="widget-header">
+            <!-- Kolom Kanan: Sidebar Populer & Peta -->
+            <aside class="sidebar-layout">
+                <div class="sidebar-widget solid-white">
+                    <div class="widget-head">
                         <h3>Lokasi Populer</h3>
                         <a href="#">Lihat Semua</a>
                     </div>
-                    <ul class="location-list">
-                        <li><span>Jakarta Selatan</span> <span class="count">1.240 Properti</span></li>
-                        <li><span>Tangerang Selatan</span> <span class="count">980 Properti</span></li>
+                    <ul class="loc-list">
+                        <li><span>Jakarta Selatan</span><strong>1.240 Properti</strong></li>
+                        <li><span>Tangerang Selatan</span><strong>980 Properti</strong></li>
                     </ul>
-                </div>
-
-                <!-- Widget Cari di Peta (Glassmorphic Accent Panel Inside Map) -->
-                <div class="widget-box solid-white map-widget">
-                    <h3>Cari di Peta</h3>
-                    <p>Temukan properti di area pilihan Anda</p>
-                    <div class="map-placeholder">
-                        <!-- Komponen Float Glassmorphic Map Panel di dalam Peta -->
-                        <div class="map-preview-container">
-                            <button class="btn-primary map-cta">Buka Peta</button>
-                        </div>
-                    </div>
                 </div>
             </aside>
         </div>
     </main>
-
 </body>
 </html>
