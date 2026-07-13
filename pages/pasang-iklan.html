@@ -214,13 +214,21 @@
                     </div>
                 </div>
                 <!-- WADAH PETA INTERAKTIF -->
+<!-- WADAH PETA INTERAKTIF -->
 <div class="form-group col-12" style="margin-top: 15px;">
-    <label>Titik Lokasi Properti (Pinpoint Maps) 📍</label>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <label style="margin-bottom: 0;">Titik Lokasi Properti (Pinpoint Maps) 📍</label>
+        <!-- Tombol Geolocation Baru 🌐 -->
+        <button type="button" id="btn-geolocation" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s;">
+            🎯 Gunakan Lokasi Saya
+        </button>
+    </div>
     <div id="map" style="height: 300px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1;"></div>
     <!-- Input tersembunyi untuk menyimpan koordinat yang akan dikirim ke database -->
     <input type="hidden" id="latitude" name="latitude">
     <input type="hidden" id="longitude" name="longitude">
 </div>
+
                 
                 <!-- SEGMENT 5: COMPRESSOR UPLOAD GAMBAR -->
                 <div class="section-title">Galeri Foto Properti</div>
