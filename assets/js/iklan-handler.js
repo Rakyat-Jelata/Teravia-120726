@@ -332,6 +332,7 @@ let map;
 let marker;
 
 // Fungsi untuk memuat peta pertama kali (VERSI HYBRID DUA ARAH)
+// Fungsi untuk memuat peta pertama kali (VERSI HYBRID DUA ARAH)
 function tampilkanPetaAwal() {
     // Koordinat default Pusat Indonesia
     const posisiPusat = [-0.7893, 113.9213]; 
@@ -355,8 +356,8 @@ function tampilkanPetaAwal() {
         const posisiBaru = marker.getLatLng();
         updateKoordinatInput(posisiBaru.lat, posisiBaru.lng);
 
-        // Ambil elemen kolom alamat lengkap di HTML Anda (pastikan id-nya sesuai, misal 'alamat' atau 'alamat-lengkap')
-        const alamatInput = document.getElementById('alamat') || document.getElementById('alamat_lengkap') || document.getElementById('alamat-lengkap');
+        // Targetkan langsung ke id kolom alamat Anda yang benar 🎯
+        const alamatInput = document.getElementById('alamat-detail');
         
         if (alamatInput) {
             alamatInput.placeholder = "🔄 Sedang mengambil alamat titik lokasi...";
@@ -366,7 +367,7 @@ function tampilkanPetaAwal() {
                 const data = await response.json();
                 
                 if (data && data.display_name) {
-                    // Masukkan alamat otomatis ke dalam kolom teks alamat lengkap
+                    // Masukkan alamat otomatis ke dalam kolom teks alamat detail
                     alamatInput.value = data.display_name;
                 }
             } catch (error) {
