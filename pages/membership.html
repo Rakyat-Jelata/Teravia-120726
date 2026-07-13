@@ -5,37 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upgrade Membership - TERAVIA</title>
     <style>
-        /* Mengubah latar belakang agar tidak putih polos */
         body { 
             font-family: 'Segoe UI', sans-serif; 
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
+            /* Menggunakan gambar dari assets/img */
+            background: url('assets/img/hero-bg.png') no-repeat center center fixed; 
+            background-size: cover;
             min-height: 100vh;
             padding: 40px 20px; 
             color: #334155; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 800px; width: 100%; margin: 0 auto; }
         
-        .card-payment { 
-            background: white; 
+        /* Efek Glassmorphism */
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 40px; 
             border-radius: 20px; 
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); 
-            margin-bottom: 40px; 
-            border: 1px solid #cbd5e1;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2); 
+            margin-bottom: 30px;
         }
         
         .form-group { margin-bottom: 25px; }
-        label { display: block; font-weight: 600; margin-bottom: 10px; color: #475569; }
-        .form-control { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; transition: 0.3s; }
-        .form-control:focus { border-color: #2563eb; outline: none; }
+        label { display: block; font-weight: 600; margin-bottom: 10px; color: #1e293b; }
+        .form-control { width: 100%; padding: 14px; border: 1px solid rgba(255,255,255,0.5); border-radius: 12px; font-size: 16px; background: rgba(255,255,255,0.6); }
         
-        .price-display { background: #f1f5f9; padding: 25px; border-radius: 12px; text-align: center; margin: 25px 0; border: 2px dashed #cbd5e1; }
-        .price-display h2 { margin: 0; color: #2563eb; font-size: 36px; }
+        .price-display { background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 12px; text-align: center; margin: 25px 0; border: 1px solid rgba(255,255,255,0.8); }
+        .price-display h2 { margin: 0; color: #2563eb; font-size: 32px; }
         
-        /* Tombol disesuaikan dengan warna utama brand */
         .btn-submit { 
             width: 100%; 
-            background-color: #2563eb; /* SAMAKAN DENGAN TOMBOL BERANDA ANDA */
+            background-color: #2563eb; 
             color: white; 
             border: none; 
             padding: 18px; 
@@ -45,20 +50,22 @@
             cursor: pointer; 
             transition: 0.3s; 
         }
-        .btn-submit:hover { background-color: #1d4ed8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .btn-submit:hover { background-color: #1d4ed8; }
 
-        .comparison-table { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow-x: auto; }
+        /* Tabel tetap semi-transparan agar serasi */
+        .comparison-table { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); padding: 30px; border-radius: 20px; overflow-x: auto; border: 1px solid rgba(255, 255, 255, 0.3); }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 18px; text-align: center; border-bottom: 1px solid #f1f5f9; }
-        th { background: #f8fafc; color: #1e293b; font-weight: 700; }
+        th, td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        th { color: #1e293b; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="card-payment">
-        <h2 style="margin-top:0; color: #1e293b;">Pilih Level Membership</h2>
-        <p>Tingkatkan performa iklan Anda dengan memilih paket yang paling sesuai.</p>
+    <!-- Container Pembayaran (Glassmorphism) -->
+    <div class="glass-card">
+        <h2 style="margin-top:0; color: #1e293b;">Upgrade Membership</h2>
+        <p>Pilih paket langganan untuk membuka fitur premium di Teravia.</p>
         
         <div class="form-group">
             <label>Tipe Paket</label>
@@ -87,6 +94,7 @@
         <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN</button>
     </div>
 
+    <!-- Tabel Perbandingan (Glassmorphism) -->
     <div class="comparison-table">
         <h3 style="margin-top:0;">Perbandingan Benefit</h3>
         <table>
