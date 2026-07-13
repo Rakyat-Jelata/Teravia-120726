@@ -153,6 +153,20 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // PROTEKSI AKSES: Cek session login admin
+    if (sessionStorage.getItem('admin_session') !== 'authenticated_true') {
+        alert('Akses ditolak! Silakan login terlebih dahulu.');
+        // Pastikan mengarah ke nama file login yang ada di root folder Anda
+        window.location.href = 'admin-login.html'; 
+        return;
+    }
+
+    checkCurrentStatus();
+    detectUpgradeFormRequest();
+});
+
+    
     function handleLogin(e) {
         e.preventDefault();
         const user = document.getElementById('username').value;
