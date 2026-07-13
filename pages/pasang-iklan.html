@@ -155,29 +155,70 @@
                         <label for="jenis-properti">Jenis Properti</label>
                         <select id="jenis-properti" class="form-control" required>
                             <option value="" disabled selected>-- Pilih Jenis --</option>
-                            <!-- Daftar jenis diisi otomatis via JS berdasarkan kategori -->
-                        </select>
-                    </div>
-                </div>
+<!-- SEGMENT 1: IDENTITAS (Tetap di paling atas) -->
+<div class="form-group">
+    <label>Tipe Pengiklan</label>
+    <div class="persona-group">
+        <label class="persona-option"><input type="radio" name="persona" value="owner" checked> <span>🛡️ OWNER</span></label>
+        <label class="persona-option"><input type="radio" name="persona" value="broker"> <span>💼 BROKER</span></label>
+        <label class="persona-option"><input type="radio" name="persona" value="developer"> <span>🏗️ DEVELOPER</span></label>
+    </div>
+</div>
 
-                <!-- INFO HARGA & JUDUL -->
-<div class="grid-main" style="margin-top: 10px;">
-    <div class="form-group col-8">
+<!-- Urutan 2: JUDUL IKLAN (Satu baris penuh dari kiri ke kanan) 📏 -->
+<div class="grid-main" style="margin-top: 15px;">
+    <div class="form-group col-12">
         <label for="judul">Judul Iklan</label>
-        <input type="text" id="judul" class="form-control" style="width: 100% !important;" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
+        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
+    </div>
+</div>
+
+<!-- Urutan 3: DETAIL PROPERTI (STATUS - KATEGORI - JENIS berdampingan) 📋 -->
+<div class="section-title">Aspek Transaksi & Klasifikasi</div>
+<div class="grid-main">
+    <div class="form-group col-4">
+        <label for="status-listing">Status Listing</label>
+        <select id="status-listing" class="form-control" required>
+            <option value="" disabled selected>-- Pilih Status --</option>
+            <option value="Dijual">Dijual</option>
+            <option value="Disewakan">Disewakan</option>
+            <option value="Dijual & Disewakan">Dijual & Disewakan</option>
+            <option value="Oper Alih">Oper Alih</option>
+            <option value="Lelang">Lelang</option>
+        </select>
     </div>
     <div class="form-group col-4">
+        <label for="kategori-properti">Kategori</label>
+        <select id="kategori-properti" class="form-control" required>
+            <option value="" disabled selected>-- Pilih Kategori --</option>
+            <option value="Hunian">🏠 Hunian</option>
+            <option value="Komersial">🏢 Komersial</option>
+            <option value="Tanah">🌾 Tanah & Lahan</option>
+            <option value="Institusi">🏛️ Institusi & Fasilitas</option>
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <label for="jenis-properti">Jenis Properti</label>
+        <select id="jenis-properti" class="form-control" required>
+            <option value="" disabled selected>-- Pilih Jenis --</option>
+        </select>
+    </div>
+</div>
+
+<!-- Urutan 4: HARGA (Berdiri sendiri di bawah detail properti) 💵 -->
+<div class="grid-main" style="margin-top: 10px;">
+    <div class="form-group col-12">
         <label for="harga">Harga</label>
         <div class="input-unit-box">
-            <!-- Tipe diubah ke text agar bisa disisipkan titik format Rupiah 💵 -->
             <input type="text" id="harga" class="form-control" placeholder="Contoh: 850.000.000" required>
             <span class="unit-tag">Rupiah</span>
         </div>
-        <!-- Wadah baru untuk menampilkan teks terbilang (misal: Delapan Ratus Lima Puluh Juta Rupiah) 📝 -->
         <small id="harga-terbilang" style="display: block; margin-top: 5px; color: #64748b; font-style: italic;">
             Ketik nominal untuk melihat format teks...
         </small>
     </div>
+</div>
+
 </div>
                 <!-- 📝 BARIS BARU: KOLOM DESKRIPSI & GENERATOR AI -->
 <div class="grid-main" style="margin-top: 15px;">
