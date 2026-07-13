@@ -96,18 +96,14 @@ function animateSpecTransition(container, newHtml) {
 
 function toggleJudulFieldVisibility(isAuto) {
     const judulInput = document.getElementById('judul');
-function toggleJudulFieldVisibility(isAuto) {
-    const judulInput = document.getElementById('judul');
     if (!judulInput) return;
 
-    // Memaksa lebar penuh dengan menghapus pembatasan inline style sebelumnya
-    judulInput.style.setProperty('width', '100%', 'important');
-    judulInput.style.setProperty('display', 'block', 'important');
-
+    // Kita biarkan ukuran mengikuti class HTML (col-8), 
+    // hanya sesuaikan placeholder dan status readOnly
     if (isAuto) {
         judulInput.placeholder = "✨ Ketik judul di sini, atau biarkan sistem membuatkannya otomatis saat dikirim...";
-        judulInput.readOnly = false; 
-        judulInput.style.backgroundColor = "#f8fafc"; 
+        judulInput.readOnly = false; // Tetap bisa diketik manual ✍️
+        judulInput.style.backgroundColor = "#f8fafc"; // Latar sedikit abu-abu sebagai penanda
     } else {
         judulInput.placeholder = "Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun";
         judulInput.readOnly = false;
@@ -115,7 +111,6 @@ function toggleJudulFieldVisibility(isAuto) {
         judulInput.value = "";
     }
 }
-
 
 
 /**
