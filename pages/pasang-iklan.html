@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Leaflet Geocoder Plugin 🔍 -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     
     <style>
         /* 1. Reset Global & Aturan Dasar */
@@ -26,12 +26,40 @@
         .btn-pasang-iklan { text-decoration: none; background: #2563eb; color: #fff !important; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
         .btn-login { text-decoration: none; color: #2563eb; border: 1.5px solid #2563eb; padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; }
 
+        /* Badge Status Baru di Navbar */
+        .membership-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-bronze { background: #e2e8f0; color: #475569; }
+        .badge-gold { background: #fef3c7; color: #d97706; border: 1px solid #fcd34d; }
+        .badge-silver { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+        .badge-platinum { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; }
+
         /* 3. Container Form Layout */
         .form-container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
         .card-form { background: #fff; padding: 35px 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); border: 1px solid #eef2f5; }
         h2 { margin-top: 0; color: #1e293b; font-size: 22px; }
         .section-title { font-size: 16px; color: #1e293b; border-left: 4px solid #2563eb; padding-left: 10px; margin: 30px 0 15px 0; font-weight: 700; }
         
+        /* Box Alert Informasi Paket */
+        .quota-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e3a8a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         /* 4. Form Controls */
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #334155; font-size: 14px; }
@@ -109,12 +137,22 @@
             <a href="tentang.html">Tentang</a>
         </nav>
         <div class="navbar-actions">
+            <!-- Tempat Badge Akun Real-time Berada -->
+            <span id="nav-membership-badge" class="membership-badge badge-bronze">Bronze Member</span>
             <a href="pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
             <a href="../login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
         </div>
     </header>
 
     <main class="form-container">
+        <!-- Banner Info Kuota & Iklan Pintar -->
+        <div class="quota-banner" id="quota-info-banner">
+            <div>
+                Sisa kuota pasang iklan Anda: <strong id="txt-sisa-kuota">0</strong> listing paket <strong id="txt-nama-paket">Bronze</strong>.
+            </div>
+            <a href="upgrade-membership.html" id="lnk-upgrade" style="color: #2563eb; font-weight:700; text-decoration:none; font-size:13px;">Upgrade Sekarang &rarr;</a>
+        </div>
+
         <div class="card-form">
             <h2>📋 Pasang Iklan Properti Premium</h2>
             <p>Lengkapi formulir dengan spesifikasi akurat untuk mempermudah calon pembeli menemukan listing properti Anda.</p>
@@ -131,7 +169,7 @@
                     </div>
                 </div>
 
-                <!-- 2. JUDUL IKLAN (Satu baris penuh dari kiri ke kanan) -->
+                <!-- 2. JUDUL IKLAN -->
                 <div class="grid-main" style="margin-top: 15px;">
                     <div class="form-group col-12">
                         <label for="judul">Judul Iklan</label>
@@ -139,7 +177,7 @@
                     </div>
                 </div>
 
-                <!-- 3. DETAIL PROPERTI (STATUS - KATEGORI - JENIS) -->
+                <!-- 3. DETAIL PROPERTI -->
                 <div class="section-title">Aspek Transaksi & Klasifikasi</div>
                 <div class="grid-main">
                     <div class="form-group col-4">
@@ -171,7 +209,7 @@
                     </div>
                 </div>
 
-                <!-- 4. HARGA (Satu baris penuh di bawah detail properti) -->
+                <!-- 4. HARGA -->
                 <div class="grid-main" style="margin-top: 15px;">
                     <div class="form-group col-12">
                         <label for="harga">Harga</label>
@@ -265,12 +303,87 @@
                     <div class="preview-grid" id="preview-container"></div>
                 </div>
 
-                <button type="submit" class="btn-submit">PUBLIKASIKAN IKLAN SEKARANG</button>
+                <button type="submit" class="btn-submit" id="btn-submit-iklan">PUBLIKASIKAN IKLAN SEKARANG</button>
             </form>
         </div>
     </main>
 
+    <!-- INJEKSI LOGIKA INTEGRASI SANDBOX ADMIN -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Ambil status terkini dari local storage
+            const statusUser = localStorage.getItem('user_status') || 'bronze';
+            
+            // 2. Setup konfigurasi kuota dan hak akses
+            let kuotaMaksimal = 0;
+            
+            switch(statusUser) {
+                case 'gold':
+                    kuotaMaksimal = 10;
+                    break;
+                case 'silver':
+                    kuotaMaksimal = 50;
+                    break;
+                case 'platinum':
+                    kuotaMaksimal = 100;
+                    break;
+                default: // bronze
+                    kuotaMaksimal = 0;
+            }
+
+            // Dapatkan jumlah listing buatan user saat ini dari memori (jika ada)
+            let jumlahListingSekarang = parseInt(localStorage.getItem('total_user_listings')) || 0;
+            let sisaKuota = kuotaMaksimal - jumlahListingSekarang;
+            if(sisaKuota < 0) sisaKuota = 0;
+
+            // 3. Update Elemen UI di Halaman Pasang Iklan secara Real-time
+            const badgeNav = document.getElementById('nav-membership-badge');
+            badgeNav.innerText = statusUser + " member";
+            badgeNav.className = "membership-badge badge-" + statusUser;
+
+            document.getElementById('txt-sisa-kuota').innerText = sisaKuota;
+            document.getElementById('txt-nama-paket').innerText = statusUser.toUpperCase();
+
+            // Kustomisasi banner warna jika kuota habis
+            const banner = document.getElementById('quota-info-banner');
+            const btnSubmit = document.getElementById('btn-submit-iklan');
+            
+            if(sisaKuota <= 0) {
+                banner.style.background = '#fef2f2';
+                banner.style.borderColor = '#fca5a5';
+                banner.style.color = '#991b1b';
+                
+                // Kunci form / modifikasi tombol jika paket Free/Bronze tidak punya akses upload
+                if(statusUser === 'bronze') {
+                    btnSubmit.innerText = "KUNCI: SILAKAN UPGRADE MEMBERSHIP DULU";
+                    btnSubmit.style.background = "#94a3b8";
+                    btnSubmit.style.boxShadow = "none";
+                    btnSubmit.style.cursor = "not-allowed";
+                }
+            }
+
+            // 4. Cegah aksi submit jika melanggar kuota paket
+            document.getElementById('iklan-form').addEventListener('submit', function(e) {
+                if(statusUser === 'bronze') {
+                    e.preventDefault();
+                    alert("Maaf, paket Bronze tidak memiliki kuota aktif pasang iklan. Silakan lakukan upgrade akun terlebih dahulu.");
+                    window.location.href = 'upgrade-membership.html'; // Sesuaikan file name tujuan
+                    return false;
+                }
+                
+                if(sisaKuota <= 0) {
+                    e.preventDefault();
+                    alert("Batas maksimal kuota pasang iklan untuk paket " + statusUser.toUpperCase() + " Anda telah habis!");
+                    return false;
+                }
+
+                // Jika lolos verifikasi kuota, tambahkan simulator data tersimpan
+                localStorage.setItem('total_user_listings', jumlahListingSekarang + 1);
+                alert("Sukses! Iklan properti Anda berhasil diajukan dan masuk ke antrean kurasi admin.");
+            });
+        });
+    </script>
+
     <script type="module" src="../assets/js/iklan-handler.js"></script>
 </body>
-                            </html>
-                                                                   
+</html>
