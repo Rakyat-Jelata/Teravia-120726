@@ -10,21 +10,24 @@
     
     <style>
         :root {
-            --primary: #2563eb;
+            --primary: #0300D6;
+            --primary-dark: #0200A8;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --bg-glass: rgba(255, 255, 255, 0.8);
-            --border-glass: rgba(255, 255, 255, 0.5);
+            --accent: #FFB700;
+            --text-main: #1A1F3A;
+            --text-muted: #6B7280;
+            --bg-light: #F5F7FF;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-glass: rgba(3, 0, 214, 0.1);
         }
 
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #F5F7FF 0%, #E0E7FF 100%);
             min-height: 100vh;
             padding: 40px 20px; 
             color: var(--text-main); 
@@ -35,9 +38,20 @@
 
         .admin-container { max-width: 1000px; width: 100%; display: grid; grid-template-columns: 1fr; gap: 24px; }
 
-        .header-panel { text-align: center; margin-bottom: 10px; }
-        .header-panel h1 { margin: 0; font-size: 28px; font-weight: 800; color: #1e293b; }
+        .header-panel { margin-bottom: 20px; }
+        .header-panel h1 { margin: 0; font-size: 28px; font-weight: 800; color: var(--primary); }
         .header-panel p { color: var(--text-muted); margin: 5px 0 0 0; font-size: 14px; }
+        
+        @media(max-width: 768px) {
+            .header-panel > div {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+            #logout-btn {
+                width: 100%;
+                margin-top: 1rem !important;
+            }
+        }
 
         .glass-panel {
             background: var(--bg-glass);
@@ -46,10 +60,10 @@
             border: 1px solid var(--border-glass);
             padding: 24px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+            box-shadow: 0 10px 30px rgba(3, 0, 214, 0.05);
         }
 
-        .glass-panel h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .glass-panel h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
 
         /* Grid untuk layout panel kontrol atas */
         .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -68,8 +82,8 @@
         .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-danger { background: var(--danger); color: white; }
-        .btn-outline { background: transparent; border-color: #cbd5e1; color: var(--text-main); }
-        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .btn-outline { background: transparent; border-color: #E0E7FF; color: var(--text-main); }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(3, 0, 214, 0.1); }
 
         /* Status Badge */
         .badge {
@@ -79,22 +93,22 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        .badge-bronze { background: #e2e8f0; color: #475569; }
-        .badge-gold { background: #fef3c7; color: #d97706; }
-        .badge-silver { background: #f1f5f9; color: #64748b; }
-        .badge-platinum { background: #dbeafe; color: #2563eb; }
-        .badge-pending { background: #ffedd5; color: #ea580c; }
+        .badge-bronze { background: #E0E7FF; color: var(--primary); }
+        .badge-gold { background: #FEF3C7; color: #D97706; }
+        .badge-silver { background: #F1F5F9; color: #64748B; }
+        .badge-platinum { background: #DBEAFE; color: #0C4A6E; }
+        .badge-pending { background: #FFEDD5; color: #EA580C; }
 
         /* Tabel Approval */
         .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
-        th, td { padding: 14px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        th, td { padding: 14px; border-bottom: 1px solid rgba(3, 0, 214, 0.05); }
         th { color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
         
         /* Live Console Logger */
         .console-box {
-            background: #0f172a;
-            color: #38bdf8;
+            background: #0300D6;
+            color: #E0E7FF;
             font-family: 'Courier New', Courier, monospace;
             padding: 15px;
             border-radius: 12px;
@@ -109,10 +123,16 @@
 
 <div class="admin-container">
     
-    <!-- Header -->
+    <!-- Header dengan Info Admin & Logout -->
     <div class="header-panel">
-        <h1>TERAVIA Sandbox Admin</h1>
-        <p>Fasilitas Pengujian Fitur & Approval Simulasi (Trial & Error Mode)</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div>
+                <h1>TERAVIA Sandbox Admin</h1>
+                <p style="margin-bottom: 0.5rem;">Fasilitas Pengujian Fitur & Approval Simulasi (Trial & Error Mode)</p>
+                <p id="admin-info" style="font-size: 0.85rem; color: #0300D6; font-weight: 600;">👤 Admin: <span id="admin-username">-</span></p>
+            </div>
+            <button id="logout-btn" class="btn btn-danger" style="padding: 10px 20px; height: fit-content;">🚪 Logout</button>
+        </div>
     </div>
 
     <!-- Top Grid Kontrol Cepat & Status Saat Ini -->
@@ -127,7 +147,7 @@
                 <button class="btn btn-outline" onclick="forceStatus('bronze')">Set Bronze</button>
                 <button class="btn btn-outline" style="color:#d97706;" onclick="forceStatus('gold')">Set Gold</button>
                 <button class="btn btn-outline" style="color:#64748b;" onclick="forceStatus('silver')">Set Silver</button>
-                <button class="btn btn-outline" style="color:#2563eb;" onclick="forceStatus('platinum')">Set Platinum</button>
+                <button class="btn btn-outline" style="color:#0300D6;" onclick="forceStatus('platinum')">Set Platinum</button>
             </div>
             <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">*Mengklik tombol di atas akan langsung memanipulasi localStorage untuk simulasi sisi client.</p>
         </div>
@@ -205,11 +225,49 @@
 </div>
 
 <script>
-    // Ambil data status terkini dari local storage saat load
+    // Check login status & load admin info
     document.addEventListener("DOMContentLoaded", function() {
+        // Check apakah sudah login
+        const isLoggedIn = localStorage.getItem('admin_logged_in');
+        if (isLoggedIn !== 'true') {
+            logMessage('[SECURITY] Akses ditolak! Redirect ke login...');
+            setTimeout(() => {
+                window.location.href = 'admin-login.html';
+            }, 1000);
+            return;
+        }
+
+        // Display admin info
+        const adminUsername = localStorage.getItem('admin_username') || 'Admin';
+        const loginTime = localStorage.getItem('admin_login_time');
+        document.getElementById('admin-username').textContent = adminUsername;
+
+        if (loginTime) {
+            const loginDate = new Date(loginTime);
+            const timeString = loginDate.toLocaleTimeString('id-ID');
+            logMessage(`[AUTH] Admin "${adminUsername}" login pada ${timeString}`);
+        }
+
+        // Setup logout button
+        document.getElementById('logout-btn').addEventListener('click', handleLogout);
+
         checkCurrentStatus();
         detectUpgradeFormRequest();
     });
+
+    // Handle logout
+    function handleLogout() {
+        if (confirm('Yakin ingin logout dari Admin Panel?')) {
+            logMessage('[AUTH] Admin melakukan logout...');
+            localStorage.removeItem('admin_logged_in');
+            localStorage.removeItem('admin_username');
+            localStorage.removeItem('admin_login_time');
+            
+            setTimeout(() => {
+                window.location.href = 'admin-login.html';
+            }, 800);
+        }
+    }
 
     function checkCurrentStatus() {
         const currentStatus = localStorage.getItem('user_status') || 'bronze';
