@@ -22,36 +22,43 @@
     
     <!-- NAVBAR UTAMA -->
 <header class="navbar-container">
-    <!-- 1. Logo Brand (Tetap Menggunakan Gambar Asli Anda) -->
+    <!-- Logo Brand (Aman) -->
     <div class="navbar-brand">
         <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo">
     </div>
 
-    <!-- 2. Tombol Hamburger (Hanya Muncul di Layar Mobile) -->
+    <!-- Tombol Hamburger (Hanya muncul di Mobile lewat responsive.css) -->
     <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
     </button>
 
-    <!-- 3. Wrapper Tunggal untuk Kontrol Desktop & Mobile -->
-    <div class="navbar-responsive-wrapper" id="navbar-menu">
-        <!-- Menu Navigasi Asli Anda -->
+    <!-- KELOMPOK 1: KHUSUS TAMPILAN DESKTOP -->
+    <div class="navbar-desktop-only">
         <nav class="navbar-menu">
             <a href="pages/beli.html">Beli</a>
             <a href="pages/jual.html">Jual</a>
             <a href="pages/blog.html">Blog</a>
             <a href="pages/tentang.html">Tentang</a>
         </nav>
-        
-        <!-- Tombol Aksi Asli Anda -->
         <div class="navbar-actions">
             <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
             <a href="login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
         </div>
     </div>
-</header>
 
+    <!-- KELOMPOK 2: KHUSUS DROPDOWN MOBILE -->
+    <div class="navbar-mobile-dropdown" id="navbar-mobile-menu">
+        <a href="pages/beli.html">Beli</a>
+        <a href="pages/jual.html">Jual</a>
+        <a href="pages/blog.html">Blog</a>
+        <a href="pages/tentang.html">Tentang</a>
+        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); width: 85%; margin: 5px 0;">
+        <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
+        <a href="login.html" class="btn-login" id="nav-auth-btn-mobile">Masuk</a>
+    </div>
+</header>
 
     <main>
         <!-- HERO SECTION -->
@@ -93,20 +100,27 @@
         </section>
     </main>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const navbarMenu = document.getElementById('navbar-menu');
+document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('navbar-mobile-menu');
 
-        if (menuBtn && navbarMenu) {
-            menuBtn.addEventListener('click', function() {
-                // Toggle class 'active' untuk memicu animasi X dan membuka menu dropdown
-                menuBtn.classList.toggle('active');
-                navbarMenu.classList.toggle('active');
-            });
-        }
-    });
-    </script>
-    
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Menutup menu jika user mengklik di luar area navbar dropdown
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                menuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    }
+});
+</script>
 
     <!-- FOOTER UTAMA -->
     <footer class="footer-container">
