@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Member - TERAVIA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --bg-glass: rgba(255, 255, 255, 0.8);
+            --border-glass: rgba(255, 255, 255, 0.5);
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            padding: 40px 20px; 
+            color: var(--text-main); 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+
+        .glass-panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+        }
+
+        /* Profile & Status Header */
+        .profile-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .user-info h1 { margin: 0; font-size: 24px; font-weight: 700; }
+        .user-info p { margin: 4px 0 0 0; color: var(--text-muted); font-size: 14px; }
+
+        /* Badge Status */
+        .badge { padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-bronze { background: #e2e8f0; color: #475569; }
+        .badge-gold { background: #fef3c7; color: #d97706; }
+        .badge-silver { background: #f1f5f9; color: #64748b; }
+        .badge-platinum { background: #dbeafe; color: #2563eb; }
+
+        /* Stats Grid (Kuota & Countdown) */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+        @media(max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } }
+
+        .stat-card { background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.02); padding: 20px; border-radius: 16px; text-align: center; }
+        .stat-card small { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .stat-card .stat-value { font-size: 28px; font-weight: 800; color: #1e293b; }
+        .stat-card .timer-value { font-size: 26px; font-weight: 800; color: #ef4444; font-family: monospace; }
+
+        /* Listing Section */
+        .listing-section h2 { font-size: 18px; margin-top: 0; margin-bottom: 20px; }
+        .property-list { display: flex; flex-direction: column; gap: 12px; }
+        
+        .property-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 16px 20px; background: rgba(255,255,255,0.5); border-radius: 14px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        @media(max-width: 480px) { .property-item { flex-direction: column; align-items: flex-start; gap: 12px; } }
+
+        .prop-details h3 { margin: 0; font-size: 16px; color: #1e293b; }
+        .prop-details p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); }
+        
+        .auto-sundul-status { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #10b981; }
+        .status-disabled { color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    
+    <!-- Panel 1: Header & Akun Info -->
+    <div class="glass-panel">
+        <div class="profile-header">
+            <div class="user-info">
+                <h1>Selamat Datang, Partner Teravia 👋</h1>
+                <p>Kelola listing properti dan pantau performa iklan otomatis Anda di sini.</p>
+            </div>
+            <div>
+                <span id="user-badge" class="badge badge-bronze">Bronze Member</span>
+            </div>
+        </div>
+
+        <!-- Grid Kuota dan Countdown Otomatis -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <small>Sisa Kuota Listing</small>
+                <div class="stat-value" id="quota-listing">0</div>
+            </div>
+            <div class="stat-card">
+                <small>Sisa Kuota Sundul</small>
+                <div class="stat-value" id="quota-sundul">0</div>
+            </div>
+            <div class="stat-card" id="timer-container">
+                <small>Auto-Sundul Berikutnya</small>
+                <div class="timer-value" id="countdown-timer">--:--:--</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 2: Daftar Listing Properti -->
+    <div class="glass-panel listing-section">
+        <h2>🏠 Listing Properti Anda</h2>
+        <div class="property-list" id="wrapper-listing">
+            <!-- Simulasi Properti -->
+            <div class="property-item">
+                <div class="prop-details">
+                    <h3>Modern Tropical House Cilandak</h3>
+                    <p>Rp 3.500.000.000 • Hunian</p>
+                </div>
+                <div class="auto-sundul-status" id="status-sundul-prop-1">
+                    🔄 Auto-Sundul Aktif
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Ambil status terkini dari local storage
+        const statusUser = localStorage.getItem('user_status') || 'bronze';
+        
+        // 2. Tentukan variabel berdasarkan paket
+        let kuotaListing = 0;
+        let kuotaSundul = 0;
+        let fiturOtomatis = false;
+
+        switch(statusUser) {
+            case 'gold':
+                kuotaListing = 10;
+                kuotaSundul = 10;
+                fiturOtomatis = true;
+                break;
+            case 'silver':
+                kuotaListing = 50;
+                kuotaSundul = 50;
+                fiturOtomatis = true;
+                break;
+            case 'platinum':
+                kuotaListing = 100;
+                kuotaSundul = 100;
+                fiturOtomatis = true;
+                break;
+            default: // Bronze
+                kuotaListing = 0;
+                kuotaSundul = 0;
+                fiturOtomatis = false;
+        }
+
+        // Hitung sisa kuota listing (simulasi dikurangi 1 properti yang ada di list bawah)
+        let totalListingAktif = 1; 
+        if(statusUser === 'bronze') totalListingAktif = 0; // Jika bronze, anggap kosong
+
+        // Tampilkan ke UI
+        const badge = document.getElementById('user-badge');
+        badge.innerText = statusUser + " member";
+        badge.className = "badge badge-" + statusUser;
+
+        document.getElementById('quota-listing').innerText = statusUser === 'bronze' ? 0 : (kuotaListing - totalListingAktif);
+        document.getElementById('quota-sundul').innerText = kuotaSundul;
+
+        // 3. Logika Tampilan & Timer Otomatis
+        const timerContainer = document.getElementById('timer-container');
+        const textStatusSundul = document.getElementById('status-sundul-prop-1');
+
+        if (fiturOtomatis && kuotaSundul > 0) {
+            startSimulatedCountdown(23, 59, 59); // Set awal hitung mundur 24 jam
+        } else {
+            // Jika paket Bronze atau kuota sundul habis
+            document.getElementById('countdown-timer').innerText = "NONAKTIF";
+            document.getElementById('countdown-timer').style.color = "#94a3b8";
+            if(textStatusSundul) {
+                textStatusSundul.innerHTML = "❌ Auto-Sundul Nonaktif";
+                textStatusSundul.className = "auto-sundul-status status-disabled";
+            }
+            if(statusUser === 'bronze' && wrapper-listing) {
+                document.getElementById('wrapper-listing').innerHTML = '<p style="color:var(--text-muted); font-style:italic; font-size:14px; text-align:center; margin:10px 0;">Belum ada listing. Silakan upgrade paket untuk mulai memasang iklan.</p>';
+            }
+        }
+    });
+
+    // Fungsi hitung mundur simulator (Real-time per detik)
+    function startSimulatedCountdown(hours, minutes, seconds) {
+        const timerElement = document.getElementById('countdown-timer');
+        
+        let totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
+
+        const interval = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(interval);
+                timerElement.innerText = "MENYUNDUL...";
+                
+                // Kurangi token kuota sundul di UI sebagai simulasi berhasil disundul
+                setTimeout(() => {
+                    let currentSundul = parseInt(document.getElementById('quota-sundul').innerText);
+                    if(currentSundul > 0) {
+                        document.getElementById('quota-sundul').innerText = currentSundul - 1;
+                    }
+                    startSimulatedCountdown(23, 59, 59); // Ulangi timer ke 24 jam lagi
+                }, 2000);
+                return;
+            }
+
+            totalSeconds--;
+
+            let hrs = Math.floor(totalSeconds / 3600);
+            let mins = Math.floor((totalSeconds % 3600) / 60);
+            let secs = totalSeconds % 60;
+
+            // Format agar selalu dua digit (00:00:00)
+            hrs = hrs < 10 ? "0" + hrs : hrs;
+            mins = mins < 10 ? "0" + mins : mins;
+            secs = secs < 10 ? "0" + secs : secs;
+
+            timerElement.innerText = `${hrs}:${mins}:${secs}`;
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
+
