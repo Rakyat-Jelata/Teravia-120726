@@ -11,88 +11,79 @@
     <style>
         :root {
             --primary: #3dfff9;
-            --primary-hover: #00e5de;
             --white: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.65);
         }
 
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            /* Menggunakan jalur keluar folder ../ untuk menarik hero-bg.png */
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.5) 0%, rgba(3, 0, 214, 0.3) 100%),
+            /* Overlay gradasi transparan tipis + background gambar terintegrasi */
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(3, 0, 214, 0.2) 100%),
                         url('../assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
-            padding: 40px 20px; 
-            color: var(--white); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
         }
 
-        .container { max-width: 680px; width: 100%; text-align: center; }
-        
-        /* Logo Styling Senada yang Sudah Diperbesar */
+        /* Kartu Frosted Glass Transparan (Persis seperti halaman Login) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 40px 35px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
         .logo-img {
             height: 80px;
             width: auto;
             max-width: 100%;
             object-fit: contain;
             margin-bottom: 25px;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
         }
 
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.12); 
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 45px 35px; 
-            border-radius: 28px; 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); 
+        .form-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--white);
+            margin: 0 0 5px 0;
+        }
+
+        .form-subtitle {
+            margin: 0 0 35px 0;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+        }
+
+        .form-group {
             margin-bottom: 30px;
             text-align: left;
         }
 
-        h2.title {
-            margin: 0 0 8px 0;
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--white);
-            text-align: center;
-        }
-
-        p.subtitle {
-            margin: 0 0 35px 0;
-            color: var(--text-muted);
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.85);
             font-size: 14px;
-            text-align: center;
         }
 
-        .form-group { margin-bottom: 28px; }
-        
-        label.section-label { 
-            display: block; 
-            font-weight: 600; 
-            margin-bottom: 12px; 
-            color: var(--white); 
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Custom Radio Grid Paket */
-        .packet-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* List Pilihan Paket Gaya Transparan Kaca */
+        .packet-list {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
-        }
-
-        @media(max-width: 480px) {
-            .packet-grid { grid-template-columns: 1fr; }
         }
 
         .packet-option {
@@ -107,165 +98,134 @@
         }
 
         .packet-card {
-            background: rgba(0, 0, 0, 0.25);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            padding: 18px;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 20px;
+            border-radius: 14px;
             display: flex;
-            flex-direction: column;
-            gap: 4px;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--white);
         }
 
         .packet-card:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
         }
 
-        .packet-option input:checked + .packet-card {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(61, 255, 249, 0.2);
+        .packet-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .packet-name { font-weight: 700; font-size: 16px; color: var(--white); }
-        .packet-price { font-size: 14px; color: var(--text-muted); font-weight: 500; }
-        
+        .packet-name { font-weight: 700; font-size: 16px; }
+        .packet-price { font-size: 14px; color: rgba(255, 255, 255, 0.6); }
+
         .badge-discount {
-            font-size: 10px;
-            background: rgba(239, 68, 68, 0.8);
+            font-size: 11px;
+            background: rgba(239, 68, 68, 0.85);
             color: var(--white);
             padding: 3px 8px;
             border-radius: 6px;
             font-weight: 600;
-            align-self: flex-start;
-            margin-top: 4px;
         }
 
-        /* Dropdown Underline-Glass */
+        /* Highlight saat Paket dipilih */
+        .packet-option input:checked + .packet-card {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(61, 255, 249, 0.2);
+        }
+
+        /* Select Dropdown Gaya Underline Transparan */
         .form-control { 
             width: 100%; 
-            padding: 14px 0; 
+            padding: 10px 0; 
             border: none;
             border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-            font-size: 15px; 
+            font-size: 16px; 
             font-family: inherit;
             background: transparent; 
             color: var(--white);
             outline: none;
             cursor: pointer;
         }
+
         .form-control:focus {
             border-bottom-color: var(--primary);
         }
+
+        /* Mengatur agar teks di dalam opsi dropdown bawaan OS tetap terbaca */
         .form-control option {
-            background: #0300D6;
+            background: #1e293b;
             color: var(--white);
         }
         
-        /* Display Total Investasi */
+        /* Box Total Investasi Transparan */
         .price-display { 
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px; 
             border-radius: 16px; 
-            text-align: center; 
             margin: 30px 0; 
             border: 1px solid rgba(255, 255, 255, 0.1); 
         }
-        .price-display small { font-size: 13px; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 4px;}
+        .price-display small { font-size: 13px; color: rgba(255, 255, 255, 0.6); display: block; margin-bottom: 2px;}
         .price-display h2 { margin: 0; color: var(--primary); font-size: 32px; font-weight: 800; }
         
-        /* Tombol Lonjong Bersih */
+        /* Tombol Lonjong Putih Bersih khas Login */
         .btn-submit { 
             width: 100%; 
             background: var(--white); 
             color: #0300D6; 
             border: none; 
-            padding: 16px; 
+            padding: 15px; 
             border-radius: 30px; 
             font-size: 16px; 
             font-weight: 700; 
-            cursor: pointer; 
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
+
         .btn-submit:hover { 
             background: var(--primary);
             color: #0f172a;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(61, 255, 249, 0.4);
-        }
-
-        /* Tabel Perbandingan Benefit */
-        .comparison-table { 
-            background: rgba(255, 255, 255, 0.12); 
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
-            padding: 35px 30px; 
-            border-radius: 28px; 
-            border: 1px solid rgba(255, 255, 255, 0.25); 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            text-align: left;
-        }
-        .comparison-table h3 { font-size: 18px; font-weight: 700; margin: 0 0 20px 0; text-align: center; color: var(--white); }
-        
-        .table-wrapper { overflow-x: auto; margin-top: 15px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
-        
-        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); color: var(--white); }
-        th { color: var(--text-muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
-        td { font-weight: 500; }
-        
-        tr:last-child td { border-bottom: none; }
-        
-        .price-original { text-decoration: line-through; color: rgba(255,255,255,0.4); font-size: 12px; margin-right: 4px; }
-        .price-discount { color: var(--primary); font-weight: 600; }
-        
-        .icon-check { color: var(--primary); fill: currentColor; width: 20px; height: 20px; vertical-align: middle; }
-        .icon-cross { color: rgba(255,255,255,0.25); fill: currentColor; width: 18px; height: 18px; vertical-align: middle; }
-
-        .note { 
-            margin-top: 24px; 
-            padding: 14px 16px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 14px;
-            color: rgba(255, 255, 255, 0.8); 
-            font-size: 13px; 
-            line-height: 1.5;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 6px 20px rgba(61, 255, 249, 0.3);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Penarikan Logo Transparan Super Cerdas -->
+<div class="glass-card">
+    <!-- Mengambil logo transparan dari folder assets/img -->
     <img src="../assets/img/logo.png" alt="TERAVIA Logo" class="logo-img" onerror="this.style.display='none'">
-
-    <div class="glass-card">
-        <h2 class="title">Upgrade Membership</h2>
-        <p class="subtitle">Pilih paket terbaik untuk tingkatkan konversi penjualan Anda</p>
-        
+    
+    <h1 class="form-title">Membership</h1>
+    <p class="form-subtitle">Pilih paket terbaik untuk tingkatkan iklan properti Anda</p>
+    
+    <form onsubmit="prosesUpgrade(event)">
         <div class="form-group">
-            <label class="section-label">Pilih Tipe Akun</label>
-            <div class="packet-grid">
+            <label>Pilih Tipe Akun</label>
+            <div class="packet-list">
                 
                 <label class="packet-option">
                     <input type="radio" name="paket" value="bronze" data-harga="Free" checked onchange="updateHarga(this)">
                     <div class="packet-card">
-                        <span class="packet-name">Bronze</span>
-                        <span class="packet-price">Gratis</span>
+                        <div class="packet-info">
+                            <span class="packet-name">Bronze</span>
+                            <span class="packet-price">Gratis</span>
+                        </div>
                     </div>
                 </label>
 
                 <label class="packet-option">
                     <input type="radio" name="paket" value="gold" data-harga="Rp 100.000" onchange="updateHarga(this)">
                     <div class="packet-card">
-                        <span class="packet-name">Gold</span>
-                        <span class="packet-price">Rp 100.000</span>
+                        <div class="packet-info">
+                            <span class="packet-name">Gold</span>
+                            <span class="packet-price">Rp 100.000</span>
+                        </div>
                         <span class="badge-discount">Hemat 50%</span>
                     </div>
                 </label>
@@ -273,8 +233,10 @@
                 <label class="packet-option">
                     <input type="radio" name="paket" value="silver" data-harga="Rp 250.000" onchange="updateHarga(this)">
                     <div class="packet-card">
-                        <span class="packet-name">Silver</span>
-                        <span class="packet-price">Rp 250.000</span>
+                        <div class="packet-info">
+                            <span class="packet-name">Silver</span>
+                            <span class="packet-price">Rp 250.000</span>
+                        </div>
                         <span class="badge-discount">Hemat 37%</span>
                     </div>
                 </label>
@@ -282,8 +244,10 @@
                 <label class="packet-option">
                     <input type="radio" name="paket" value="platinum" data-harga="Rp 500.000" onchange="updateHarga(this)">
                     <div class="packet-card">
-                        <span class="packet-name">Platinum</span>
-                        <span class="packet-price">Rp 500.000</span>
+                        <div class="packet-info">
+                            <span class="packet-name">Platinum</span>
+                            <span class="packet-price">Rp 500.000</span>
+                        </div>
                         <span class="badge-discount">Hemat 37%</span>
                     </div>
                 </label>
@@ -292,7 +256,7 @@
         </div>
 
         <div class="form-group">
-            <label class="section-label">Metode Pembayaran</label>
+            <label>Metode Pembayaran</label>
             <select class="form-control">
                 <option>Virtual Account (BCA, Mandiri, BNI)</option>
                 <option>E-Wallet / QRIS (OVO, Dana, LinkAja)</option>
@@ -305,55 +269,8 @@
             <h2 id="display-harga">Free</h2>
         </div>
 
-        <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN SEKARANG</button>
-    </div>
-
-    <!-- Tabel Benefit Bergaya Transparan Gelap -->
-    <div class="comparison-table">
-        <h3>Perbandingan Benefit Paket</h3>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tipe</th>
-                        <th style="text-align: center;">Listing</th>
-                        <th style="text-align: center;">Sundul</th>
-                        <th style="text-align: right;">Harga Spesial</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-weight: 700;">Bronze</td>
-                        <td style="text-align: center;"><svg class="icon-cross" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg></td>
-                        <td style="text-align: center;"><svg class="icon-cross" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg></td>
-                        <td style="text-align: right; color: rgba(255,255,255,0.5);">Free</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 700; color: #f59e0b;">Gold</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 10</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 10</td>
-                        <td style="text-align: right;"><span class="price-original">200rb</span><span class="price-discount">100.000</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 700; color: #cbd5e1;">Silver</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 50</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 50</td>
-                        <td style="text-align: right;"><span class="price-original">400rb</span><span class="price-discount">250.000</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 700; color: var(--primary);">Platinum</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 100</td>
-                        <td style="text-align: center; font-weight: 700;"><svg class="icon-check" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 100</td>
-                        <td style="text-align: right;"><span class="price-original">800rb</span><span class="price-discount">500.000</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="note">
-            <span>📢</span>
-            <span>Dengan bergabung, setiap listingan yang diupload ke database <strong>Teravia</strong> akan dibantu pemasarannya secara eksklusif menggunakan sistem Ads pintar kami.</span>
-        </div>
-    </div>
+        <button type="submit" class="btn-submit">Upgrade Now</button>
+    </form>
 </div>
 
 <script>
@@ -362,7 +279,8 @@
         document.getElementById('display-harga').innerText = harga;
     }
 
-    function prosesUpgrade() {
+    function prosesUpgrade(e) {
+        e.preventDefault();
         const pilihanPaket = document.querySelector('input[name="paket"]:checked').value;
         localStorage.setItem('user_status', pilihanPaket);
         alert('Upgrade ke paket ' + pilihanPaket.toUpperCase() + ' berhasil diproses!');
