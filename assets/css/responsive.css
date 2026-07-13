@@ -20,9 +20,48 @@
         display: none !important; /* Hapus menu versi desktop total di layar HP */
     }
 
+        /* Paksa tombol hamburger memiliki ruang & terlihat */
     .menu-toggle {
-        display: flex !important; /* Munculkan hamburger di HP */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 5px !important;
+        width: 30px !important;
+        height: 24px !important; /* Memberikan ruang tinggi vertikal agar garis terpisah */
+        position: relative !important;
+        z-index: 1005 !important;
     }
+
+    /* Paksa 3 garis hitam pekat muncul dengan dimensi pasti */
+    .menu-toggle .bar {
+        display: block !important;
+        width: 25px !important;
+        height: 3px !important;
+        background-color: #1e293b !important; /* Menggunakan hitam arang solid agar kontras tinggi */
+        transition: all 0.3s ease-in-out !important;
+        border-radius: 2px !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* --- Efek Animasi X Saat Aktif --- */
+    /* Garis Atas berputar 45 derajat dan turun tepat ke tengah */
+    .menu-toggle.active .bar:nth-child(1) { 
+        transform: translateY(10px) rotate(45deg) !important; 
+    }
+    /* Garis Tengah hilang total */
+    .menu-toggle.active .bar:nth-child(2) { 
+        opacity: 0 !important; 
+    }
+    /* Garis Bawah berputar -45 derajat dan naik tepat ke tengah */
+    .menu-toggle.active .bar:nth-child(3) { 
+        transform: translateY(-10px) rotate(-45deg) !important; 
+    }
+
 
     /* Sistem Dropdown Khusus Mobile */
     .navbar-mobile-dropdown {
