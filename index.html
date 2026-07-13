@@ -19,51 +19,39 @@
     
 </head>
 <body>
-
+    
     <!-- NAVBAR UTAMA -->
-    <header class="navbar-container">
-        <div class="navbar-brand">
-            <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo">
-        </div>
-        <nav class="navbar">
-    <div class="navbar-container">
-        <!-- Logo Brand -->
-        <a href="index.html" class="navbar-logo">TERAVIA</a>
-
-        <!-- Hamburger Menu (Hanya muncul di Mobile) -->
-        <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-
-        <!-- Menu Navigasi & Tombol Aksi -->
-        <div class="navbar-menu-wrapper" id="navbar-menu">
-            <ul class="navbar-links">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="#">Cari Properti</a></li>
-                <li><a href="membership.html">Membership</a></li>
-                <li><a href="#">Tentang Kami</a></li>
-            </ul>
-            
-            <div class="navbar-action">
-                <a href="pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
-            </div>
-        </div>
+<header class="navbar-container">
+    <!-- 1. Logo Brand (Tetap Menggunakan Gambar Asli Anda) -->
+    <div class="navbar-brand">
+        <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo">
     </div>
-        </nav>
+
+    <!-- 2. Tombol Hamburger (Hanya Muncul di Layar Mobile) -->
+    <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <!-- 3. Wrapper Tunggal untuk Kontrol Desktop & Mobile -->
+    <div class="navbar-responsive-wrapper" id="navbar-menu">
+        <!-- Menu Navigasi Asli Anda -->
         <nav class="navbar-menu">
             <a href="pages/beli.html">Beli</a>
             <a href="pages/jual.html">Jual</a>
             <a href="pages/blog.html">Blog</a>
             <a href="pages/tentang.html">Tentang</a>
         </nav>
+        
+        <!-- Tombol Aksi Asli Anda -->
         <div class="navbar-actions">
-            <!-- Tombol Pasang Iklan ini yang akan disaring oleh Layer 1 Protection di JS -->
             <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
             <a href="login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <main>
         <!-- HERO SECTION -->
@@ -104,6 +92,21 @@
             </div>
         </section>
     </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const navbarMenu = document.getElementById('navbar-menu');
+
+        if (menuBtn && navbarMenu) {
+            menuBtn.addEventListener('click', function() {
+                // Toggle class 'active' untuk memicu animasi X dan membuka menu dropdown
+                menuBtn.classList.toggle('active');
+                navbarMenu.classList.toggle('active');
+            });
+        }
+    });
+    </script>
+    
 
     <!-- FOOTER UTAMA -->
     <footer class="footer-container">
