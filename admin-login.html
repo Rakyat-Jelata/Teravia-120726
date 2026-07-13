@@ -9,492 +9,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #0300D6;
-            --primary-dark: #0200A8;
-            --accent: #FFB700;
-            --text-main: #1A1F3A;
-            --text-muted: #6B7280;
-            --bg-light: #F5F7FF;
-            --bg-glass: rgba(255, 255, 255, 0.85);
-            --border-glass: rgba(3, 0, 214, 0.1);
-            --success: #10b981;
-            --danger: #ef4444;
-        }
-
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            transition: all 0.2s ease-in-out; 
-        }
-
+        :root { --primary: #3dfff9; --white: #ffffff; }
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #F5F7FF 0%, #E0E7FF 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: var(--text-main);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 0, 214, 0.4) 100%),
+                        url('assets/img/hero-bg.png') no-repeat center center fixed; 
+            background-size: cover; min-height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; padding: 20px;
         }
-
-        .login-container {
-            width: 100%;
-            max-width: 420px;
+        .glass-card {
+            background: rgba(3, 0, 214, 0.25); /* Agak keunguan gelap tanda panel khusus admin */
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 40px 35px; border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); max-width: 420px; width: 100%; text-align: center;
         }
-
-        .login-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 50px rgba(3, 0, 214, 0.1);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-logo {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .login-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.6rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            border: 2px solid var(--border-glass);
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: white;
-            color: var(--text-main);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(3, 0, 214, 0.1);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .checkbox-wrapper input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            accent-color: var(--primary);
-        }
-
-        .forgot-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .forgot-link:hover {
-            color: var(--primary-dark);
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #0300D6 0%, #0200A8 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(3, 0, 214, 0.25);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        .btn-login:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .login-divider {
-            text-align: center;
-            margin: 2rem 0;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .login-divider::before,
-        .login-divider::after {
-            content: '';
-            display: inline-block;
-            width: 40%;
-            height: 1px;
-            background: var(--border-glass);
-            vertical-align: middle;
-            margin: 0 0.75rem;
-        }
-
-        .social-login {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .btn-social {
-            padding: 0.75rem;
-            border: 2px solid var(--border-glass);
-            background: white;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text-main);
-            font-size: 0.85rem;
-        }
-
-        .btn-social:hover {
-            background: var(--bg-light);
-            border-color: var(--primary);
-        }
-
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #FCA5A5;
-            color: #DC2626;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        .success-message {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid #A7F3D0;
-            color: #059669;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .demo-credentials {
-            background: rgba(255, 183, 0, 0.05);
-            border: 1px solid #FFD97D;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .demo-credentials strong {
-            color: var(--text-main);
-        }
-
-        .credential-row {
-            margin: 0.5rem 0;
-            font-family: monospace;
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .login-title {
-                font-size: 1.5rem;
-            }
-
-            .social-login {
-                grid-template-columns: 1fr;
-            }
-        }
+        .logo-img {
+    height: 80px; /* Ukuran diperbesar dari sebelumnya agar lebih proporsional */
+    width: auto;
+    max-width: 100%; /* Menjaga agar logo tetap aman dan tidak meluber di layar HP */
+    object-fit: contain;
+    margin-bottom: 30px; /* Memberikan jarak vertikal yang lebih lega ke teks 'Login' */
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15)); /* Efek bayangan halus agar logo makin stand out */
+}
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="login-card">
-            <!-- Header -->
-            <div class="login-header">
-                <div class="login-logo">🔐</div>
-                <h1 class="login-title">Admin Portal</h1>
-                <p class="login-subtitle">TERAVIA Sandbox & Testing</p>
-            </div>
+<div class="glass-card">
+    <img src="assets/img/logo.png" alt="TERAVIA Logo" class="logo-img" onerror="this.style.display='none'">
+    <h1 class="form-title">Admin Sandbox</h1>
+    <div class="form-subtitle">Panel Pengujian Internal System</div>
 
-            <!-- Messages -->
-            <div class="error-message" id="errorMessage"></div>
-            <div class="success-message" id="successMessage"></div>
-
-            <!-- Login Form -->
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label" for="username">Username atau Email</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        class="form-input" 
-                        placeholder="admin@teravia.id atau admin"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        class="form-input" 
-                        placeholder="••••••••"
-                        required
-                    >
-                </div>
-
-                <div class="remember-forgot">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember" style="cursor: pointer; margin: 0;">Ingat saya</label>
-                    </div>
-                    <a href="#" class="forgot-link">Lupa password?</a>
-                </div>
-
-                <button type="submit" class="btn-login">
-                    <span class="btn-text">Login ke Admin Panel</span>
-                    <div class="loading-spinner" id="spinner"></div>
-                </button>
-            </form>
-
-            <!-- Demo Credentials -->
-            <div class="demo-credentials">
-                <strong>🔑 Demo Credentials:</strong>
-                <div class="credential-row">Username: <strong>admin</strong></div>
-                <div class="credential-row">Password: <strong>admin123</strong></div>
-                <div style="margin-top: 0.5rem; opacity: 0.7;">(atau gunakan email: admin@teravia.id)</div>
-            </div>
+    <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="form-control" required autocomplete="off">
         </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" required>
+        </div>
+        
+        <button type="submit" class="btn-submit">Log In to Dashboard</button>
+    </form>
+
+    <div class="tip-box">
+        🔑 Akun Admin:<br>
+        <span style="color: #fff;">User: <b>admin</b> | Pass: <b>admin123</b></span>
     </div>
+</div>
 
-    <script>
-        const loginForm = document.getElementById('loginForm');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const rememberCheckbox = document.getElementById('remember');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-        const spinner = document.getElementById('spinner');
-        const btnText = document.querySelector('.btn-text');
-        const loginBtn = document.querySelector('.btn-login');
+<script>
+    function handleAdminLogin(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
 
-        // Demo credentials
-        const DEMO_CREDENTIALS = {
-            'admin': 'admin123',
-            'admin@teravia.id': 'admin123'
-        };
-
-        // Load saved username if remembered
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedUsername = localStorage.getItem('admin_remembered_username');
-            if (savedUsername) {
-                usernameInput.value = savedUsername;
-                rememberCheckbox.checked = true;
-            }
-
-            // Check if already logged in
-            const isLoggedIn = localStorage.getItem('admin_logged_in');
-            if (isLoggedIn === 'true') {
-                redirectToDashboard();
-            }
-        });
-
-        // Handle form submission
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value;
-
-            // Reset messages
-            hideError();
-            hideSuccess();
-
-            // Validasi input
-            if (!username || !password) {
-                showError('Username dan password harus diisi!');
-                return;
-            }
-
-            // Disable button & show loading
-            loginBtn.disabled = true;
-            spinner.style.display = 'block';
-            btnText.textContent = 'Sedang login...';
-
-            // Simulasi delay network (untuk user experience lebih baik)
-            await new Promise(resolve => setTimeout(resolve, 800));
-
-            // Validasi credentials
-            const isValidCredential = DEMO_CREDENTIALS[username];
-            
-            if (!isValidCredential) {
-                loginBtn.disabled = false;
-                spinner.style.display = 'none';
-                btnText.textContent = 'Login ke Admin Panel';
-                showError('Username tidak ditemukan. Gunakan "admin" atau "admin@teravia.id"');
-                return;
-            }
-
-            if (DEMO_CREDENTIALS[username] !== password) {
-                loginBtn.disabled = false;
-                spinner.style.display = 'none';
-                btnText.textContent = 'Login ke Admin Panel';
-                showError('Password salah. Coba gunakan password: admin123');
-                return;
-            }
-
-            // Login berhasil
-            showSuccess('Login berhasil! Redirecting...');
-            
-            // Simpan data login ke localStorage
-            localStorage.setItem('admin_logged_in', 'true');
-            localStorage.setItem('admin_username', username);
-            localStorage.setItem('admin_login_time', new Date().toISOString());
-
-            // Simpan username jika remember checked
-            if (rememberCheckbox.checked) {
-                localStorage.setItem('admin_remembered_username', username);
-            } else {
-                localStorage.removeItem('admin_remembered_username');
-            }
-
-            // Redirect ke dashboard setelah delay
-            setTimeout(() => {
-                redirectToDashboard();
-            }, 1200);
-        });
-
-        // Helper functions
-        function showError(message) {
-            errorMessage.textContent = '❌ ' + message;
-            errorMessage.classList.add('show');
-        }
-
-        function hideError() {
-            errorMessage.classList.remove('show');
-        }
-
-        function showSuccess(message) {
-            successMessage.textContent = '✅ ' + message;
-            successMessage.classList.add('show');
-        }
-
-        function hideSuccess() {
-            successMessage.classList.remove('show');
-        }
-
-        function redirectToDashboard() {
+        if (user === 'admin' && pass === 'admin123') {
+            sessionStorage.setItem('admin_session', 'authenticated_true');
             window.location.href = 'admin-test.html';
+        } else {
+            alert('Akses Admin Ditolak!');
         }
-
-        // Allow pressing Enter to submit form
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                loginForm.dispatchEvent(new Event('submit'));
-            }
-        });
-
-        // Real-time input validation
-        usernameInput.addEventListener('input', hideError);
-        passwordInput.addEventListener('input', hideError);
-    </script>
+    }
+</script>
 
 </body>
 </html>
