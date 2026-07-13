@@ -8,6 +8,13 @@ applyLayer2Protection().then((isCleared) => {
     if (!isCleared) return;
     initFormEngine();
 });
+// Cek status keanggotaan pengguna
+const userStatus = localStorage.getItem('user_status'); // Misal: 'free', 'premium', 'admin'
+
+if (userStatus !== 'premium' && userStatus !== 'admin') {
+    alert('Anda tidak bisa mengakses halaman ini, yuk upgrade akun kamu terlebih dahulu! 🚀');
+    window.location.href = 'membership.html'; // Arahkan ke halaman tawaran membership
+}
 
 function initFormEngine() {
     tampilkanPetaAwal();
