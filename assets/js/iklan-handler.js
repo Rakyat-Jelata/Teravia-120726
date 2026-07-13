@@ -416,7 +416,49 @@ async function ambilAlamatFisik(lat, lng) {
         alamatInput.placeholder = "Gagal memuat alamat otomatis, silakan ketik manual.";
     }
 }
+// ==========================================
+// 💰 SEMATKAN ENGINE FORMAT RUPIAH DI SINI
+// ==========================================
+const inputHarga = document.getElementById('harga');
+const labelTerbilang = document.getElementById('harga-terbilang');
 
+if (inputHarga && labelTerbilang) {
+    inputHarga.addEventListener('input', (e) => {
+        let nilaiMentah = e.target.value.replace(/[^,\d]/g, '').toString();
+        if (!nilaiMentah) {
+            e.target.value = '';
+            labelTerbilang.innerText = 'Ketik nominal untuk melihat format teks...';
+            return;
+        }
+        let nilaiFormat = formatRibuan(nilaiMentah);
+        e.target.value = nilaiFormat;
+
+        let angkaAngka = parseInt(nilaiMentah, 10);
+        labelTerbilang.innerText = `✨ Terbaca: ${singkatTeksHarga(angkaAngka)} Rupiah`;
+    });
+}
+
+function formatRibuan(angka) {
+    let number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split   = number_string.split(','),
+        sisa     = split[0].length % 3,
+        rupiah   = split[0].substr(0, sisa),
+        ribuan   = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+}
+
+function singkatTeksHarga(nominal) {
+    if (nominal >= 1000000000000) return `${(nominal / 1000000000000).toFixed(2).replace('.00', '')} Triliun`;
+    if (nominal >= 1000000000) return `${(nominal / 1000000000).toFixed(2).replace('.00', '')} Miliar`;
+    if (nominal >= 1000000) return `${(nominal / 1000000).toFixed(2).replace('.00', '')} Juta`;
+    if (nominal >= 1000) return `${(nominal / 1000).toFixed(2).replace('.00', '')} Ribu`;
+    return nominal.toString();
+}
 
 
 // Fungsi bantu untuk memasukkan angka koordinat ke input hidden HTML
