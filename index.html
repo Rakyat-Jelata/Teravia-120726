@@ -3,235 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Trik Pembersih Cache agar langsung berubah di HP ngana -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
     <title>TERAVIA | Jual • Beli • Sewa Properti Seluruh Indonesia</title>
-    <meta name="description" content="Marketplace properti nomor satu di Indonesia. Cari rumah, apartemen, villa, ruko, hingga tanah komersial dengan mudah dan cepat.">
-    
-    <!-- Fonts & AOS Animation CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Styling Global & Komponen -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/component.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <meta name="description" content="Marketplace properti nomor satu di Indonesia...">
 
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
-    
-    <!-- OVERRIDE TEMA BARU (Menyelaraskan dengan Login & Register) -->
+    <!-- Fonts & AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #3dfff9;
             --primary-hover: #00e5de;
-            --white: #ffffff;
-            --bg-panel: rgba(3, 0, 214, 0.25); /* Biru elektrik transparan glassmorphism */
+            --bg-panel: rgba(3, 0, 214, 0.25);
         }
 
-        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
-
+        * { box-sizing: border-box; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 0, 214, 0.3) 100%),
                         url('assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
-            color: var(--white);
+            color: white;
             margin: 0;
         }
 
-        /* MODIFIKASI NAVBAR GAYA GLASSMORPHISM */
+        /* ==================== NAVBAR ==================== */
         .navbar-container {
-            background: rgba(255, 255, 255, 0.08) !important;
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-            padding: 15px 4%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .navbar-brand .logo {
-            height: 55px; /* Logo diperbesar & background putihnya hilang mengikuti file PNG baru */
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.15));
+        .logo { height: 58px; width: auto; }
+
+        .navbar-menu {
+            display: none;
+            gap: 32px;
+        }
+
+        .navbar-desktop-only {
+            display: flex;
+            align-items: center;
+            gap: 40px;
         }
 
         .navbar-menu a {
-            color: rgba(255, 255, 255, 0.8) !important;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 600;
             text-decoration: none;
-            margin: 0 15px;
+            font-size: 15.5px;
         }
 
-        .navbar-menu a:hover {
-            color: var(--primary) !important;
-        }
+        .navbar-menu a:hover { color: var(--primary); }
 
-        /* Tombol Pasang Iklan */
-        .btn-pasang-iklan {
-            background: transparent !important;
-            border: 1.5px solid var(--primary) !important;
-            color: var(--primary) !important;
-            padding: 10px 20px;
-            border-radius: 25px;
+        .btn-pasang-iklan, .btn-login {
+            padding: 11px 24px;
+            border-radius: 9999px;
             font-weight: 700;
+            font-size: 14.5px;
             text-decoration: none;
-            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-pasang-iklan {
+            border: 2px solid var(--primary);
+            color: var(--primary);
         }
         .btn-pasang-iklan:hover {
-            background: var(--primary) !important;
-            color: #0f172a !important;
-            box-shadow: 0 0 15px rgba(61, 255, 249, 0.4);
+            background: var(--primary);
+            color: #0f172a;
         }
 
-        /* Tombol Masuk Lonjong Bersih khas Login.html */
         .btn-login {
-            background: var(--white) !important;
-            color: #0300D6 !important;
-            padding: 10px 24px;
-            border-radius: 25px;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            font-size: 14px;
-            border: none !important;
+            background: white;
+            color: #0300D6;
         }
         .btn-login:hover {
-            background: var(--primary) !important;
-            color: #0f172a !important;
-            box-shadow: 0 0 15px rgba(61, 255, 249, 0.4);
+            background: var(--primary);
+            color: #0f172a;
         }
 
-        /* HERO SECTION ADJUSTMENT */
+        /* ==================== HERO ==================== */
         .hero-section {
-            background: transparent !important; /* Hapus background bawaan karena sudah diatur di body */
-            padding: 120px 20px 80px 20px;
+            padding: 160px 5% 100px;
             text-align: center;
         }
 
         .hero-content h1 {
-            font-size: 38px;
+            font-size: clamp(2.2rem, 5vw, 4.2rem);
             font-weight: 800;
-            color: var(--white);
-            margin-bottom: 10px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
         .hero-content p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-            margin-bottom: 40px;
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
         }
 
-        /* BOX PROMO GAYA GLASSMORPHISM UNGU ELEKTRIK */
         .promo-banner-box {
             background: var(--bg-panel);
             backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 32px 40px;
             border-radius: 24px;
-            max-width: 480px;
+            max-width: 520px;
             margin: 0 auto;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
         }
 
-        .promo-badge {
-            background: #ff4a4a !important;
-            color: var(--white) !important;
-            padding: 4px 12px;
-            border-radius: 6px;
+        /* ==================== PROPERTY SECTION ==================== */
+        .property-section {
+            padding: 80px 5%;
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.4rem;
             font-weight: 700;
-            font-size: 11px;
-            letter-spacing: 0.5px;
         }
 
-        .promo-banner-box p {
-            color: var(--white) !important;
-            margin: 15px 0 10px 0;
-            font-size: 16px;
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1280px;
+            margin: 0 auto;
         }
-
-        .old-price { text-decoration: line-through; color: rgba(255,255,255,0.4); margin: 0 5px; }
-        .new-price { color: var(--primary); font-weight: 800; font-size: 18px; }
-        .countdown-timer { color: var(--white); font-weight: 600; font-size: 14px; opacity: 0.9; }
-
-        /* PROPERTY REKOMENDASI SECTION */
-        .property-section { padding: 60px 20px; }
-        
-        .section-title h2 { color: var(--white) !important; font-size: 24px; font-weight: 700; }
-        .section-title p { color: rgba(255, 255, 255, 0.6) !important; }
 
         .property-card-dummy {
-            background: rgba(255, 255, 255, 0.08) !important;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
             overflow: hidden;
-            max-width: 340px;
-            margin: 0 auto;
+            transition: transform 0.3s;
+        }
+
+        .property-card-dummy:hover {
+            transform: translateY(-12px);
         }
 
         .card-image-placeholder {
-            background: rgba(0,0,0,0.2) url('assets/img/hero-bg.png') no-repeat center center;
-            background-size: cover;
-            height: 200px;
+            height: 240px;
+            background: rgba(0,0,0,0.3) url('assets/img/hero-bg.png') center/cover;
             position: relative;
         }
 
-        .badge-status-vendor.verified-owner {
-            background: var(--primary) !important;
-            color: #0f172a !important;
-            font-weight: 700;
-            font-size: 11px;
-            padding: 5px 10px;
-            border-radius: 6px;
+        .verified-owner {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            box-shadow: 0 4px 10px rgba(61, 255, 249, 0.3);
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
         }
 
-        .card-details { padding: 20px; text-align: left; }
-        .card-details h3 { color: var(--white) !important; font-size: 17px; margin: 0 0 10px 0; }
-        .card-details .price { color: var(--primary) !important; font-weight: 800; font-size: 18px; margin: 0 0 5px 0; }
-        .card-details .location { color: rgba(255, 255, 255, 0.6); font-size: 13px; margin: 0; }
+        .card-details {
+            padding: 24px;
+        }
 
-        /* FOOTER */
-        .footer-container {
-            background: rgba(15, 23, 42, 0.8) !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
+        .card-details h3 {
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Responsive Navbar */
+        @media (min-width: 1024px) {
+            .navbar-menu { display: flex; }
+            .menu-toggle { display: none; }
         }
     </style>
 </head>
 <body>
-    
-<!-- NAVBAR UTAMA -->
-<header class="navbar-container">
-    <div class="navbar-brand">
-        <!-- Logo Transparan Tanpa Kotak Putih -->
-        <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo" onerror="this.style.display='none'">
-    </div>
 
-    <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </button>
+<!-- NAVBAR -->
+<header class="navbar-container">
+    <div>
+        <img src="assets/img/logo.png" alt="TERAVIA" class="logo">
+    </div>
 
     <div class="navbar-desktop-only">
         <nav class="navbar-menu">
@@ -240,41 +219,37 @@
             <a href="pages/blog.html">Blog</a>
             <a href="pages/tentang.html">Tentang</a>
         </nav>
-        <div class="navbar-actions">
+
+        <div style="display: flex; gap: 16px; align-items: center;">
             <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
-            <a href="login.html" class="btn-login" id="nav-auth-btn">Masuk</a>
+            <a href="login.html" class="btn-login">Masuk</a>
         </div>
     </div>
 
-    <div class="navbar-mobile-dropdown" id="navbar-mobile-menu" style="background: #0300D6; border-color: rgba(255,255,255,0.1);">
-        <a href="pages/beli.html" style="color: #fff;">Beli</a>
-        <a href="pages/jual.html" style="color: #fff;">Jual</a>
-        <a href="pages/blog.html" style="color: #fff;">Blog</a>
-        <a href="pages/tentang.html" style="color: #fff;">Tentang</a>
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); width: 85%; margin: 5px 0;">
-        <a href="pages/pasang-iklan.html" class="btn-pasang-iklan" style="margin-bottom: 10px; display: inline-block; text-align: center;">Pasang Iklan</a>
-        <a href="login.html" class="btn-login" id="nav-auth-btn-mobile" style="display: block; text-align: center;">Masuk</a>
-    </div>
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" id="mobile-menu-btn">☰</button>
 </header>
 
 <main>
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section class="hero-section">
         <div class="hero-content" data-aos="fade-up">
             <h1>Temukan Properti Impian Anda</h1>
             <p>Jual • Beli • Sewa Properti Seluruh Indonesia dari Tangan Terpercaya</p>
             
-            <!-- BANNER PROMO MEMBERSHIP GLASSMORPHISM -->
             <div class="promo-banner-box">
-                <span class="promo-badge">🔥 PROMO SPESIAL</span>
-                <p>TERAVIA STARTER <span class="old-price">Rp 500.000</span> <strong class="new-price">Rp 50.000 Lifetime</strong></p>
-                <div class="countdown-timer" id="promo-countdown">Sisa waktu: 02:44:56</div>
+                <span style="background:#ff4a4a; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:700;">🔥 PROMO SPESIAL</span>
+                <p style="margin:18px 0 12px 0; font-size:1.1rem;">
+                    TERAVIA STARTER <span style="text-decoration:line-through; opacity:0.5;">Rp 500.000</span> 
+                    <strong style="color:var(--primary); font-size:1.3rem;">Rp 50.000 Lifetime</strong>
+                </p>
+                <div id="promo-countdown" style="font-weight:600;">Sisa waktu: 02:44:56</div>
             </div>
         </div>
     </section>
 
-    <!-- PREVIEW LISTING SECTION -->
-    <section class="container property-section">
+    <!-- PROPERTY -->
+    <section class="property-section">
         <div class="section-title">
             <h2>Rekomendasi Properti Terbaru</h2>
             <p>Listing terverifikasi dari Owner, Broker, dan Developer resmi.</p>
@@ -283,46 +258,25 @@
         <div class="property-grid">
             <div class="property-card-dummy" data-aos="fade-up">
                 <div class="card-image-placeholder">
-                    <span class="badge-status-vendor verified-owner">🛡️ VERIFIED OWNER</span>
+                    <span class="verified-owner">🛡️ VERIFIED OWNER</span>
                 </div>
                 <div class="card-details">
                     <h3>Rumah Minimalis Modern Cluster</h3>
                     <p class="price">Rp 1.500.000.000</p>
-                    <p class="location">📍 Jakarta Selatan</p>
+                    <p style="margin-top:8px; opacity:0.8;">📍 Jakarta Selatan</p>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
-<footer class="footer-container">
-    <p>&copy; 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
+<footer style="background:rgba(15,23,42,0.9); padding:30px; text-align:center; font-size:14px; color:rgba(255,255,255,0.6);">
+    © 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.
 </footer>
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
     AOS.init({ duration: 800, once: true });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('navbar-mobile-menu');
-
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                menuBtn.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
-            });
-            
-            document.addEventListener('click', function(e) {
-                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                    menuBtn.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                }
-            });
-        }
-    });
 </script>
-<script type="module" src="assets/js/main.js?v=1.1"></script>
 </body>
 </html>
