@@ -155,25 +155,9 @@
                         <label for="jenis-properti">Jenis Properti</label>
                         <select id="jenis-properti" class="form-control" required>
                             <option value="" disabled selected>-- Pilih Jenis --</option>
-<!-- SEGMENT 1: IDENTITAS (Tetap di paling atas) -->
-<div class="form-group">
-    <label>Tipe Pengiklan</label>
-    <div class="persona-group">
-        <label class="persona-option"><input type="radio" name="persona" value="owner" checked> <span>🛡️ OWNER</span></label>
-        <label class="persona-option"><input type="radio" name="persona" value="broker"> <span>💼 BROKER</span></label>
-        <label class="persona-option"><input type="radio" name="persona" value="developer"> <span>🏗️ DEVELOPER</span></label>
-    </div>
-</div>
 
-<!-- Urutan 2: JUDUL IKLAN (Satu baris penuh dari kiri ke kanan) 📏 -->
-<div class="grid-main" style="margin-top: 15px;">
-    <div class="form-group col-12">
-        <label for="judul">Judul Iklan</label>
-        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
-    </div>
-</div>
 
-<!-- Urutan 3: DETAIL PROPERTI (STATUS - KATEGORI - JENIS berdampingan) 📋 -->
+                   <!-- Urutan 3: DETAIL PROPERTI (STATUS - KATEGORI - JENIS berdampingan) 📋 -->
 <div class="section-title">Aspek Transaksi & Klasifikasi</div>
 <div class="grid-main">
     <div class="form-group col-4">
@@ -312,14 +296,13 @@
                     </div>
                 </div>
                 <!-- WADAH PETA INTERAKTIF -->
-<!-- WADAH PETA INTERAKTIF -->
-<div class="form-group col-12" style="margin-top: 15px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <label style="margin-bottom: 0;">Titik Lokasi Properti (Pinpoint Maps) 📍</label>
-        <!-- Tombol Geolocation Baru 🌐 -->
-        <button type="button" id="btn-geolocation" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s;">
-            🎯 Gunakan Lokasi Saya
-        </button>
+                <div class="form-group col-12" style="margin-top: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <label style="margin-bottom: 0;">Titik Lokasi Properti (Pinpoint Maps) 📍</label>
+                <!-- Tombol Geolocation Baru 🌐 -->
+                <button type="button" id="btn-geolocation" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s;">
+                🎯 Gunakan Lokasi Saya
+                </button>
     </div>
     <div id="map" style="height: 300px; border-radius: 10px; border: 1px solid #cbd5e1; z-index: 1;"></div>
     <!-- Input tersembunyi untuk menyimpan koordinat yang akan dikirim ke database -->
