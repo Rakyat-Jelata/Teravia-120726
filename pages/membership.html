@@ -5,39 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upgrade Membership - TERAVIA</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; padding: 40px 20px; line-height: 1.6; color: #334155; }
+        /* Mengubah latar belakang agar tidak putih polos */
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
+            min-height: 100vh;
+            padding: 40px 20px; 
+            color: #334155; 
+        }
         .container { max-width: 800px; margin: 0 auto; }
         
-        /* Style Container Pembayaran */
-        .card-payment { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; }
-        .form-control { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
+        .card-payment { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); 
+            margin-bottom: 40px; 
+            border: 1px solid #cbd5e1;
+        }
         
-        .price-display { background: #eff6ff; padding: 20px; border-radius: 8px; text-align: center; margin: 25px 0; border: 1px solid #bfdbfe; }
-        .price-display h2 { margin: 0; color: #1e40af; font-size: 32px; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-weight: 600; margin-bottom: 10px; color: #475569; }
+        .form-control { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; transition: 0.3s; }
+        .form-control:focus { border-color: #2563eb; outline: none; }
         
-        .btn-submit { width: 100%; background: #2563eb; color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-submit:hover { background: #1d4ed8; }
+        .price-display { background: #f1f5f9; padding: 25px; border-radius: 12px; text-align: center; margin: 25px 0; border: 2px dashed #cbd5e1; }
+        .price-display h2 { margin: 0; color: #2563eb; font-size: 36px; }
+        
+        /* Tombol disesuaikan dengan warna utama brand */
+        .btn-submit { 
+            width: 100%; 
+            background-color: #2563eb; /* SAMAKAN DENGAN TOMBOL BERANDA ANDA */
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .btn-submit:hover { background-color: #1d4ed8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-        /* Style Tabel Perbandingan */
-        .comparison-table { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow-x: auto; }
+        .comparison-table { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f8fafc; font-weight: 700; }
-        tr:hover { background: #f1f5f9; }
+        th, td { padding: 18px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        th { background: #f8fafc; color: #1e293b; font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- 1. CONTAINER PEMBAYARAN -->
     <div class="card-payment">
-        <h2 style="margin-top:0;">Upgrade Membership</h2>
-        <p>Pilih paket langganan untuk membuka fitur premium di Teravia.</p>
+        <h2 style="margin-top:0; color: #1e293b;">Pilih Level Membership</h2>
+        <p>Tingkatkan performa iklan Anda dengan memilih paket yang paling sesuai.</p>
         
         <div class="form-group">
-            <label>Pilih Tipe Akun</label>
+            <label>Tipe Paket</label>
             <select id="select-paket" class="form-control" onchange="updateHarga()">
                 <option value="bronze" data-harga="Rp 100.000">Bronze</option>
                 <option value="silver" data-harga="Rp 250.000">Silver</option>
@@ -47,7 +71,7 @@
         </div>
 
         <div class="price-display">
-            <small>Total yang harus dibayar:</small>
+            <small>Total Investasi</small>
             <h2 id="display-harga">Rp 100.000</h2>
         </div>
 
@@ -63,9 +87,8 @@
         <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN</button>
     </div>
 
-    <!-- 2. TABEL PERBANDINGAN BENEFIT -->
     <div class="comparison-table">
-        <h3>Perbandingan Benefit Paket</h3>
+        <h3 style="margin-top:0;">Perbandingan Benefit</h3>
         <table>
             <thead>
                 <tr>
@@ -95,10 +118,9 @@
     function prosesUpgrade() {
         const paket = document.getElementById('select-paket').value;
         localStorage.setItem('user_status', paket);
-        alert('Selamat! Akun Anda telah diupgrade ke paket ' + paket.toUpperCase());
+        alert('Upgrade berhasil! Anda kini berlangganan paket ' + paket.toUpperCase());
         window.location.href = 'pasang-iklan.html';
     }
 </script>
-
 </body>
 </html>
