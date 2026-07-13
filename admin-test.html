@@ -205,6 +205,18 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // PROTEKSI SANKSI AKSES: Cek session login admin
+    if (sessionStorage.getItem('admin_session') !== 'authenticated_true') {
+        alert('Akses ditolak! Silakan login terlebih dahulu.');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    checkCurrentStatus();
+    detectUpgradeFormRequest();
+});
+    
     // Ambil data status terkini dari local storage saat load
     document.addEventListener("DOMContentLoaded", function() {
         checkCurrentStatus();
