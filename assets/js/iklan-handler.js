@@ -346,6 +346,33 @@ function tampilkanPetaAwal() {
     
     map = L.map('map').setView(posisiPusat, 5);
 
+    // Menambahkan kotak pencarian (Geocoder) ke dalam peta 🔍
+const geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false,
+    placeholder: "Cari lokasi (misal: Anandamaya Residence)..." 
+})
+.on('markgeocode', function(e) {
+    const latlng = e.geocode.center;
+    
+    // 1. Mengarahkan peta langsung ke lokasi yang dicari dengan zoom level 16
+    map.setView(latlng, 16);
+    
+    // 2. Menggeser pin (marker) ke lokasi baru
+    // Kita gunakan typeof untuk mengecek apakah variabel marker sudah ada di kode Anda sebelumnya
+    if (typeof marker !== 'undefined') {
+        marker.setLatLng(latlng);
+    } else {
+        // Jika belum ada, kita buat pin baru yang bisa digeser (draggable)
+        window.marker = L.marker(latlng, {draggable: true}).addTo(map);
+    }
+
+    // 3. Memperbarui nilai input tersembunyi untuk database
+    document.getElementById('latitude').value = latlng.lat;
+    document.getElementById('longitude').value = latlng.lng;
+})
+.addTo(map);
+
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
