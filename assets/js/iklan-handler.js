@@ -331,52 +331,92 @@ function initFormSubmission() {
 let map;
 let marker;
 
-// Fungsi untuk memuat peta pertama kali (VERSI HYBRID DUA ARAH)
-// Fungsi untuk memuat peta pertama kali (VERSI HYBRID DUA ARAH)
+// Fungsi untuk memuat peta pertama kali (VERSI LENGKAP DENGAN GEOLOCATION)
 function tampilkanPetaAwal() {
-    // Koordinat default Pusat Indonesia
     const posisiPusat = [-0.7893, 113.9213]; 
     
-    // 1. Inisialisasi peta pada div id="map" dengan zoom level 5
     map = L.map('map').setView(posisiPusat, 5);
 
-    // 2. Muat desain peta dari OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // 3. Tambahkan Pin (Marker) yang bisa digeser-geser (draggable)
     marker = L.marker(posisiPusat, { draggable: true }).addTo(map);
 
-    // 4. Update input hidden latitude & longitude saat pertama kali dimuat
     updateKoordinatInput(posisiPusat[0], posisiPusat[1]);
 
-    // 5. Deteksi event ketika pin selesai digeser manual oleh user 🗺️
+    // 1. Deteksi saat pin digeser manual
     marker.on('dragend', async function (e) {
         const posisiBaru = marker.getLatLng();
         updateKoordinatInput(posisiBaru.lat, posisiBaru.lng);
-
-        // Targetkan langsung ke id kolom alamat Anda yang benar 🎯
-        const alamatInput = document.getElementById('alamat-detail');
-        
-        if (alamatInput) {
-            alamatInput.placeholder = "🔄 Sedang mengambil alamat titik lokasi...";
-            try {
-                // Panggil API Reverse Geocoding dari OpenStreetMap
-                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${posisiBaru.lat}&lon=${posisiBaru.lng}`);
-                const data = await response.json();
-                
-                if (data && data.display_name) {
-                    // Masukkan alamat otomatis ke dalam kolom teks alamat detail
-                    alamatInput.value = data.display_name;
-                }
-            } catch (error) {
-                console.error("Gagal mengambil teks alamat fisik:", error);
-                alamatInput.placeholder = "Gagal memuat alamat otomatis, silakan ketik manual.";
-            }
-        }
+        await ambilAlamatFisik(posisiBaru.lat, posisiBaru.lng);
     });
+
+    // 2. Logika Tombol "Gunakan Lokasi Saya" 🎯
+    const btnGeo = document.getElementById('btn-geolocation');
+    if (btnGeo) {
+        btnGeo.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert("❌ Browser Anda tidak mendukung fitur deteksi lokasi (Geolocation).");
+                return;
+            }
+
+            btnGeo.innerText = "🔄 Mencari lokasi...";
+            btnGeo.disabled = true;
+            btnGeo.style.background = "#94a3b8";
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Pindahkan peta & pin ke lokasi GPS pengguna saat ini (Zoom level 17 sangat dekat)
+                    map.setView([lat, lon], 17);
+                    marker.setLatLng([lat, lon]);
+                    
+                    // Update input koordinat
+                    updateKoordinatInput(lat, lon);
+
+                    // Isi otomatis kolom alamat detail
+                    await ambilAlamatFisik(lat, lon);
+
+                    // Kembalikan status tombol
+                    btnGeo.innerText = "🎯 Gunakan Lokasi Saya";
+                    btnGeo.disabled = false;
+                    btnGeo.style.background = "#2563eb";
+                },
+                (error) => {
+                    console.error("Gagal mendapatkan GPS:", error);
+                    alert("⚠️ Gagal mengakses lokasi Anda. Pastikan Anda telah memberikan izin akses GPS di browser.");
+                    btnGeo.innerText = "🎯 Gunakan Lokasi Saya";
+                    btnGeo.disabled = false;
+                    btnGeo.style.background = "#2563eb";
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        });
+    }
 }
+
+// Fungsi pembantu terpisah untuk mengambil teks alamat agar kode lebih rapi 📝
+async function ambilAlamatFisik(lat, lng) {
+    const alamatInput = document.getElementById('alamat-detail');
+    if (!alamatInput) return;
+
+    alamatInput.placeholder = "🔄 Sedang mengambil alamat titik lokasi...";
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await response.json();
+        
+        if (data && data.display_name) {
+            alamatInput.value = data.display_name;
+        }
+    } catch (error) {
+        console.error("Gagal mengambil teks alamat fisik:", error);
+        alamatInput.placeholder = "Gagal memuat alamat otomatis, silakan ketik manual.";
+    }
+}
+
 
 
 // Fungsi bantu untuk memasukkan angka koordinat ke input hidden HTML
