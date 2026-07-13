@@ -3,38 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Trik Pembersih Cache agar langsung berubah di HP ngana -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>TERAVIA | Jual • Beli • Sewa Properti Seluruh Indonesia</title>
     <meta name="description" content="Marketplace properti nomor satu di Indonesia. Cari rumah, apartemen, villa, ruko, hingga tanah komersial dengan mudah dan cepat.">
     
-    <!-- Fonts & AOS Animation CDN (Opsional untuk estetika premium) -->
+    <!-- Fonts & AOS Animation CDN -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Styling Global & Komponen (Relatif dari root) -->
+    <!-- Styling Global & Komponen -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/component.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
-    <!-- Masukkan ini di dalam tag <head> untuk memunculkan tombol F12 di Android -->
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
     
+    <!-- OVERRIDE TEMA BARU (Menyelaraskan dengan Login & Register) -->
+    <style>
+        :root {
+            --primary: #3dfff9;
+            --primary-hover: #00e5de;
+            --white: #ffffff;
+            --bg-panel: rgba(3, 0, 214, 0.25); /* Biru elektrik transparan glassmorphism */
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 0, 214, 0.3) 100%),
+                        url('assets/img/hero-bg.png') no-repeat center center fixed; 
+            background-size: cover;
+            min-height: 100vh;
+            color: var(--white);
+            margin: 0;
+        }
+
+        /* MODIFIKASI NAVBAR GAYA GLASSMORPHISM */
+        .navbar-container {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            padding: 15px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand .logo {
+            height: 55px; /* Logo diperbesar & background putihnya hilang mengikuti file PNG baru */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.15));
+        }
+
+        .navbar-menu a {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--primary) !important;
+        }
+
+        /* Tombol Pasang Iklan */
+        .btn-pasang-iklan {
+            background: transparent !important;
+            border: 1.5px solid var(--primary) !important;
+            color: var(--primary) !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-pasang-iklan:hover {
+            background: var(--primary) !important;
+            color: #0f172a !important;
+            box-shadow: 0 0 15px rgba(61, 255, 249, 0.4);
+        }
+
+        /* Tombol Masuk Lonjong Bersih khas Login.html */
+        .btn-login {
+            background: var(--white) !important;
+            color: #0300D6 !important;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            border: none !important;
+        }
+        .btn-login:hover {
+            background: var(--primary) !important;
+            color: #0f172a !important;
+            box-shadow: 0 0 15px rgba(61, 255, 249, 0.4);
+        }
+
+        /* HERO SECTION ADJUSTMENT */
+        .hero-section {
+            background: transparent !important; /* Hapus background bawaan karena sudah diatur di body */
+            padding: 120px 20px 80px 20px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 10px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* BOX PROMO GAYA GLASSMORPHISM UNGU ELEKTRIK */
+        .promo-banner-box {
+            background: var(--bg-panel);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 24px;
+            max-width: 480px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .promo-badge {
+            background: #ff4a4a !important;
+            color: var(--white) !important;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-banner-box p {
+            color: var(--white) !important;
+            margin: 15px 0 10px 0;
+            font-size: 16px;
+        }
+
+        .old-price { text-decoration: line-through; color: rgba(255,255,255,0.4); margin: 0 5px; }
+        .new-price { color: var(--primary); font-weight: 800; font-size: 18px; }
+        .countdown-timer { color: var(--white); font-weight: 600; font-size: 14px; opacity: 0.9; }
+
+        /* PROPERTY REKOMENDASI SECTION */
+        .property-section { padding: 60px 20px; }
+        
+        .section-title h2 { color: var(--white) !important; font-size: 24px; font-weight: 700; }
+        .section-title p { color: rgba(255, 255, 255, 0.6) !important; }
+
+        .property-card-dummy {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        .card-image-placeholder {
+            background: rgba(0,0,0,0.2) url('assets/img/hero-bg.png') no-repeat center center;
+            background-size: cover;
+            height: 200px;
+            position: relative;
+        }
+
+        .badge-status-vendor.verified-owner {
+            background: var(--primary) !important;
+            color: #0f172a !important;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            box-shadow: 0 4px 10px rgba(61, 255, 249, 0.3);
+        }
+
+        .card-details { padding: 20px; text-align: left; }
+        .card-details h3 { color: var(--white) !important; font-size: 17px; margin: 0 0 10px 0; }
+        .card-details .price { color: var(--primary) !important; font-weight: 800; font-size: 18px; margin: 0 0 5px 0; }
+        .card-details .location { color: rgba(255, 255, 255, 0.6); font-size: 13px; margin: 0; }
+
+        /* FOOTER */
+        .footer-container {
+            background: rgba(15, 23, 42, 0.8) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+    </style>
 </head>
 <body>
     
-    <!-- NAVBAR UTAMA -->
+<!-- NAVBAR UTAMA -->
 <header class="navbar-container">
-    <!-- Logo Brand (Aman) -->
     <div class="navbar-brand">
-        <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo">
+        <!-- Logo Transparan Tanpa Kotak Putih -->
+        <img src="assets/img/logo.png" alt="Logo TERAVIA" class="logo" onerror="this.style.display='none'">
     </div>
 
-    <!-- Tombol Hamburger (Hanya muncul di Mobile lewat responsive.css) -->
     <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
     </button>
 
-    <!-- KELOMPOK 1: KHUSUS TAMPILAN DESKTOP -->
     <div class="navbar-desktop-only">
         <nav class="navbar-menu">
             <a href="pages/beli.html">Beli</a>
@@ -48,94 +246,83 @@
         </div>
     </div>
 
-    <!-- KELOMPOK 2: KHUSUS DROPDOWN MOBILE -->
-    <div class="navbar-mobile-dropdown" id="navbar-mobile-menu">
-        <a href="pages/beli.html">Beli</a>
-        <a href="pages/jual.html">Jual</a>
-        <a href="pages/blog.html">Blog</a>
-        <a href="pages/tentang.html">Tentang</a>
-        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); width: 85%; margin: 5px 0;">
-        <a href="pages/pasang-iklan.html" class="btn-pasang-iklan">Pasang Iklan</a>
-        <a href="login.html" class="btn-login" id="nav-auth-btn-mobile">Masuk</a>
+    <div class="navbar-mobile-dropdown" id="navbar-mobile-menu" style="background: #0300D6; border-color: rgba(255,255,255,0.1);">
+        <a href="pages/beli.html" style="color: #fff;">Beli</a>
+        <a href="pages/jual.html" style="color: #fff;">Jual</a>
+        <a href="pages/blog.html" style="color: #fff;">Blog</a>
+        <a href="pages/tentang.html" style="color: #fff;">Tentang</a>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); width: 85%; margin: 5px 0;">
+        <a href="pages/pasang-iklan.html" class="btn-pasang-iklan" style="margin-bottom: 10px; display: inline-block; text-align: center;">Pasang Iklan</a>
+        <a href="login.html" class="btn-login" id="nav-auth-btn-mobile" style="display: block; text-align: center;">Masuk</a>
     </div>
 </header>
 
-    <main>
-        <!-- HERO SECTION -->
-        <section class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/img/hero-bg.png');">
-            <div class="hero-content" data-aos="fade-up">
-                <h1>Temukan Properti Impian Anda</h1>
-                <p>Jual • Beli • Sewa Properti Seluruh Indonesia dari Tangan Terpercaya</p>
-                
-                <!-- BANNER PROMO MEMBERSHIP (Dummy Countdown Terintegrasi) -->
-                <div class="promo-banner-box">
-                    <span class="promo-badge">🔥 PROMO SPESIAL</span>
-                    <p>TERAVIA STARTER <span class="old-price">Rp 500.000</span> <strong class="new-price">Rp 50.000 Lifetime</strong></p>
-                    <div class="countdown-timer" id="promo-countdown">Sisa waktu: --:--:--</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PREVIEW LISTING SECTION -->
-        <section class="container property-section">
-            <div class="section-title">
-                <h2>Rekomendasi Properti Terbaru</h2>
-                <p>Listing terverifikasi dari Owner, Broker, dan Developer resmi.</p>
-            </div>
+<main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>Temukan Properti Impian Anda</h1>
+            <p>Jual • Beli • Sewa Properti Seluruh Indonesia dari Tangan Terpercaya</p>
             
-            <div class="property-grid">
-                <!-- Contoh Card Properti dengan Badge Variasi Persona Vendor -->
-                <div class="property-card-dummy" data-aos="fade-up">
-                    <div class="card-image-placeholder">
-                        <!-- Badge Member Premium / Verifikasi disuntikkan di sini -->
-                        <span class="badge-status-vendor verified-owner">🛡️ VERIFIED OWNER</span>
-                    </div>
-                    <div class="card-details">
-                        <h3>Rumah Minimalis Modern Cluster</h3>
-                        <p class="price">Rp 1.500.000.000</p>
-                        <p class="location">📍 Jakarta Selatan</p>
-                    </div>
+            <!-- BANNER PROMO MEMBERSHIP GLASSMORPHISM -->
+            <div class="promo-banner-box">
+                <span class="promo-badge">🔥 PROMO SPESIAL</span>
+                <p>TERAVIA STARTER <span class="old-price">Rp 500.000</span> <strong class="new-price">Rp 50.000 Lifetime</strong></p>
+                <div class="countdown-timer" id="promo-countdown">Sisa waktu: 02:44:56</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREVIEW LISTING SECTION -->
+    <section class="container property-section">
+        <div class="section-title">
+            <h2>Rekomendasi Properti Terbaru</h2>
+            <p>Listing terverifikasi dari Owner, Broker, dan Developer resmi.</p>
+        </div>
+        
+        <div class="property-grid">
+            <div class="property-card-dummy" data-aos="fade-up">
+                <div class="card-image-placeholder">
+                    <span class="badge-status-vendor verified-owner">🛡️ VERIFIED OWNER</span>
+                </div>
+                <div class="card-details">
+                    <h3>Rumah Minimalis Modern Cluster</h3>
+                    <p class="price">Rp 1.500.000.000</p>
+                    <p class="location">📍 Jakarta Selatan</p>
                 </div>
             </div>
-        </section>
-    </main>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('navbar-mobile-menu');
+        </div>
+    </section>
+</main>
 
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            menuBtn.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-        
-        // Menutup menu jika user mengklik di luar area navbar dropdown
-        document.addEventListener('click', function(e) {
-            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                menuBtn.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            }
-        });
-    }
-});
+<footer class="footer-container">
+    <p>&copy; 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
+</footer>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('navbar-mobile-menu');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                menuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+    });
 </script>
-
-    <!-- FOOTER UTAMA -->
-    <footer class="footer-container">
-        <p>&copy; 2026 TERAVIA. Hak Cipta Dilindungi Undang-Undang.</p>
-    </footer>
-
-    <!-- AOS Animation Script -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        // Inisialisasi AOS ringkas
-        AOS.init({ duration: 800, once: true });
-    </script>
-
-    <!-- Script Utama (Menggunakan type="module" untuk mendukung modular ES6 JavaScript) -->
-    <script type="module" src="assets/js/main.js?v=1.1"></script>
+<script type="module" src="assets/js/main.js?v=1.1"></script>
 </body>
 </html>
-
