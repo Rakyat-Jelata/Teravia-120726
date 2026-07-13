@@ -161,19 +161,25 @@
                 </div>
 
                 <!-- INFO HARGA & JUDUL -->
-                <div class="grid-main" style="margin-top: 10px;">
-                    <div class="form-group col-8">
-                        <label for="judul">Judul Iklan</label>
-                        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="harga">Harga</label>
-                        <div class="input-unit-box">
-                            <input type="number" id="harga" class="form-control" placeholder="Contoh: 850000000" required>
-                            <span class="unit-tag">Rupiah</span>
-                        </div>
-                    </div>
-                </div>
+<div class="grid-main" style="margin-top: 10px;">
+    <div class="form-group col-8">
+        <label for="judul">Judul Iklan</label>
+        <input type="text" id="judul" class="form-control" placeholder="Contoh: Rumah Minimalis 2 Lantai Cluster Hoek Dekat Stasiun" required>
+    </div>
+    <div class="form-group col-4">
+        <label for="harga">Harga</label>
+        <div class="input-unit-box">
+            <!-- Tipe diubah ke text agar bisa disisipkan titik format Rupiah 💵 -->
+            <input type="text" id="harga" class="form-control" placeholder="Contoh: 850.000.000" required>
+            <span class="unit-tag">Rupiah</span>
+        </div>
+        <!-- Wadah baru untuk menampilkan teks terbilang (misal: Delapan Ratus Lima Puluh Juta Rupiah) 📝 -->
+        <small id="harga-terbilang" style="display: block; margin-top: 5px; color: #64748b; font-style: italic;">
+            Ketik nominal untuk melihat format teks...
+        </small>
+    </div>
+</div>
+
                 <div id="rent-spec-container" style="transition: all 0.3s ease; margin-bottom: 20px;"></div> 
                 <!-- SEGMENT 3: SPESIFIKASI DINAMIS -->
                 <div class="section-title">Detail Spesifikasi Properti</div>
