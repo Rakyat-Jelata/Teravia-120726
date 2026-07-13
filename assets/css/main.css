@@ -1,15 +1,16 @@
-      /* teravia/assets/css/main.css */
+/* teravia/assets/css/main.css */
 
 /* --- SYSTEM DESIGN VARIABLES --- */
 :root {
-    --primary-color: #0F172A; /* Slate 900 - Premium Dark */
-    --accent-color: #0300D6;  /* Amber 600 - Premium Gold Accent */
-    --bg-light: #F8FAFC;      /* Slate 50 - Soft Background */
+    --primary-color: #0300D6;    /* Biru Cerah - Premium Blue */
+    --primary-dark: #0200A8;     /* Biru Gelap - For Text & Emphasis */
+    --accent-color: #FFB700;     /* Emas Hangat - Warm Gold Accent */
+    --bg-light: #F5F7FF;         /* Biru Super Terang - Soft Background */
     --surface-white: #FFFFFF;
-    --text-main: #1E293B;     /* Slate 800 */
-    --text-muted: #64748B;    /* Slate 500 */
-    --border-color: #E2E8F0;  /* Slate 200 */
-    --success-color: #16A34A; /* Emerald 600 */
+    --text-main: #1A1F3A;        /* Slate 900 - Dark Blue Text */
+    --text-muted: #6B7280;       /* Gray 500 - Muted Text */
+    --border-color: #E0E7FF;     /* Biru Ringan - Blue Border */
+    --success-color: #10B981;    /* Emerald 600 */
     --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -85,12 +86,12 @@ a {
 
 .hero-content p {
     font-size: 1rem;
-    color: #E2E8F0;
+    color: #E0E7FF;
     margin-bottom: 2rem;
 }
 
 .promo-banner-box {
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(3, 0, 214, 0.85);
     border: 1px solid var(--accent-color);
     backdrop-filter: blur(8px);
     border-radius: 12px;
@@ -103,7 +104,7 @@ a {
 
 .promo-badge {
     background: var(--accent-color);
-    color: var(--primary-color);
+    color: var(--primary-dark);
     font-size: 0.75rem;
     font-weight: 700;
     padding: 0.25rem 0.5rem;
@@ -120,12 +121,11 @@ a {
 }
 
 .new-price {
-    color: #FBBF24;
+    color: #FFB700;
 }
 
 .countdown-timer {
     font-size: 0.85rem;
     margin-top: 0.5rem;
-    color: #94A3B8;
+    color: #BFDBFE;
 }
-
