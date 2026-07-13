@@ -203,3 +203,42 @@
     color: var(--primary-color);
     margin-top: 0.25rem;
 }
+
+/* --- COMPONENT NEW: NAVBAR EXTENSION & HAMBURGER --- */
+
+/* Trik geser kanan khusus Desktop (menggunakan wrapper custom) */
+@media (min-width: 769px) {
+    .navbar-custom-wrapper {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: flex-end; /* Mendorong menu & tombol ke kanan */
+    }
+    .navbar-menu {
+        margin-right: 30px !important; /* Memberikan jarak agar menempel ke tombol */
+        display: flex;
+        gap: 20px;
+    }
+}
+
+/* Style dasar komponen tombol hamburger */
+.menu-toggle {
+    display: none; /* Sembunyi di desktop */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color, #334155); /* Mengikuti warna variabel utama Anda */
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
