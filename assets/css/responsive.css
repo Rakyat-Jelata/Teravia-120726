@@ -21,38 +21,46 @@
     /* Navbar Desktop Setup */
     .navbar-container {
         padding: 1rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
+
+    /* Mendorong menu ke kanan mendekati tombol */
+    .navbar-responsive-wrapper {
+        display: flex !important;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: flex-end;
+        position: static !important;
+        box-shadow: none !important;
+        max-height: none !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+
     .navbar-menu {
         display: flex;
         gap: 2rem;
         font-weight: 500;
         font-size: 0.95rem;
         color: var(--text-main);
+        margin-right: 2.5rem; /* Menggeser menu mendekati tombol pasang iklan */
     }
+    
+    .navbar-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    
     .navbar-menu a:hover {
         color: var(--accent-color);
     }
 
-    /* Hero Section */
-    .hero-section {
-        padding: 6rem 2rem;
+    .menu-toggle {
+        display: none !important; /* Sembunyikan hamburger di desktop */
     }
-    .hero-content h1 {
-        font-size: 2.75rem;
-    }
-
-    /* Grid Paket Premium Layer 2 (Split Menjadi 2 Kolom di Tablet) */
-    .paket-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.25rem;
-    }
-
-    /* Widget Dashboard Membership */
-    .widget-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        align-items: center;
-    }
-}
 
 /* ==========================================
    BREAKPOINT: 1024px (Desktop Laptop View)
@@ -104,4 +112,67 @@
     }
 }
 
+/* --- STYLE UNTUK MOBILE VIEW ONLY (Di bawah tablet) --- */
+@media screen and (max-width: 767px) {
+    .menu-toggle {
+        display: flex; /* Munculkan hamburger di HP */
+    }
 
+    .navbar-responsive-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--surface-white, #ffffff);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        z-index: 999;
+    }
+
+    /* Ketika Hamburger Aktif Terbuka */
+    .navbar-responsive-wrapper.active {
+        max-height: 400px;
+        padding: 1.5rem 0;
+    }
+
+    .navbar-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .navbar-menu a {
+        display: block;
+        font-weight: 500;
+        color: var(--text-main);
+        text-decoration: none;
+    }
+
+    .navbar-actions {
+        display: flex;
+        flex-direction: column;
+        width: 85%;
+        gap: 0.75rem;
+    }
+
+    /* Tombol memanjang rapi menyesuaikan layar HP */
+    .navbar-actions a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    /* Efek Transisi Hamburger menjadi X */
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+   }
+   
