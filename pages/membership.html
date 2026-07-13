@@ -15,7 +15,7 @@
             --primary-hover: #1d4ed8;
             --text-main: #0f172a;
             --text-muted: #64748b;
-            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.75);
             --border-glass: rgba(255, 255, 255, 0.4);
         }
 
@@ -26,7 +26,8 @@
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 50%, #dbeafe 100%),
+            /* Menggunakan hero-bg.png dengan overlay gradasi tipis agar teks tetap kontras & terbaca */
+            background: linear-gradient(135deg, rgba(224, 231, 255, 0.6) 0%, rgba(248, 250, 252, 0.7) 100%),
                         url('assets/img/hero-bg.png') no-repeat center center fixed; 
             background-size: cover;
             min-height: 100vh;
@@ -231,12 +232,10 @@
 <body>
 
 <div class="container">
-    <!-- Card Utama Form Upgrade -->
     <div class="glass-card">
         <h2 class="title">Upgrade Membership</h2>
         <p class="subtitle">Pilih paket terbaik untuk tingkatkan konversi penjualan Anda</p>
         
-        <!-- Pilihan Tipe Akun (Radio Grid menggantikan Select biasa) -->
         <div class="form-group">
             <label class="section-label">Pilih Tipe Akun</label>
             <div class="packet-grid">
@@ -279,7 +278,6 @@
             </div>
         </div>
 
-        <!-- Metode Pembayaran -->
         <div class="form-group">
             <label class="section-label">Metode Pembayaran</label>
             <select class="form-control">
@@ -289,7 +287,6 @@
             </select>
         </div>
 
-        <!-- Total Harga -->
         <div class="price-display">
             <small>Total Investasi</small>
             <h2 id="display-harga">Free</h2>
@@ -298,7 +295,6 @@
         <button class="btn-submit" onclick="prosesUpgrade()">UPGRADE AKUN SEKARANG</button>
     </div>
 
-    <!-- Tabel Perbandingan Benefit -->
     <div class="comparison-table">
         <h3>Perbandingan Benefit Paket</h3>
         <div class="table-wrapper">
@@ -308,7 +304,7 @@
                         <th>Tipe</th>
                         <th style="text-align: center;">Listing</th>
                         <th style="text-align: center;">Sundul</th>
-                        <th style="text-align: right;">Harga SpesiaL</th>
+                        <th style="text-align: right;">Harga Spesial</th>
                     </tr>
                 </thead>
                 <tbody>
