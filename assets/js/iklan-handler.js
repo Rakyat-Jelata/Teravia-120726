@@ -83,6 +83,7 @@ function initFormEngine() {
     initApiWilayah();
     initImageCompressorEngine();
     initFormSubmission();
+    iniAiGenerator();
 }
 
 function animateSpecTransition(container, newHtml) {
