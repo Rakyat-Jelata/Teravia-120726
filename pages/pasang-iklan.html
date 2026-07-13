@@ -179,7 +179,20 @@
         </small>
     </div>
 </div>
-
+                <!-- 📝 BARIS BARU: KOLOM DESKRIPSI & GENERATOR AI -->
+<div class="grid-main" style="margin-top: 15px;">
+    <div class="form-group col-12">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label for="deskripsi" style="margin-bottom: 0;">Deskripsi Properti</label>
+            <!-- Tombol Pemicu AI ✨ -->
+            <button type="button" id="btn-ai-deskripsi" style="background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; transition: opacity 0.2s;">
+                ✨ Buat Deskripsi Otomatis (AI)
+            </button>
+        </div>
+        <textarea id="deskripsi" class="form-control" rows="6" placeholder="Ceritakan keunggulan properti Anda atau klik tombol AI di atas untuk membuat deskripsi otomatis yang menarik..." required style="resize: vertical;"></textarea>
+    </div>
+</div>
+                
                 <div id="rent-spec-container" style="transition: all 0.3s ease; margin-bottom: 20px;"></div> 
                 <!-- SEGMENT 3: SPESIFIKASI DINAMIS -->
                 <div class="section-title">Detail Spesifikasi Properti</div>
